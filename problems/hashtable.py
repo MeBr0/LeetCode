@@ -5,8 +5,8 @@ from typing import List
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
         """
-        Xor first element with other element
-        Since A xor A = 0 and A xor 0 = A -> nums[0] is single number
+        Xor first element with other elements
+        Since a xor a = 0 and a xor 0 = a -> nums[0] is single number
         """
         for num in nums[1:]:
             nums[0] ^= num
