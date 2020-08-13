@@ -23,9 +23,9 @@ class Solution:
         Do not return anything, modify nums1 in-place instead.
 
         Iterate with two pointer for each list
-        If first num is greater, replace it by second, shifting all other values to the end
-        If indexing over zeros, replace zero by second
-        Otherwise, i++
+        If first num is greater -> replace it by second, shifting all other values to the end
+        If indexing over zeros -> replace zero by second
+        Otherwise -> i++
         """
         i, j = 0, 0
 
@@ -108,3 +108,18 @@ class Solution:
             right -= 1
 
         return A
+
+    # Todo: see bit manipulation
+    def missingNumber(self, nums: List[int]) -> int:
+        """
+        Calculate overall sum of digits in range(len(nums))
+        Take away each num in nums
+        Return remainder
+        """
+        nums_len = len(nums)
+        _sum = nums_len * (nums_len + 1) // 2
+
+        for num in nums:
+            _sum -= num
+
+        return _sum

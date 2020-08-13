@@ -5,9 +5,9 @@ class Solution:
     def isValid(self, s: str) -> bool:
         """
         Create pair of parentheses in dict
-        If it is opening item, append to stack
-        If it is closing item, check last element for matching with dict
-        If matching, remove last element, else -> not valid
+        If it is opening item -> append to stack
+        If it is closing item -> check last element for matching with dict
+        If matching -> remove last element, else -> not valid
         """
         stack = []
 

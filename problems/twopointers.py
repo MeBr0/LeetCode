@@ -4,10 +4,10 @@
 class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
         """
-        If needle is empty, return 0
-        If haystack is greater than needle, return -1
+        If needle is empty -> return 0
+        If haystack is greater than needle -> return -1
         Iterate over haystack (till needle length from end)
-        If first letter matched, compare next letter till full needle covered
+        If first letter matched -> compare next letter till full needle covered
         If full needle found -> i, else -> -1
         """
         if needle == '':
