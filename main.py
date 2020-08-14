@@ -1,4 +1,4 @@
-from problems import Array, Math, String, Tree, TwoPointers, LinkedList, HashTable, Stack
+from problems import Array, Math, String, Tree, TwoPointers, LinkedList, HashTable, Stack, BinarySearch
 from utils import ListNode, TreeNode
 
 
