@@ -123,3 +123,17 @@ class Solution:
             _sum -= num
 
         return _sum
+
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        """
+        Iterate nums
+        If num is greater or equal to target -> i
+        Otherwise -> length of nums (i.e. target must be at the end of nums)
+        """
+        for i, num in enumerate(nums):
+            if num >= target:
+                return i
+
+        return len(nums)
+
+
