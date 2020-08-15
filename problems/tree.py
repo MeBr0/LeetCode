@@ -3,7 +3,7 @@ from typing import List
 from utils import TreeNode
 
 
-# noinspection PyMethodMayBeStatic,DuplicatedCode
+# noinspection PyMethodMayBeStatic,DuplicatedCode,PyShadowingBuiltins
 class Solution:
     def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
         """
@@ -271,3 +271,186 @@ class Solution:
             self._findMode(node.right, count)
 
         return count
+
+    def hasPathSum(self, root: TreeNode, sum: int) -> bool:
+        """
+        Go recursive from root with current value 0:
+        If node is None -> False
+        If current (saved sum) + node.val == sum and node is leaf -> True
+        Otherwise check children with updated current value (add node.val)
+        """
+        return self._hasPathSum(root, sum, 0)
+
+    def _hasPathSum(self, node: TreeNode, _sum: int, current: int) -> bool:
+        if node is None:
+            return False
+
+        new_value = current + node.val
+
+        if new_value == _sum and node.left is None and node.right is None:
+            return True
+
+        return self._hasPathSum(node.left, _sum, new_value) or self._hasPathSum(node.right, _sum, new_value)
+
+    def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
+        """
+        Go recursive from root with current value 0 and empty path list:
+        If node is None -> []
+        If current (saved sum) + node.val == sum and node is leaf ->
+            list wrapped full path (create copy of path and append value)
+        Otherwise -> append value to path and gather results from children
+        Delete value from path
+        Return merged results of two children
+        """
+        return self._pathSum(root, sum, 0, [])
+
+    def _pathSum(self, node: TreeNode, _sum: int, current: int, path: List[int]) -> List[List[int]]:
+        if node is None:
+            return []
+
+        new_value = current + node.val
+
+        if new_value == _sum and node.left is None and node.right is None:
+            result = path[:]
+            result.append(node.val)
+            return [result]
+
+        path.append(node.val)
+
+        left_result = self._pathSum(node.left, _sum, new_value, path)
+        right_result = self._pathSum(node.right, _sum, new_value, path)
+
+        path.pop()
+
+        left_result.extend(right_result)
+
+        return left_result
+
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
+        """
+        Go recursive from root with empty path list:
+        If node is None -> []
+        If node is leaf -> list wrapped string full path (create copy of path and append value)
+        Otherwise -> append value to path and gather results from children
+        Delete value from path
+        Return merged results of two children
+        """
+        return self._binaryTreePaths(root, [])
+
+    def _binaryTreePaths(self, node: TreeNode, path: List[int]) -> List[str]:
+        if node is None:
+            return []
+
+        if node.left is None and node.right is None:
+            dummy = path[:]
+            dummy.append(node.val)
+            return ['->'.join([str(num) for num in dummy])]
+
+        path.append(node.val)
+
+        left_result = self._binaryTreePaths(node.left, path)
+        right_result = self._binaryTreePaths(node.right, path)
+
+        path.pop()
+
+        left_result.extend(right_result)
+
+        return left_result
+
+    def smallestFromLeaf(self, root: TreeNode) -> str:
+        """
+        If root is only node -> convert value to char
+        Otherwise -> go recursive:
+        If node is None -> 'large' string
+        If node is leaf -> reversed and converted to chars string path
+        Otherwise -> append value to path and gather paths from children
+        Delete value from path
+        Return smallest children results
+        """
+        if root.left is None and root.right is None:
+            return chr(ord('a') + root.val)
+
+        return self._smallestFromLeaf(root, [])
+
+    def _smallestFromLeaf(self, node: TreeNode, path: List[int]) -> str:
+        if node is None:
+            return 'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz'
+
+        if node.left is None and node.right is None:
+            dummy = path[:]
+            dummy.append(node.val)
+
+            return ''.join([chr(ord('a') + num) for num in dummy[::-1]])
+
+        path.append(node.val)
+
+        left_result = self._smallestFromLeaf(node.left, path)
+        right_result = self._smallestFromLeaf(node.right, path)
+
+        path.pop()
+
+        if left_result < right_result:
+            return left_result
+        else:
+            return right_result
+
+    def sumNumbers(self, root: TreeNode) -> int:
+        """
+        Go recursive from root with empty path list:
+        If node is None -> 0
+        If node is leaf -> number constructed from digits in path
+        Otherwise -> append value to path and gather results from children
+        Delete value from path
+        Return sum of results of two children
+        """
+        return self._sumNumbers(root, [])
+
+    def _sumNumbers(self, node: TreeNode, path: List[int]) -> int:
+        if node is None:
+            return 0
+
+        if node.left is None and node.right is None:
+            dummy = path[:]
+            dummy.append(node.val)
+
+            num = 0
+            for value in dummy:
+                num = 10 * num + value
+
+            return num
+
+        path.append(node.val)
+
+        left_result = self._sumNumbers(node.left, path)
+        right_result = self._sumNumbers(node.right, path)
+
+        path.pop()
+
+        return left_result + right_result
+
+    # Todo: think about class field, not list
+    def maxPathSum(self, root: TreeNode) -> int:
+        """
+        Create list with single value (target) to pass recursively
+        Go recursive from root with minimum int value in num:
+        If node is None -> 0
+        If results from children is negative -> zero them
+        If sum of values of children and root itself gives greater value -> override num
+        Return max value of children + node value
+        Return updated num
+        """
+        num = [-999999999999999]
+
+        self._maxPathSum(root, num)
+
+        return num[0]
+
+    def _maxPathSum(self, node: TreeNode, num: List[int]):
+        if node is None:
+            return 0
+
+        left_result = max(self._maxPathSum(node.left, num), 0)
+        right_result = max(self._maxPathSum(node.right, num), 0)
+        num[0] = max(num[0], left_result + right_result + node.val)
+
+        return node.val + max(left_result, right_result)

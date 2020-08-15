@@ -1,7 +1,7 @@
 from utils import ListNode
 
 
-# noinspection PyMethodMayBeStatic
+# noinspection PyMethodMayBeStatic,PyTypeChecker,PyRedeclaration,DuplicatedCode
 class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         """
@@ -31,3 +31,73 @@ class Solution:
             l2 = l2.next if l2 else None
 
         return root.next
+
+    def deleteDuplicates(self, head: ListNode) -> ListNode:
+        """
+        If head is None -> None
+        Create dummy _head pointer
+        While there is not None node and next one is not None too:
+        If value of current is equal to value of next -> link next of current to the next of next node
+        Otherwise -> go to next node
+        Return initial pointer to head
+        """
+        if head is None:
+            return None
+
+        _head = head
+
+        while _head is not None and _head.next is not None:
+            _next = _head.next
+
+            if _head.val == _next.val:
+                _head.next = _next.next
+            else:
+                _head = _head.next
+
+        return head
+
+    def deleteDuplicates(self, head: ListNode) -> ListNode:
+        """
+        Create dummy node before head
+        If two next nodes have same values -> Iterate next nodes until duplicate values gone, link next to new value
+        Otherwise -> next node
+        Return dummy node next (original head)
+        """
+        dummy = ListNode(0)
+        dummy.next = head
+        current = dummy
+
+        while current.next is not None and current.next.next is not None:
+            if current.next.val == current.next.next.val:
+                duplicate = current.next.val
+
+                while current.next is not None and current.next.val == duplicate:
+                    current.next = current.next.next
+
+            else:
+                current = current.next
+
+        return dummy.next
+
+    def hasCycle(self, head: ListNode) -> bool:
+        """
+        If size of list is 0 or 1 -> False
+        Create two pointers slow (one step) and fast (two step)
+        While slow not matched with fast:
+        If fast is None (no cycle) and fast.next is None (2 nodes without cycle) -> False
+        Otherwise -> step each pointers
+        Return True (slow and fast matched)
+        """
+        if head is None or head.next is None:
+            return False
+
+        slow, fast = head, head.next
+
+        while slow != fast:
+            if fast is None or fast.next is None:
+                return False
+            else:
+                slow = slow.next
+                fast = fast.next.next
+
+        return True

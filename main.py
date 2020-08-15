@@ -3,16 +3,18 @@ from utils import ListNode, TreeNode
 
 
 def main():
-    root = TreeNode(10)
-    root.left = TreeNode(5)
-    root.right = TreeNode(15)
+    root = TreeNode(4)
+    # root.left = TreeNode(0)
+    # root.left.left = TreeNode(1)
+    # root.left.left.left = TreeNode(7)
+    # root.left.left.right = TreeNode(2)
+    # root.right = TreeNode(1)
+    # root.right.left = TreeNode(13)
+    # root.right.right = TreeNode(4)
+    # root.right.right.left = TreeNode(5)
+    # root.right.right.right = TreeNode(1)
 
-    # root.left.left = TreeNode(3)
-    root.right.right = TreeNode(20)
-    # root.left.left.left = TreeNode(4)
-    root.right.left = TreeNode(6)
-
-    print(Tree().isValidBST(root))
+    print(Tree().smallestFromLeaf(root))
 
 
 if __name__ == '__main__':
