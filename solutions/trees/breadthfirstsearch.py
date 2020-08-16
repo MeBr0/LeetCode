@@ -5,7 +5,7 @@ from utils import TreeNode
 
 # noinspection PyMethodMayBeStatic,DuplicatedCode
 class Solution:
-    # 103 #Stack #Tree #BreadthFirstSearch
+    # $103 $Stack $Tree $BreadthFirstSearch
     def zigzagLevelOrder(self, root: TreeNode) -> List[List[int]]:
         """
         If root is None -> []
@@ -48,7 +48,7 @@ class Solution:
 
         return result
 
-    # 111 #Tree #DepthFirstSearch #BreadthFirstSearch
+    # $111 $Tree $DepthFirstSearch $BreadthFirstSearch
     # Todo: see should dfs?
     def minDepth(self, root: TreeNode) -> int:
         """
@@ -84,7 +84,7 @@ class Solution:
 
         return level
 
-    # 102 #Tree #BreadthFirstSearch
+    # $102 $Tree $BreadthFirstSearch
     def levelOrder(self, root: TreeNode) -> List[List[int]]:
         """
         If root is None -> []
@@ -121,7 +121,7 @@ class Solution:
 
         return result
 
-    # 107 #Tree #BreadthFirstSearch
+    # $107 $Tree $BreadthFirstSearch
     def levelOrderBottom(self, root: TreeNode) -> List[List[int]]:
         """
         If root is None -> []
@@ -158,7 +158,7 @@ class Solution:
 
         return result
 
-    # 637 #Tree
+    # $637 $Tree
     def averageOfLevels(self, root: TreeNode) -> List[float]:
         """
         If root is None -> []

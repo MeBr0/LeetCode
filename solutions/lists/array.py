@@ -3,7 +3,7 @@ from typing import List
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming,PyRedeclaration
 class Solution:
-    # 66 #Array
+    # $66 $Array
     def plusOne(self, digits: List[int]) -> List[int]:
         """
         Start from the last element and increment it
@@ -27,7 +27,7 @@ class Solution:
 
         return digits
 
-    # 989 #Array
+    # $989 $Array
     def addToArrayForm(self, A: List[int], K: int) -> List[int]:
         """
         Add each digit from K to A (If no digit -> insert)
@@ -64,7 +64,7 @@ class Solution:
 
         return A
 
-    # 35 #Array #BinarySearch
+    # $35 $Array $BinarySearch
     # Todo: see binary search solution
     def searchInsert(self, nums: List[int], target: int) -> int:
         """
@@ -78,7 +78,7 @@ class Solution:
 
         return len(nums)
 
-    # 118 #Array
+    # $118 $Array
     def generate(self, numRows: int) -> List[List[int]]:
         """
         For each row:
@@ -109,7 +109,7 @@ class Solution:
 
         return result
 
-    # 119 #Array
+    # $119 $Array
     def getRow(self, rowIndex: int) -> List[int]:
         """
         For every value within [0, rowIndex]:
@@ -137,7 +137,7 @@ class Solution:
 
         return numerator // denominator
 
-    # 1470 #Array
+    # $1470 $Array
     def shuffle(self, nums: List[int], n: int) -> List[int]:
         """
         Iterate over the half of list:
@@ -152,7 +152,7 @@ class Solution:
 
         return result
 
-    # 1051 #Array
+    # $1051 $Array
     # Todo: find better solution
     def heightChecker(self, heights: List[int]) -> int:
         """
@@ -170,7 +170,7 @@ class Solution:
 
         return count
 
-    # 509 #Array
+    # $509 $Array
     # Todo: see matrix exponential and golden ratio solutions
     def fib(self, N: int) -> int:
         """
@@ -199,7 +199,7 @@ class Solution:
 
         return current
 
-    # 121 #Array #DynamicProgramming
+    # $121 $Array $DynamicProgramming
     # Todo: see dp solution
     def maxProfit(self, prices: List[int]) -> int:
         """
@@ -218,7 +218,7 @@ class Solution:
 
         return max_profit
 
-    # 122 #Array #Greedy
+    # $122 $Array $Greedy
     # Todo: determine whether this greedy
     def maxProfit(self, prices: List[int]) -> int:
         """
@@ -254,7 +254,7 @@ class Solution:
 
         return _sum
 
-    # 169 #Array #DivideAndConquer #BitManipulation
+    # $169 $Array $DivideAndConquer $BitManipulation
     # Todo: see d&c and bm solutions
     def majorityElement(self, nums: List[int]) -> int:
         """
@@ -271,7 +271,7 @@ class Solution:
             if count > len(nums) // 2:
                 return num
 
-    # 229 #Array
+    # $229 $Array
     def majorityElement(self, nums: List[int]) -> List[int]:
         """
         Count all elements

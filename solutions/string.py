@@ -2,7 +2,7 @@
 
 # noinspection PyMethodMayBeStatic,PyShadowingBuiltins
 class Solution:
-    # 8 #Math #String
+    # $8 $Math $String
     def myAtoi(self, str: str) -> int:
         """
         Iterate over str
@@ -53,7 +53,7 @@ class Solution:
         else:
             return result
 
-    # 415 #String
+    # $415 $String
     def addStrings(self, num1: str, num2: str) -> str:
         """
         Start from the last element
@@ -96,7 +96,7 @@ class Solution:
 
         return result
 
-    # 151 #String
+    # $151 $String
     def reverseWords(self, s: str) -> str:
         """
         Strip s

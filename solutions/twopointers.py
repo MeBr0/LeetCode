@@ -1,8 +1,9 @@
+from typing import List
 
 
 # noinspection PyMethodMayBeStatic
 class Solution:
-    # 88 #Array #TwoPointers
+    # $88 $Array $TwoPointers
     def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
         """
         Do not return anything, modify nums1 in-place instead.
@@ -35,7 +36,7 @@ class Solution:
             else:
                 i += 1
 
-    # 141 #LinkedList #TwoPointers
+    # $141 $LinkedList $TwoPointers
     def hasCycle(self, head: ListNode) -> bool:
         """
         If size of list is 0 or 1 -> False
@@ -59,7 +60,7 @@ class Solution:
 
         return True
 
-    # 28 #TwoPointers #String
+    # $28 $TwoPointers $String
     def strStr(self, haystack: str, needle: str) -> int:
         """
         If needle is empty -> return 0

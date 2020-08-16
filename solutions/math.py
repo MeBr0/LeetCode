@@ -1,8 +1,9 @@
+from typing import List
 
 
 # noinspection PyMethodMayBeStatic,DuplicatedCode
 class Solution:
-    # 268 #Array #Math #BitManipulation
+    # $268 $Array $Math $BitManipulation
     # Todo: see bit manipulation solution
     def missingNumber(self, nums: List[int]) -> int:
         """
@@ -18,7 +19,7 @@ class Solution:
 
         return _sum
 
-    # 7 #Math
+    # $7 $Math
     def reverse(self, x: int) -> int:
         """
         If negative invert -> save that it is negative
@@ -42,7 +43,7 @@ class Solution:
 
         return -result if negative else result
 
-    # 9 #Math
+    # $9 $Math
     def isPalindrome(self, x: int) -> bool:
         """
         If x is negative -> it is not palindrome
@@ -57,7 +58,7 @@ class Solution:
     def _reverse(self, x: int) -> int:
         return self.reverse(x)
 
-    # 171 #Math
+    # $171 $Math
     def titleToNumber(self, s: str) -> int:
         """
         Every letter is digit in 26-ary system
@@ -75,7 +76,7 @@ class Solution:
 
         return result
 
-    # 168 #Math
+    # $168 $Math
     def convertToTitle(self, n: int) -> str:
         """
         While number is not 0:
@@ -96,7 +97,7 @@ class Solution:
 
         return result
 
-    # 1317 #Math
+    # $1317 $Math
     def getNoZeroIntegers(self, n: int) -> List[int]:
         """
         Iterate till (half) list:
@@ -106,7 +107,7 @@ class Solution:
             if '0' not in ''.join([str(first), str(n - first)]):
                 return [first, n - first]
 
-    # 231 #Math #BitManipulation
+    # $231 $Math $BitManipulation
     def isPowerOfTwo(self, n: int) -> bool:
         """
         If n == 0 -> False

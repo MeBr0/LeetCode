@@ -3,7 +3,7 @@ from typing import List
 
 # noinspection PyMethodMayBeStatic
 class Solution:
-    # 1 #Array #HashTable
+    # $1 $Array $HashTable
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         """
         Save each number in dict[value, index]
@@ -19,7 +19,7 @@ class Solution:
 
             saved[num] = i
 
-    # 136 #HashTable #BitManipulation
+    # $136 $HashTable $BitManipulation
     # Todo: see bm
     def singleNumber(self, nums: List[int]) -> int:
         """
@@ -31,7 +31,7 @@ class Solution:
 
         return nums[0]
 
-    # 599 #HashTable
+    # $599 $HashTable
     # Todo: too slow
     def findRestaurant(self, list1: List[str], list2: List[str]) -> List[str]:
         """

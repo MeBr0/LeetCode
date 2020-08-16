@@ -1,6 +1,6 @@
 
 
-# 225 #Stack #Design
+# $225 $Stack $Design
 class MyStack:
 
     def __init__(self):
@@ -42,7 +42,7 @@ class MyStack:
         return len(self.queue) == 0
 
 
-# 155 #Stack #Design
+# $155 $Stack $Design
 class MinStack:
 
     def __init__(self):
