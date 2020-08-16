@@ -1,53 +1,6 @@
-from typing import List
-
-from utils import TreeNode
 
 
-# noinspection PyMethodMayBeStatic,DuplicatedCode
-class Solution:
-    def zigzagLevelOrder(self, root: TreeNode) -> List[List[int]]:
-        """
-        If root is None -> []
-        Prepare for BFS with list as queue
-        Start BSF from root
-        While queue is not empty:
-        Pop all nodes in queue
-        Add current nodes to level list (depends on left_to_right)
-        For every not None children append to queue
-        Append level list to result
-        Inverse left_to_right
-        Return result
-        """
-        result = []
-
-        if root is None:
-            return result
-
-        queue = [root]
-        left_to_right = True
-
-        while len(queue) != 0:
-            level = []
-
-            for i in range(len(queue)):
-                current = queue.pop(0)
-
-                if left_to_right:
-                    level.append(current.val)
-                else:
-                    level.insert(0, current.val)
-
-                if current.left is not None:
-                    queue.append(current.left)
-                if current.right is not None:
-                    queue.append(current.right)
-
-            result.append(level)
-            left_to_right = not left_to_right
-
-        return result
-
-
+# 225 #Stack #Design
 class MyStack:
 
     def __init__(self):
@@ -89,6 +42,7 @@ class MyStack:
         return len(self.queue) == 0
 
 
+# 155 #Stack #Design
 class MinStack:
 
     def __init__(self):

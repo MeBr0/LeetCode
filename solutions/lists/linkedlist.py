@@ -3,6 +3,8 @@ from utils import ListNode
 
 # noinspection PyMethodMayBeStatic,PyTypeChecker,PyRedeclaration,DuplicatedCode,PyPep8Naming
 class Solution:
+    # 2 #LinkedList #Math
+    # Todo: see math
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         """
         Iterate from the right digits
@@ -32,6 +34,7 @@ class Solution:
 
         return root.next
 
+    # 83 #LinkedList
     def deleteDuplicates(self, head: ListNode) -> ListNode:
         """
         If head is None -> None
@@ -56,6 +59,7 @@ class Solution:
 
         return head
 
+    # 82 #LinkedList
     def deleteDuplicates(self, head: ListNode) -> ListNode:
         """
         Create dummy node before head
@@ -79,29 +83,7 @@ class Solution:
 
         return dummy.next
 
-    def hasCycle(self, head: ListNode) -> bool:
-        """
-        If size of list is 0 or 1 -> False
-        Create two pointers slow (one step) and fast (two step)
-        While slow not matched with fast:
-        If fast is None (no cycle) and fast.next is None (2 nodes without cycle) -> False
-        Otherwise -> step each pointers
-        Return True (slow and fast matched)
-        """
-        if head is None or head.next is None:
-            return False
-
-        slow, fast = head, head.next
-
-        while slow != fast:
-            if fast is None or fast.next is None:
-                return False
-            else:
-                slow = slow.next
-                fast = fast.next.next
-
-        return True
-
+    # 160 #LinkedList
     # Todo: re-read solution
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
         """

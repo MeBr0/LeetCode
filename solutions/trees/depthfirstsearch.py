@@ -1,10 +1,9 @@
-from typing import List
-
 from utils import TreeNode
 
 
-# noinspection PyMethodMayBeStatic,DuplicatedCode,PyShadowingBuiltins
+# noinspection PyShadowingBuiltins
 class Solution:
+    # 100 #Tree #DepthFirstSearch
     def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
         """
         If both nodes are None -> True
@@ -19,6 +18,8 @@ class Solution:
             else:
                 return p.val == q.val and self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
 
+    # 101 #Tree #DepthFirstSearch #BreadthFirstSearch
+    # Todo: see bfs
     def isSymmetric(self, root: TreeNode) -> bool:
         """
         If root is None -> True
@@ -42,6 +43,7 @@ class Solution:
 
         return self._isSymmetric(left.right, right.left) and self._isSymmetric(left.left, right.right)
 
+    # 104 #Tree #DepthFirstSearch
     def maxDepth(self, root: TreeNode) -> int:
         """
         If node is None -> 0
@@ -54,6 +56,7 @@ class Solution:
 
     int_max = 10000000000
 
+    # 110 #Tree #DepthFirstSearch
     def isBalanced(self, root: TreeNode) -> bool:
         """
         If node is None -> 0
@@ -78,149 +81,7 @@ class Solution:
 
         return max(left, right) + 1
 
-    def minDepth(self, root: TreeNode) -> int:
-        """
-        If root is None -> 0
-        Prepare for BFS with list as queue and levelling
-        Start BSF from root
-        While queue is not empty:
-        Pop all nodes in queue
-        If it is leaf -> level (i.e. minimum found)
-        For every not None children append to queue
-        Increment level
-        If function did not return value in cycle -> level
-        """
-        if root is None:
-            return 0
-
-        queue = [root]
-        level = 1
-
-        while len(queue) != 0:
-            for i in range(len(queue)):
-                current = queue.pop(0)
-
-                if current.left is None and current.right is None:
-                    return level
-
-                if current.left is not None:
-                    queue.append(current.left)
-                if current.right is not None:
-                    queue.append(current.right)
-
-            level += 1
-
-        return level
-
-    def levelOrder(self, root: TreeNode) -> List[List[int]]:
-        """
-        If root is None -> []
-        Prepare for BFS with list as queue
-        Start BSF from root
-        While queue is not empty:
-        Pop all nodes in queue
-        Add current nodes to level list
-        For every not None children append to queue
-        Append level list to result
-        Return result
-        """
-        result = []
-
-        if root is None:
-            return result
-
-        queue = [root]
-
-        while len(queue) != 0:
-            level = []
-
-            for i in range(len(queue)):
-                current = queue.pop(0)
-
-                level.append(current.val)
-
-                if current.left is not None:
-                    queue.append(current.left)
-                if current.right is not None:
-                    queue.append(current.right)
-
-            result.append(level)
-
-        return result
-
-    def levelOrderBottom(self, root: TreeNode) -> List[List[int]]:
-        """
-        If root is None -> []
-        Prepare for BFS with list as queue
-        Start BSF from root
-        While queue is not empty:
-        Pop all nodes in queue
-        Add current nodes to level list
-        For every not None children append to queue
-        Insert level list to the start of result
-        Return result
-        """
-        result = []
-
-        if root is None:
-            return result
-
-        queue = [root]
-
-        while len(queue) != 0:
-            level = []
-
-            for i in range(len(queue)):
-                current = queue.pop(0)
-
-                level.append(current.val)
-
-                if current.left is not None:
-                    queue.append(current.left)
-                if current.right is not None:
-                    queue.append(current.right)
-
-            result.insert(0, level)
-
-        return result
-
-    def averageOfLevels(self, root: TreeNode) -> List[float]:
-        """
-        If root is None -> []
-        Prepare for BFS with list as queue
-        Start BSF from root
-        While queue is not empty:
-        Pop all nodes in queue
-        Count sum of all values in nodes
-        For every not None children append to queue
-        Append average to result
-        Return result
-        """
-        result = []
-
-        if root is None:
-            return result
-
-        queue = [root]
-
-        while len(queue) != 0:
-            _sum = 0
-            size = len(queue)
-
-            for i in range(size):
-                current = queue.pop(0)
-
-                _sum += current.val
-
-                if current.left is not None:
-                    queue.append(current.left)
-                if current.right is not None:
-                    queue.append(current.right)
-
-            result.append(_sum / size)
-
-        return result
-
+    # 98 #Tree #DepthFirstSearch
     def isValidBST(self, root: TreeNode) -> bool:
         """
         For root set interval as huge negative and positive numbers
@@ -240,6 +101,7 @@ class Solution:
 
         return False
 
+    # 501 #Tree
     def findMode(self, root: TreeNode) -> List[int]:
         """
         If root is None -> []
@@ -272,6 +134,7 @@ class Solution:
 
         return count
 
+    # 112 #Tree #DepthFirstSearch
     def hasPathSum(self, root: TreeNode, sum: int) -> bool:
         """
         Go recursive from root with current value 0:
@@ -292,6 +155,7 @@ class Solution:
 
         return self._hasPathSum(node.left, _sum, new_value) or self._hasPathSum(node.right, _sum, new_value)
 
+    # 113 #Tree #DepthFirstSearch
     def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
         """
         Go recursive from root with current value 0 and empty path list:
@@ -326,6 +190,7 @@ class Solution:
 
         return left_result
 
+    # 257 #Tree #DepthFirstSearch
     def binaryTreePaths(self, root: TreeNode) -> List[str]:
         """
         Go recursive from root with empty path list:
@@ -357,6 +222,7 @@ class Solution:
 
         return left_result
 
+    # 988 #Tree #DepthFirstSearch
     def smallestFromLeaf(self, root: TreeNode) -> str:
         """
         If root is only node -> convert value to char
@@ -394,6 +260,7 @@ class Solution:
         else:
             return right_result
 
+    # 129 #Tree #DepthFirstSearch
     def sumNumbers(self, root: TreeNode) -> int:
         """
         Go recursive from root with empty path list:
@@ -428,6 +295,7 @@ class Solution:
 
         return left_result + right_result
 
+    # 124 #Tree #DepthFirstSearch
     # Todo: think about class field, not list
     def maxPathSum(self, root: TreeNode) -> int:
         """

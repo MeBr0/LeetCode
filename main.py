@@ -1,20 +1,33 @@
-from problems import Array, Math, String, Tree, TwoPointers, LinkedList, HashTable, Stack, BinarySearch, BitManipulation
+from solutions import Math, String, TwoPointers
+from solutions.bits import BitManipulation
+from solutions.design import MyStack, MinStack
+from solutions.lists import Array, LinkedList, Stack
+from solutions.maps import HashTable
+from solutions.search import BinarySearch
+from solutions.trees import Dfs, Bfs
 from utils import ListNode, TreeNode
 
 
 def main():
-    root = TreeNode(4)
-    # root.left = TreeNode(0)
-    # root.left.left = TreeNode(1)
-    # root.left.left.left = TreeNode(7)
-    # root.left.left.right = TreeNode(2)
-    # root.right = TreeNode(1)
-    # root.right.left = TreeNode(13)
-    # root.right.right = TreeNode(4)
-    # root.right.right.left = TreeNode(5)
-    # root.right.right.right = TreeNode(1)
-    q = ListNode(1)
-    print(LinkedList().getIntersectionNode(q, q))
+    pass
+
+
+def _import():
+    BitManipulation()
+    MyStack()
+    MinStack()
+    HashTable()
+    Array()
+    LinkedList()
+    Stack()
+    BinarySearch()
+    Dfs()
+    Bfs()
+    Math()
+    String()
+    TwoPointers()
+    ListNode()
+    TreeNode()
 
 
 if __name__ == '__main__':

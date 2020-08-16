@@ -3,53 +3,7 @@ from typing import List
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming,PyRedeclaration
 class Solution:
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
-        """
-        Save each number in dict[value, index]
-        If matching for current number found in dict -> pair found
-        """
-        saved = {}
-
-        for i, num in enumerate(nums):
-            other = target - num
-
-            if other in saved:
-                return [i, saved[other]]
-
-            saved[num] = i
-
-    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
-        """
-        Do not return anything, modify nums1 in-place instead.
-
-        Iterate with two pointer for each list
-        If first num is greater -> replace it by second, shifting all other values to the end
-        If indexing over zeros -> replace zero by second
-        Otherwise -> i++
-        """
-        i, j = 0, 0
-
-        while i < m + n and j < n:
-            if nums1[i] > nums2[j]:
-                temp = nums1[i]
-                nums1[i] = nums2[j]
-                k = i + 1
-
-                while k < n + m:
-                    nums1[k], temp = temp, nums1[k]
-                    k += 1
-
-                i += 1
-                j += 1
-
-            elif i >= m + j:
-                nums1[i] = nums2[j]
-                i += 1
-                j += 1
-
-            else:
-                i += 1
-
+    # 66 #Array
     def plusOne(self, digits: List[int]) -> List[int]:
         """
         Start from the last element and increment it
@@ -73,6 +27,7 @@ class Solution:
 
         return digits
 
+    # 989 #Array
     def addToArrayForm(self, A: List[int], K: int) -> List[int]:
         """
         Add each digit from K to A (If no digit -> insert)
@@ -109,21 +64,8 @@ class Solution:
 
         return A
 
-    # Todo: see bit manipulation
-    def missingNumber(self, nums: List[int]) -> int:
-        """
-        Calculate overall sum of digits in range(len(nums))
-        Take away each num in nums
-        Return remainder
-        """
-        nums_len = len(nums)
-        _sum = nums_len * (nums_len + 1) // 2
-
-        for num in nums:
-            _sum -= num
-
-        return _sum
-
+    # 35 #Array #BinarySearch
+    # Todo: see binary search solution
     def searchInsert(self, nums: List[int], target: int) -> int:
         """
         Iterate nums
@@ -136,6 +78,7 @@ class Solution:
 
         return len(nums)
 
+    # 118 #Array
     def generate(self, numRows: int) -> List[List[int]]:
         """
         For each row:
@@ -166,6 +109,7 @@ class Solution:
 
         return result
 
+    # 119 #Array
     def getRow(self, rowIndex: int) -> List[int]:
         """
         For every value within [0, rowIndex]:
@@ -193,6 +137,7 @@ class Solution:
 
         return numerator // denominator
 
+    # 1470 #Array
     def shuffle(self, nums: List[int], n: int) -> List[int]:
         """
         Iterate over the half of list:
@@ -207,6 +152,7 @@ class Solution:
 
         return result
 
+    # 1051 #Array
     # Todo: find better solution
     def heightChecker(self, heights: List[int]) -> int:
         """
@@ -224,7 +170,8 @@ class Solution:
 
         return count
 
-    # Todo: check matrix exponential and golden ratio
+    # 509 #Array
+    # Todo: see matrix exponential and golden ratio solutions
     def fib(self, N: int) -> int:
         """
         If N <= 1 -> N
@@ -252,6 +199,8 @@ class Solution:
 
         return current
 
+    # 121 #Array #DynamicProgramming
+    # Todo: see dp solution
     def maxProfit(self, prices: List[int]) -> int:
         """
         Iterate over the list:
@@ -269,6 +218,8 @@ class Solution:
 
         return max_profit
 
+    # 122 #Array #Greedy
+    # Todo: determine whether this greedy
     def maxProfit(self, prices: List[int]) -> int:
         """
         Iterate over the list
@@ -303,6 +254,8 @@ class Solution:
 
         return _sum
 
+    # 169 #Array #DivideAndConquer #BitManipulation
+    # Todo: see d&c and bm solutions
     def majorityElement(self, nums: List[int]) -> int:
         """
         Count all elements
@@ -318,6 +271,7 @@ class Solution:
             if count > len(nums) // 2:
                 return num
 
+    # 229 #Array
     def majorityElement(self, nums: List[int]) -> List[int]:
         """
         Count all elements
