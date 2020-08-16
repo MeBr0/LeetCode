@@ -72,3 +72,12 @@ class Solution:
             i += 1
 
         return result
+
+    def reverseWords(self, s: str) -> str:
+        """
+        Strip s
+        Split by spaces and reverse
+        Join elements by space
+        """
+        return ' '.join(s.strip().split()[::-1])
+

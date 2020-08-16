@@ -1,4 +1,4 @@
-from problems import Array, Math, String, Tree, TwoPointers, LinkedList, HashTable, Stack, BinarySearch
+from problems import Array, Math, String, Tree, TwoPointers, LinkedList, HashTable, Stack, BinarySearch, BitManipulation
 from utils import ListNode, TreeNode
 
 
@@ -13,8 +13,8 @@ def main():
     # root.right.right = TreeNode(4)
     # root.right.right.left = TreeNode(5)
     # root.right.right.right = TreeNode(1)
-
-    print(Tree().smallestFromLeaf(root))
+    q = ListNode(1)
+    print(LinkedList().getIntersectionNode(q, q))
 
 
 if __name__ == '__main__':

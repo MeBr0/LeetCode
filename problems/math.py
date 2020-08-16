@@ -140,3 +140,67 @@ class Solution:
         else:
             return result
 
+    def titleToNumber(self, s: str) -> int:
+        """
+        Every letter is digit in 26-ary system
+        Decode any letter to it value by ascii
+        Add to result value times its power (i.e. 26 ** i)
+        Return result
+        """
+        result, i, count = 0, 0, 26
+
+        while i < len(s):
+            char = s[-i - 1]
+
+            result = (ord(char) - ord('A')) * count ** i
+            i += 1
+
+        return result
+
+    def convertToTitle(self, n: int) -> str:
+        """
+        While number is not 0:
+        Decrement it (because A is 1)
+        Calculate value by taking mod 26
+        Append to result as left most converted char
+        Return result
+        """
+        result, count = '', 26
+
+        while n != 0:
+            n -= 1
+
+            value = n % count
+            result = chr(value + ord('A') - 1) + result
+
+            n //= 26
+
+        return result
+
+    def getNoZeroIntegers(self, n: int) -> List[int]:
+        """
+        Iterate till (half) list:
+        If 0 not appear in string representation of first and its inverse -> [first, n - first]
+        """
+        for first in range(1, n):
+            if '0' not in ''.join([str(first), str(n - first)]):
+                return [first, n - first]
+
+    def isPowerOfTwo(self, n: int) -> bool:
+        """
+        If n == 0 -> False
+        While n != 1:
+        If n divisible by 2 -> divide by 2
+        Otherwise -> False
+        Return True
+        """
+        if n == 0:
+            return False
+
+        while n != 1:
+            if n % 2 == 0:
+                n //= 2
+            else:
+                return False
+
+        return True

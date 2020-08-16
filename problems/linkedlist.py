@@ -1,7 +1,7 @@
 from utils import ListNode
 
 
-# noinspection PyMethodMayBeStatic,PyTypeChecker,PyRedeclaration,DuplicatedCode
+# noinspection PyMethodMayBeStatic,PyTypeChecker,PyRedeclaration,DuplicatedCode,PyPep8Naming
 class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         """
@@ -101,3 +101,19 @@ class Solution:
                 fast = fast.next.next
 
         return True
+
+    # Todo: re-read solution
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+        """
+        Create two pointers for lists
+        While they not intersected:
+        Link each node to the next one
+        If reach the end of one list, link to head of another
+        """
+        intercept_a, intercept_b = headA, headB
+
+        while intercept_a != intercept_b:
+            intercept_a = intercept_a.next if intercept_a is not None else headB
+            intercept_b = intercept_b.next if intercept_b is not None else headA
+
+        return intercept_a

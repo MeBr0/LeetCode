@@ -87,3 +87,44 @@ class MyStack:
         Returns whether the stack is empty.
         """
         return len(self.queue) == 0
+
+
+class MinStack:
+
+    def __init__(self):
+        """
+        initialize your data structure here.
+
+        Use simple list and field for storing min value
+        """
+        self.stack = []
+        self._min = 10000000000000
+
+    def push(self, x: int) -> None:
+        """
+        If x is less than _min -> override _min
+        Push x to stack
+        """
+        if self._min > x:
+            self._min = x
+
+        self.stack.append(x)
+
+    def pop(self) -> None:
+        """
+        Remove last element
+        If last element is _min -> search for new _min in stack
+        """
+        last = self.stack.pop()
+
+        if self._min == last:
+            self._min = 10000000000000
+
+            for num in self.stack:
+                self._min = min(self._min, num)
+
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def getMin(self) -> int:
+        return self._min

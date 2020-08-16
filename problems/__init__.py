@@ -1,5 +1,6 @@
 from .array import Solution as Array
 from .binarysearch import Solution as BinarySearch
+from .bitmanipulation import Solution as BitManipulation
 from .hashtable import Solution as HashTable
 from .linkedlist import Solution as LinkedList
 from .math import Solution as Math

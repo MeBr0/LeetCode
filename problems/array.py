@@ -1,7 +1,7 @@
 from typing import List
 
 
-# noinspection PyMethodMayBeStatic,PyPep8Naming
+# noinspection PyMethodMayBeStatic,PyPep8Naming,PyRedeclaration
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         """
@@ -251,3 +251,87 @@ class Solution:
             i += 1
 
         return current
+
+    def maxProfit(self, prices: List[int]) -> int:
+        """
+        Iterate over the list:
+        If price is less than min_price -> override min_price
+        If difference between price and min_price is greater profit than max_profit -> override max_profit
+        Return max_profit
+        """
+        min_price, max_profit = 100000000000, 0
+
+        for price in prices:
+            if price < min_price:
+                min_price = price
+            elif price - min_price > max_profit:
+                max_profit = price - min_price
+
+        return max_profit
+
+    def maxProfit(self, prices: List[int]) -> int:
+        """
+        Iterate over the list
+        If price is less than min_price -> override min_price
+        If difference between price and min_price is greater profit than max_profit ->
+            check next nums till they decreasing
+        After finding longest increasing sequence, add max_profit to _sum
+        Set i to j - 1 (previous number while searching end of increasing sequence)
+        """
+        _sum, min_price, max_profit = 0, 100000000000, 0
+        i = 0
+        size = len(prices)
+
+        while i != size:
+            if prices[i] < min_price:
+                min_price = prices[i]
+
+            elif prices[i] - min_price > max_profit:
+                max_profit = prices[i] - min_price
+
+                j = i + 1
+
+                while j != size and prices[j] > prices[j - 1]:
+                    max_profit = prices[j] - min_price
+                    j += 1
+
+                _sum += max_profit
+                min_price, max_profit = 100000000000, 0
+                i = j - 1
+
+            i += 1
+
+        return _sum
+
+    def majorityElement(self, nums: List[int]) -> int:
+        """
+        Count all elements
+        Iterate counter:
+        If count greater than half of length of nums -> num
+        """
+        counter = {}
+
+        for num in nums:
+            counter[num] = counter.get(num, 0) + 1
+
+        for num, count in counter.items():
+            if count > len(nums) // 2:
+                return num
+
+    def majorityElement(self, nums: List[int]) -> List[int]:
+        """
+        Count all elements
+        Iterate counter:
+        If count greater than thirds of length of nums -> append num to result
+        Return result
+        """
+        counter, result = {}, []
+
+        for num in nums:
+            counter[num] = counter.get(num, 0) + 1
+
+        for num, count in counter.items():
+            if count > len(nums) // 3:
+                result.append(num)
+
+        return result
