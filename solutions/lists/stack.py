@@ -2,7 +2,7 @@
 
 # noinspection PyMethodMayBeStatic
 class Solution:
-    # $20 $String $Stack
+    # id20 _String _Stack
     def isValid(self, s: str) -> bool:
         """
         Create pair of parentheses in dict

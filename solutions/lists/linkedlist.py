@@ -3,7 +3,7 @@ from utils import ListNode
 
 # noinspection PyMethodMayBeStatic,PyTypeChecker,PyRedeclaration,DuplicatedCode,PyPep8Naming
 class Solution:
-    # $2 $LinkedList $Math
+    # id2 _LinkedList _Math
     # Todo: see math
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         """
@@ -34,7 +34,7 @@ class Solution:
 
         return root.next
 
-    # $83 $LinkedList
+    # id83 _LinkedList
     def deleteDuplicates(self, head: ListNode) -> ListNode:
         """
         If head is None -> None
@@ -59,7 +59,7 @@ class Solution:
 
         return head
 
-    # $82 $LinkedList
+    # id82 _LinkedList
     def deleteDuplicates(self, head: ListNode) -> ListNode:
         """
         Create dummy node before head
@@ -83,7 +83,7 @@ class Solution:
 
         return dummy.next
 
-    # $160 $LinkedList
+    # id160 _LinkedList
     # Todo: re-read solution
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
         """

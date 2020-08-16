@@ -3,7 +3,7 @@ from typing import List
 
 # noinspection PyMethodMayBeStatic,DuplicatedCode
 class Solution:
-    # $268 $Array $Math $BitManipulation
+    # id268 _Array _Math _BitManipulation
     # Todo: see bit manipulation solution
     def missingNumber(self, nums: List[int]) -> int:
         """
@@ -19,7 +19,7 @@ class Solution:
 
         return _sum
 
-    # $7 $Math
+    # id7 _Math
     def reverse(self, x: int) -> int:
         """
         If negative invert -> save that it is negative
@@ -43,7 +43,7 @@ class Solution:
 
         return -result if negative else result
 
-    # $9 $Math
+    # id9 _Math
     def isPalindrome(self, x: int) -> bool:
         """
         If x is negative -> it is not palindrome
@@ -58,7 +58,7 @@ class Solution:
     def _reverse(self, x: int) -> int:
         return self.reverse(x)
 
-    # $171 $Math
+    # id171 _Math
     def titleToNumber(self, s: str) -> int:
         """
         Every letter is digit in 26-ary system
@@ -76,7 +76,7 @@ class Solution:
 
         return result
 
-    # $168 $Math
+    # id168 _Math
     def convertToTitle(self, n: int) -> str:
         """
         While number is not 0:
@@ -97,7 +97,7 @@ class Solution:
 
         return result
 
-    # $1317 $Math
+    # id1317 _Math
     def getNoZeroIntegers(self, n: int) -> List[int]:
         """
         Iterate till (half) list:
@@ -107,7 +107,7 @@ class Solution:
             if '0' not in ''.join([str(first), str(n - first)]):
                 return [first, n - first]
 
-    # $231 $Math $BitManipulation
+    # id231 _Math _BitManipulation
     def isPowerOfTwo(self, n: int) -> bool:
         """
         If n == 0 -> False

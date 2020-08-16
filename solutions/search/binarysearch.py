@@ -2,7 +2,7 @@
 
 # noinspection PyMethodMayBeStatic
 class Solution:
-    # $278 $BinarySearch
+    # id278 _BinarySearch
     def firstBadVersion(self, n):
         """
         :type n: int
@@ -27,7 +27,7 @@ class Solution:
 
         return left
 
-    # $374 $BinarySearch
+    # id374 _BinarySearch
     def guessNumber(self, n: int) -> int:
         """
         Use Binary Search with initial interval 1 and n
@@ -54,7 +54,7 @@ class Solution:
 
         return left
 
-    # $69 $Math $BinarySearch
+    # id69 _Math _BinarySearch
     def mySqrt(self, x: int) -> int:
         """
         Use Binary search from 0 to half of x
@@ -81,7 +81,7 @@ class Solution:
 
         return 0
 
-    # $367 $Math $BinarySearch
+    # id367 _Math _BinarySearch
     def isPerfectSquare(self, num: int) -> bool:
         """
         Use Binary search from 0 to half of num

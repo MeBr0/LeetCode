@@ -3,7 +3,7 @@ from utils import TreeNode
 
 # noinspection PyShadowingBuiltins
 class Solution:
-    # $100 $Tree $DepthFirstSearch
+    # id100 _Tree _DepthFirstSearch
     def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
         """
         If both nodes are None -> True
@@ -18,7 +18,7 @@ class Solution:
             else:
                 return p.val == q.val and self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
 
-    # $101 $Tree $DepthFirstSearch $BreadthFirstSearch
+    # id101 _Tree _DepthFirstSearch _BreadthFirstSearch
     # Todo: see bfs
     def isSymmetric(self, root: TreeNode) -> bool:
         """
@@ -43,7 +43,7 @@ class Solution:
 
         return self._isSymmetric(left.right, right.left) and self._isSymmetric(left.left, right.right)
 
-    # $104 $Tree $DepthFirstSearch
+    # id104 _Tree _DepthFirstSearch
     def maxDepth(self, root: TreeNode) -> int:
         """
         If node is None -> 0
@@ -56,7 +56,7 @@ class Solution:
 
     int_max = 10000000000
 
-    # $110 $Tree $DepthFirstSearch
+    # id110 _Tree _DepthFirstSearch
     def isBalanced(self, root: TreeNode) -> bool:
         """
         If node is None -> 0
@@ -79,7 +79,7 @@ class Solution:
 
         return max(left, right) + 1
 
-    # $98 $Tree $DepthFirstSearch
+    # id98 _Tree _DepthFirstSearch
     def isValidBST(self, root: TreeNode) -> bool:
         """
         For root set interval as huge negative and positive numbers
@@ -99,7 +99,7 @@ class Solution:
 
         return False
 
-    # $501 $Tree
+    # id501 _Tree
     def findMode(self, root: TreeNode) -> List[int]:
         """
         If root is None -> []
@@ -132,7 +132,7 @@ class Solution:
 
         return count
 
-    # $112 $Tree $DepthFirstSearch
+    # id112 _Tree _DepthFirstSearch
     def hasPathSum(self, root: TreeNode, sum: int) -> bool:
         """
         Go recursive from root with current value 0:
@@ -153,7 +153,7 @@ class Solution:
 
         return self._hasPathSum(node.left, _sum, new_value) or self._hasPathSum(node.right, _sum, new_value)
 
-    # $113 $Tree $DepthFirstSearch
+    # id113 _Tree _DepthFirstSearch
     def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
         """
         Go recursive from root with current value 0 and empty path list:
@@ -188,7 +188,7 @@ class Solution:
 
         return left_result
 
-    # $257 $Tree $DepthFirstSearch
+    # id257 _Tree _DepthFirstSearch
     def binaryTreePaths(self, root: TreeNode) -> List[str]:
         """
         Go recursive from root with empty path list:
@@ -220,7 +220,7 @@ class Solution:
 
         return left_result
 
-    # $988 $Tree $DepthFirstSearch
+    # id988 _Tree _DepthFirstSearch
     def smallestFromLeaf(self, root: TreeNode) -> str:
         """
         If root is only node -> convert value to char
@@ -258,7 +258,7 @@ class Solution:
         else:
             return right_result
 
-    # $129 $Tree $DepthFirstSearch
+    # id129 _Tree _DepthFirstSearch
     def sumNumbers(self, root: TreeNode) -> int:
         """
         Go recursive from root with empty path list:
@@ -293,7 +293,7 @@ class Solution:
 
         return left_result + right_result
 
-    # $124 $Tree $DepthFirstSearch
+    # id124 _Tree _DepthFirstSearch
     # Todo: think about class field, not list
     def maxPathSum(self, root: TreeNode) -> int:
         """

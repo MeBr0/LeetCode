@@ -2,7 +2,7 @@
 
 # noinspection PyMethodMayBeStatic
 class Solution:
-    # $191 $BitManipulation
+    # id191 _BitManipulation
     def hammingWeight(self, n: int) -> int:
         """
         While n != 0:
