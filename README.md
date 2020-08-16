@@ -39,18 +39,18 @@ with problem number and related topics. Following data
 matched with website
 
 Header comment has format: 
-`# $number $topic1 $topic2 $topic3`
+`# id{number} _{topic1} _{topic2} _{topic3}`
 
 #### Search by number
 
-Search in repo `$number`
+Search in repo `id{number}`
 
 **Example:** search solution of problem with number 1 
-with string `$1`
+with string `id1`
 
 #### Search by topic
 
-Search in repo `$topic`
+Search in repo `_{topic}`
 
 **Example:** search solution of problem with topic Array
-with string `$Array`
+with string `_Array`
