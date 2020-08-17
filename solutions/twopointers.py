@@ -1,5 +1,7 @@
 from typing import List
 
+from utils import ListNode
+
 
 # noinspection PyMethodMayBeStatic
 class Solution:

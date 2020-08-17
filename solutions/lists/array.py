@@ -289,3 +289,60 @@ class Solution:
                 result.append(num)
 
         return result
+
+    # id27 _Array _TwoPointers
+    # Todo: see tp
+    def removeElement(self, nums: List[int], val: int) -> int:
+        """
+        Iterate nums:
+        If element equal to val -> delete it
+        Otherwise -> increment i (In case of delete, same i will point to next element)
+        Return new length of nums
+        """
+        i = 0
+
+        while i < len(nums):
+            if nums[i] == val:
+                del nums[i]
+            else:
+                i += 1
+
+        return len(nums)
+
+    # id26 _Array _TwoPointers
+    # Todo: see tp
+    def removeDuplicates(self, nums: List[int]) -> int:
+        """
+        Iterate nums:
+        If current element is equal to next ->
+            Iterate with j for all equal elements:
+            If they are equal -> delete first one
+        Increment i
+        Return new length of nums
+        """
+        i = 0
+
+        while i < len(nums) - 1:
+            if nums[i] == nums[i + 1]:
+                j = i
+                while j < len(nums) - 1 and nums[j] == nums[j + 1]:
+                    del nums[j]
+
+            i += 1
+
+        return len(nums)
+
+    # id80 _Array _TwoPointers
+    # Todo: see tp
+    def removeDuplicates(self, nums: List[int]) -> int:
+        i = 0
+
+        while i < len(nums) - 2:
+            if nums[i] == nums[i + 1] == nums[i + 2]:
+                j = i
+                while j < len(nums) - 2 and nums[j] == nums[j + 1] == nums[j + 2]:
+                    del nums[j]
+
+            i += 1
+
+        return len(nums)

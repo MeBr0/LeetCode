@@ -9,7 +9,7 @@ from utils import ListNode, TreeNode
 
 
 def main():
-    pass
+    print(Array().removeDuplicates([0, 0, 1, 1, 1, 2, 2, 3, 3, 4]))
 
 
 def _import():
