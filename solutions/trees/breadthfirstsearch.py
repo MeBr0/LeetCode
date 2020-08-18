@@ -195,3 +195,31 @@ class Solution:
             result.append(_sum / size)
 
         return result
+
+    # id653 _Tree
+    # Todo: see dfs
+    def findTarget(self, root: TreeNode, k: int) -> bool:
+        """
+        Start bfs from root
+        If pair for value node exists in pairs -> return True
+        Otherwise -> add pair for current value
+        Also append not None children of node
+        If left from while -> return False
+        """
+        queue, pairs = [root], {}
+
+        while len(queue) != 0:
+            node = queue.pop(0)
+
+            if pairs[node.val]:
+                return True
+
+            pairs[k - node.val] = True
+
+            if node.left is not None:
+                queue.append(node.left)
+
+            if node.right is not None:
+                queue.append(node.right)
+
+        return False

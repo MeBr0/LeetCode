@@ -19,18 +19,6 @@ class Solution:
 
             saved[num] = i
 
-    # id136 _HashTable _BitManipulation
-    # Todo: see bm
-    def singleNumber(self, nums: List[int]) -> int:
-        """
-        Xor first element with other elements
-        Since a xor a = 0 and a xor 0 = a -> nums[0] is single number
-        """
-        for num in nums[1:]:
-            nums[0] ^= num
-
-        return nums[0]
-
     # id599 _HashTable
     # Todo: too slow
     def findRestaurant(self, list1: List[str], list2: List[str]) -> List[str]:
@@ -53,4 +41,3 @@ class Solution:
                 indices.append(restaurant)
 
         return indices
-

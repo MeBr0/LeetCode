@@ -1,6 +1,6 @@
 from typing import List
 
-from utils import ListNode
+from utils import ListNode, TreeNode
 
 
 # noinspection PyMethodMayBeStatic
@@ -93,3 +93,84 @@ class Solution:
                     return i
 
         return -1
+
+    # id125 _TwoPointers _String
+    def isPalindrome(self, s: str) -> bool:
+        """
+        While left less than right (i.e. two pointers from start and end):
+        Pass any not alphanumeric char, till valid one for both pointers
+        If characters lower representation are equal -> next iteration
+        Otherwise -> not palindrome
+        If left from outer while -> return True
+        """
+        left, right = 0, len(s) - 1
+
+        while left < right:
+            while left < right and not s[left].isalnum():
+                left += 1
+
+            while left < right and not s[right].isalnum():
+                right -= 1
+
+            if s[left].lower() == s[right].lower():
+                left += 1
+                right -= 1
+            else:
+                return False
+
+        return True
+
+    # id680 _String
+    def validPalindrome(self, s: str) -> bool:
+        """
+        While left less than right (i.e. two pointers from start and end):
+        If characters equal -> next iteration
+        Otherwise -> check for valid palindrome two substrings without left and right characters
+        If left from while -> return True
+        """
+        left, right = 0, len(s) - 1
+
+        while left < right:
+            if s[left] == s[right]:
+                left += 1
+                right -= 1
+            else:
+                return self._validPalindrome(s[left: right]) or self._validPalindrome(s[left + 1: right + 1])
+
+        return True
+
+    def _validPalindrome(self, string: str) -> bool:
+        i, size = 0, len(string)
+
+        while i < size / 2:
+            if string[i] != string[size - 1 - i]:
+                return False
+
+            i += 1
+
+        return True
+
+    # id167 _Array _TwoPointers _BinarySearch
+    # Todo: see bs
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        """
+        While left less than right (i.e. two pointers from start and end):
+        If sum of values equal target -> break
+        If sum greater than target -> move right pointer
+        Otherwise -> move left pointer
+        Return last left-right pair
+        """
+        left, right = 0, len(numbers) - 1
+
+        while left < right:
+            left_num = numbers[left]
+            right_num = numbers[right]
+
+            if left_num + right_num == target:
+                break
+            elif left_num + right_num > target:
+                right -= 1
+            else:
+                left += 1
+
+        return [left + 1, right + 1]

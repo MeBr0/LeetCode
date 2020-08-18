@@ -1,6 +1,7 @@
+from typing import List
 
 
-# noinspection PyMethodMayBeStatic
+# noinspection PyMethodMayBeStatic,DuplicatedCode,PyRedeclaration
 class Solution:
     # id278 _BinarySearch
     def firstBadVersion(self, n):
@@ -106,3 +107,57 @@ class Solution:
                 right = mid - 1
 
         return False
+
+    # id153 _Array _BinarySearch
+    def findMin(self, nums: List[int]) -> int:
+        """
+        Use Binary Search with initial interval 0 and length
+        If middle number greater than last element -> minimum number in right part
+        Otherwise -> minimum number in left part
+        Return number with left index
+        """
+        left, right = 0, len(nums) - 1
+
+        while left < right:
+            _mid = (left + right) // 2
+
+            if nums[_mid] > nums[right]:
+                left = _mid + 1
+            else:
+                right = _mid
+
+        return nums[left]
+
+    # id33 _Array _BinarySearch
+    def search(self, nums: List[int], target: int) -> int:
+        """
+        Use Binary Search with initial interval 0 and length
+        If mid number equal target -> return mid index
+        If mid number greater than left number ->
+            If target not within interval [left number, mid number] -> search in right half
+            Otherwise -> search in left half
+        Otherwise ->
+            If target within interval [mid number, right number] -> search in left half
+            Otherwise -> search in right half
+        If left from while -> target not found
+        """
+        left, right = 0, len(nums) - 1
+
+        while left <= right:
+            _mid = (left + right) // 2
+
+            if nums[_mid] == target:
+                return _mid
+
+            if nums[left] <= nums[_mid]:
+                if target > nums[_mid] or target < nums[left]:
+                    left = _mid + 1
+                else:
+                    right = _mid - 1
+            else:
+                if target < nums[_mid] or target > nums[right]:
+                    right = _mid - 1
+                else:
+                    left = _mid + 1
+
+        return -1
