@@ -1,47 +1,5 @@
 
 
-# id225 _Stack _Design
-class MyStack:
-
-    def __init__(self):
-        """
-        Initialize your data structure here.
-
-        Use list as queue (append, pop(0) methods allowed)
-        """
-        self.queue = []
-
-    def push(self, x: int) -> None:
-        """
-        Push element x onto stack.
-
-        Append element to queue
-        Re-append all popped elements except x
-        """
-        self.queue.append(x)
-
-        for i in range(len(self.queue) - 1):
-            self.queue.append(self.queue.pop(0))
-
-    def pop(self) -> int:
-        """
-        Removes the element on top of the stack and returns that element.
-        """
-        return self.queue.pop(0)
-
-    def top(self) -> int:
-        """
-        Get the top element.
-        """
-        return self.queue[0]
-
-    def empty(self) -> bool:
-        """
-        Returns whether the stack is empty.
-        """
-        return len(self.queue) == 0
-
-
 # id155 _Stack _Design
 class MinStack:
 
@@ -82,3 +40,45 @@ class MinStack:
 
     def getMin(self) -> int:
         return self._min
+
+
+# id225 _Stack _Design
+class MyStack:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+
+        Use list as queue (append, pop(0) methods allowed)
+        """
+        self.queue = []
+
+    def push(self, x: int) -> None:
+        """
+        Push element x onto stack.
+
+        Append element to queue
+        Re-append all popped elements except x
+        """
+        self.queue.append(x)
+
+        for i in range(len(self.queue) - 1):
+            self.queue.append(self.queue.pop(0))
+
+    def pop(self) -> int:
+        """
+        Removes the element on top of the stack and returns that element.
+        """
+        return self.queue.pop(0)
+
+    def top(self) -> int:
+        """
+        Get the top element.
+        """
+        return self.queue[0]
+
+    def empty(self) -> bool:
+        """
+        Returns whether the stack is empty.
+        """
+        return len(self.queue) == 0

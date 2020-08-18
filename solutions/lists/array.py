@@ -3,6 +3,62 @@ from typing import List
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming,PyRedeclaration
 class Solution:
+    # id26 _Array _TwoPointers
+    # Todo: see tp
+    def removeDuplicates(self, nums: List[int]) -> int:
+        """
+        Iterate nums:
+        If current element is equal to next ->
+            Iterate with j for all equal elements:
+            If they are equal -> delete first one
+        Increment i
+        Return new length of nums
+        """
+        i = 0
+
+        while i < len(nums) - 1:
+            if nums[i] == nums[i + 1]:
+                j = i
+                while j < len(nums) - 1 and nums[j] == nums[j + 1]:
+                    del nums[j]
+
+            i += 1
+
+        return len(nums)
+
+    # id27 _Array _TwoPointers
+    # Todo: see tp
+    def removeElement(self, nums: List[int], val: int) -> int:
+        """
+        Iterate nums:
+        If element equal to val -> delete it
+        Otherwise -> increment i (In case of delete, same i will point to next element)
+        Return new length of nums
+        """
+        i = 0
+
+        while i < len(nums):
+            if nums[i] == val:
+                del nums[i]
+            else:
+                i += 1
+
+        return len(nums)
+
+    # id35 _Array _BinarySearch
+    # Todo: see binary search solution
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        """
+        Iterate nums
+        If num is greater or equal to target -> i
+        Otherwise -> length of nums (i.e. target must be at the end of nums)
+        """
+        for i, num in enumerate(nums):
+            if num >= target:
+                return i
+
+        return len(nums)
+
     # id66 _Array
     def plusOne(self, digits: List[int]) -> List[int]:
         """
@@ -27,54 +83,18 @@ class Solution:
 
         return digits
 
-    # id989 _Array
-    def addToArrayForm(self, A: List[int], K: int) -> List[int]:
-        """
-        Add each digit from K to A (If no digit -> insert)
-        Start from the last element
-        Set number to remainder to 10
-        Set transfer to quotient to 10
-        Repeat for each left digit
-        """
-        i = 1
+    # id80 _Array _TwoPointers
+    # Todo: see tp
+    def removeDuplicates(self, nums: List[int]) -> int:
+        i = 0
 
-        while K != 0:
-            if i > len(A):
-                A.insert(0, K % 10)
-            else:
-                A[-i] += K % 10
-            K //= 10
+        while i < len(nums) - 2:
+            if nums[i] == nums[i + 1] == nums[i + 2]:
+                j = i
+                while j < len(nums) - 2 and nums[j] == nums[j + 1] == nums[j + 2]:
+                    del nums[j]
+
             i += 1
-
-        transfer = 0
-
-        right = len(A) - 1
-
-        while True:
-            if right < 0:
-                if transfer != 0:
-                    A.insert(0, transfer)
-                break
-            else:
-                A[right] += transfer
-
-            transfer = A[right] // 10
-            A[right] = A[right] % 10
-            right -= 1
-
-        return A
-
-    # id35 _Array _BinarySearch
-    # Todo: see binary search solution
-    def searchInsert(self, nums: List[int], target: int) -> int:
-        """
-        Iterate nums
-        If num is greater or equal to target -> i
-        Otherwise -> length of nums (i.e. target must be at the end of nums)
-        """
-        for i, num in enumerate(nums):
-            if num >= target:
-                return i
 
         return len(nums)
 
@@ -136,68 +156,6 @@ class Solution:
         denominator = reduce(op.mul, range(1, r + 1), 1)
 
         return numerator // denominator
-
-    # id1470 _Array
-    def shuffle(self, nums: List[int], n: int) -> List[int]:
-        """
-        Iterate over the half of list:
-        Append num itself and num shifted from i by n
-        Return result
-        """
-        result = []
-
-        for i in range(len(nums) // 2):
-            result.append(nums[i])
-            result.append(nums[i + n])
-
-        return result
-
-    # id1051 _Array
-    # Todo: find better solution
-    def heightChecker(self, heights: List[int]) -> int:
-        """
-        Create copy of heights and sort it
-        Iterate over two lists
-        If there is no matching -> increment count
-        Return count
-        """
-        right_order = sorted(heights[:])
-        count = 0
-
-        for i in range(len(right_order)):
-            if right_order[i] != heights[i]:
-                count += 1
-
-        return count
-
-    # id509 _Array
-    # Todo: see matrix exponential and golden ratio solutions
-    def fib(self, N: int) -> int:
-        """
-        If N <= 1 -> N
-        If N == 2 -> 1
-        Create variables for two previous values, current value and index 3
-        Iterate till N + 1:
-        Override current value by sum of two previous
-        Update previous values
-        Return current
-        """
-        if N <= 1:
-            return N
-
-        if N == 2:
-            return 1
-
-        first, second, current, i = 1, 1, 0, 3
-
-        while i < N + 1:
-            current = first + second
-            first = second
-            second = current
-
-            i += 1
-
-        return current
 
     # id121 _Array _DynamicProgramming
     # Todo: see dp solution
@@ -290,59 +248,101 @@ class Solution:
 
         return result
 
-    # id27 _Array _TwoPointers
-    # Todo: see tp
-    def removeElement(self, nums: List[int], val: int) -> int:
+    # id509 _Array
+    # Todo: see matrix exponential and golden ratio solutions
+    def fib(self, N: int) -> int:
         """
-        Iterate nums:
-        If element equal to val -> delete it
-        Otherwise -> increment i (In case of delete, same i will point to next element)
-        Return new length of nums
+        If N <= 1 -> N
+        If N == 2 -> 1
+        Create variables for two previous values, current value and index 3
+        Iterate till N + 1:
+        Override current value by sum of two previous
+        Update previous values
+        Return current
         """
-        i = 0
+        if N <= 1:
+            return N
 
-        while i < len(nums):
-            if nums[i] == val:
-                del nums[i]
+        if N == 2:
+            return 1
+
+        first, second, current, i = 1, 1, 0, 3
+
+        while i < N + 1:
+            current = first + second
+            first = second
+            second = current
+
+            i += 1
+
+        return current
+
+    # id989 _Array
+    def addToArrayForm(self, A: List[int], K: int) -> List[int]:
+        """
+        Add each digit from K to A (If no digit -> insert)
+        Start from the last element
+        Set number to remainder to 10
+        Set transfer to quotient to 10
+        Repeat for each left digit
+        """
+        i = 1
+
+        while K != 0:
+            if i > len(A):
+                A.insert(0, K % 10)
             else:
-                i += 1
-
-        return len(nums)
-
-    # id26 _Array _TwoPointers
-    # Todo: see tp
-    def removeDuplicates(self, nums: List[int]) -> int:
-        """
-        Iterate nums:
-        If current element is equal to next ->
-            Iterate with j for all equal elements:
-            If they are equal -> delete first one
-        Increment i
-        Return new length of nums
-        """
-        i = 0
-
-        while i < len(nums) - 1:
-            if nums[i] == nums[i + 1]:
-                j = i
-                while j < len(nums) - 1 and nums[j] == nums[j + 1]:
-                    del nums[j]
-
+                A[-i] += K % 10
+            K //= 10
             i += 1
 
-        return len(nums)
+        transfer = 0
 
-    # id80 _Array _TwoPointers
-    # Todo: see tp
-    def removeDuplicates(self, nums: List[int]) -> int:
-        i = 0
+        right = len(A) - 1
 
-        while i < len(nums) - 2:
-            if nums[i] == nums[i + 1] == nums[i + 2]:
-                j = i
-                while j < len(nums) - 2 and nums[j] == nums[j + 1] == nums[j + 2]:
-                    del nums[j]
+        while True:
+            if right < 0:
+                if transfer != 0:
+                    A.insert(0, transfer)
+                break
+            else:
+                A[right] += transfer
 
-            i += 1
+            transfer = A[right] // 10
+            A[right] = A[right] % 10
+            right -= 1
 
-        return len(nums)
+        return A
+
+    # id1051 _Array
+    # Todo: find better solution
+    def heightChecker(self, heights: List[int]) -> int:
+        """
+        Create copy of heights and sort it
+        Iterate over two lists
+        If there is no matching -> increment count
+        Return count
+        """
+        right_order = sorted(heights[:])
+        count = 0
+
+        for i in range(len(right_order)):
+            if right_order[i] != heights[i]:
+                count += 1
+
+        return count
+
+    # id1470 _Array
+    def shuffle(self, nums: List[int], n: int) -> List[int]:
+        """
+        Iterate over the half of list:
+        Append num itself and num shifted from i by n
+        Return result
+        """
+        result = []
+
+        for i in range(len(nums) // 2):
+            result.append(nums[i])
+            result.append(nums[i + n])
+
+        return result

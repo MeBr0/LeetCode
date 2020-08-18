@@ -3,22 +3,6 @@ from typing import List
 
 # noinspection PyMethodMayBeStatic,DuplicatedCode
 class Solution:
-    # id268 _Array _Math _BitManipulation
-    # Todo: see bit manipulation solution
-    def missingNumber(self, nums: List[int]) -> int:
-        """
-        Calculate overall sum of digits in range(len(nums))
-        Take away each num in nums
-        Return remainder
-        """
-        nums_len = len(nums)
-        _sum = nums_len * (nums_len + 1) // 2
-
-        for num in nums:
-            _sum -= num
-
-        return _sum
-
     # id7 _Math
     def reverse(self, x: int) -> int:
         """
@@ -58,23 +42,34 @@ class Solution:
     def _reverse(self, x: int) -> int:
         return self.reverse(x)
 
-    # id171 _Math
-    def titleToNumber(self, s: str) -> int:
+    # id13 _Math _String
+    def romanToInt(self, s: str) -> int:
         """
-        Every letter is digit in 26-ary system
-        Decode any letter to it value by ascii
-        Add to result value times its power (i.e. 26 ** i)
-        Return result
+        Create converter with roman and int values
+        Iterate over s and compare current and next characters
+        If current value less than next (pass through converter) -> take away value (i.e. we have sth like IV == 5 - 1)
+        Otherwise -> add value to _sum
+        Return _sum
         """
-        result, i, count = 0, 0, 26
+        converter = {
+            'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000
+        }
 
-        while i < len(s):
-            char = s[-i - 1]
+        _sum = 0
 
-            result = (ord(char) - ord('A')) * count ** i
-            i += 1
+        for i in range(len(s)):
+            if i != len(s) - 1:
+                current = converter[s[i]]
+                _next = converter[s[i + 1]]
 
-        return result
+                if current < _next:
+                    _sum -= current
+                else:
+                    _sum += current
+            else:
+                _sum += converter[s[i]]
+
+        return _sum
 
     # id168 _Math
     def convertToTitle(self, n: int) -> str:
@@ -97,15 +92,23 @@ class Solution:
 
         return result
 
-    # id1317 _Math
-    def getNoZeroIntegers(self, n: int) -> List[int]:
+    # id171 _Math
+    def titleToNumber(self, s: str) -> int:
         """
-        Iterate till (half) list:
-        If 0 not appear in string representation of first and its inverse -> [first, n - first]
+        Every letter is digit in 26-ary system
+        Decode any letter to it value by ascii
+        Add to result value times its power (i.e. 26 ** i)
+        Return result
         """
-        for first in range(1, n):
-            if '0' not in ''.join([str(first), str(n - first)]):
-                return [first, n - first]
+        result, i, count = 0, 0, 26
+
+        while i < len(s):
+            char = s[-i - 1]
+
+            result = (ord(char) - ord('A')) * count ** i
+            i += 1
+
+        return result
 
     # id231 _Math _BitManipulation
     def isPowerOfTwo(self, n: int) -> bool:
@@ -126,3 +129,29 @@ class Solution:
                 return False
 
         return True
+
+    # id268 _Array _Math _BitManipulation
+    # Todo: see bit manipulation solution
+    def missingNumber(self, nums: List[int]) -> int:
+        """
+        Calculate overall sum of digits in range(len(nums))
+        Take away each num in nums
+        Return remainder
+        """
+        nums_len = len(nums)
+        _sum = nums_len * (nums_len + 1) // 2
+
+        for num in nums:
+            _sum -= num
+
+        return _sum
+
+    # id1317 _Math
+    def getNoZeroIntegers(self, n: int) -> List[int]:
+        """
+        Iterate till (half) list:
+        If 0 not appear in string representation of first and its inverse -> [first, n - first]
+        """
+        for first in range(1, n):
+            if '0' not in ''.join([str(first), str(n - first)]):
+                return [first, n - first]

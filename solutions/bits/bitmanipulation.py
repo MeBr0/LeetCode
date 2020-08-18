@@ -3,24 +3,6 @@ from typing import List
 
 # noinspection PyMethodMayBeStatic,PyRedeclaration
 class Solution:
-    # id191 _BitManipulation
-    def hammingWeight(self, n: int) -> int:
-        """
-        While n != 0:
-        If n & 1 == 1 (i.e. last bit is 1) -> count it
-        Shift n to right by 1 one bit (i.e. remove last bit)
-        Return counter
-        """
-        counter = 0
-
-        while n != 0:
-            if n & 1:
-                counter += 1
-
-            n = n >> 1
-
-        return counter
-
     # id136 _HashTable _BitManipulation
     # Todo: see ht, math
     def singleNumber(self, nums: List[int]) -> int:
@@ -51,3 +33,21 @@ class Solution:
             twice &= not_thrice
 
         return once
+
+    # id191 _BitManipulation
+    def hammingWeight(self, n: int) -> int:
+        """
+        While n != 0:
+        If n & 1 == 1 (i.e. last bit is 1) -> count it
+        Shift n to right by 1 one bit (i.e. remove last bit)
+        Return counter
+        """
+        counter = 0
+
+        while n != 0:
+            if n & 1:
+                counter += 1
+
+            n = n >> 1
+
+        return counter

@@ -34,30 +34,53 @@ class Solution:
 
         return root.next
 
-    # id83 _LinkedList
-    def deleteDuplicates(self, head: ListNode) -> ListNode:
+    # id19 _LinkedList _TwoPointers
+    # Todo: make faster
+    def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
         """
-        If head is None -> None
-        Create dummy _head pointer
-        While there is not None node and next one is not None too:
-        If value of current is equal to value of next -> link next of current to the next of next node
-        Otherwise -> go to next node
-        Return initial pointer to head
+        Iterate linked list
+        Count size and save all nodes in dict
+        If n is first element -> return second node
+        Otherwise -> get node whose place before node to delete
+        Cut node to delete from linked list
+        Return head
         """
-        if head is None:
-            return None
+        nodes = {}
+        dummy = head
+        count = 0
 
-        _head = head
+        while dummy is not None:
+            nodes[count] = dummy
+            dummy = dummy.next
+            count += 1
 
-        while _head is not None and _head.next is not None:
-            _next = _head.next
+        if count == n:
+            return head.next
 
-            if _head.val == _next.val:
-                _head.next = _next.next
-            else:
-                _head = _head.next
+        before = nodes[count - n - 1]
+        before.next = before.next.next
 
         return head
+
+    # id21 _LinkedList
+    # Todo: less memory
+    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+        if l1 is None:
+            return l2
+
+        if l2 is None:
+            return l1
+
+        if l1.val > l2.val:
+            node = ListNode(l2.val)
+            l2 = l2.next
+        else:
+            node = ListNode(l1.val)
+            l1 = l1.next
+
+        node.next = self.mergeTwoLists(l1, l2)
+
+        return node
 
     # id82 _LinkedList
     def deleteDuplicates(self, head: ListNode) -> ListNode:
@@ -82,6 +105,31 @@ class Solution:
                 current = current.next
 
         return dummy.next
+
+    # id83 _LinkedList
+    def deleteDuplicates(self, head: ListNode) -> ListNode:
+        """
+        If head is None -> None
+        Create dummy _head pointer
+        While there is not None node and next one is not None too:
+        If value of current is equal to value of next -> link next of current to the next of next node
+        Otherwise -> go to next node
+        Return initial pointer to head
+        """
+        if head is None:
+            return None
+
+        _head = head
+
+        while _head is not None and _head.next is not None:
+            _next = _head.next
+
+            if _head.val == _next.val:
+                _head.next = _next.next
+            else:
+                _head = _head.next
+
+        return head
 
     # id160 _LinkedList
     # Todo: re-read solution

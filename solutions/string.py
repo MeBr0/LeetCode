@@ -51,6 +51,58 @@ class Solution:
         else:
             return result
 
+    # id151 _String
+    def reverseWords(self, s: str) -> str:
+        """
+        Strip s
+        Split by spaces and reverse
+        Join elements by space
+        """
+        return ' '.join(s.strip().split()[::-1])
+
+    # id165 _String
+    def compareVersion(self, version1: str, version2: str) -> int:
+        """
+        Split both versions by separator
+        Iterate over level revision numbers together
+        If one of numbers None -> replace by 0
+        Compare versions parsed to int (get rid of leading zeros)
+        If versions equal -> next iteration
+        If left from while -> return 0 (versions equal)
+        """
+        versions1, versions2 = version1.split('.'), version2.split('.')
+        v1_size, v2_size = len(versions1), len(versions2)
+        i = 0
+
+        while i < v1_size or i < v2_size:
+            v1 = int(versions1[i]) if i < v1_size else 0
+            v2 = int(versions2[i]) if i < v2_size else 0
+
+            if v1 == v2:
+                i += 1
+            elif v1 > v2:
+                return 1
+            else:
+                return -1
+
+        return 0
+
+    # id383 _String
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        """
+        For every character in ransomNone:
+        If character not in magazine -> return False
+        If count of character in ransomNote greater than in magazine -> return False
+        If left from for -> return True
+        """
+        for char in ransomNote:
+            if char not in magazine:
+                return False
+            elif ransomNote.count(char) > magazine.count(char):
+                return False
+
+        return True
+
     # id415 _String
     def addStrings(self, num1: str, num2: str) -> str:
         """
@@ -93,55 +145,3 @@ class Solution:
             i += 1
 
         return result
-
-    # id151 _String
-    def reverseWords(self, s: str) -> str:
-        """
-        Strip s
-        Split by spaces and reverse
-        Join elements by space
-        """
-        return ' '.join(s.strip().split()[::-1])
-
-    # id383 _String
-    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
-        """
-        For every character in ransomNone:
-        If character not in magazine -> return False
-        If count of character in ransomNote greater than in magazine -> return False
-        If left from for -> return True
-        """
-        for char in ransomNote:
-            if char not in magazine:
-                return False
-            elif ransomNote.count(char) > magazine.count(char):
-                return False
-
-        return True
-
-    # id165 _String
-    def compareVersion(self, version1: str, version2: str) -> int:
-        """
-        Split both versions by separator
-        Iterate over level revision numbers together
-        If one of numbers None -> replace by 0
-        Compare versions parsed to int (get rid of leading zeros)
-        If versions equal -> next iteration
-        If left from while -> return 0 (versions equal)
-        """
-        versions1, versions2 = version1.split('.'), version2.split('.')
-        v1_size, v2_size = len(versions1), len(versions2)
-        i = 0
-
-        while i < v1_size or i < v2_size:
-            v1 = int(versions1[i]) if i < v1_size else 0
-            v2 = int(versions2[i]) if i < v2_size else 0
-
-            if v1 == v2:
-                i += 1
-            elif v1 > v2:
-                return 1
-            else:
-                return -1
-
-        return 0

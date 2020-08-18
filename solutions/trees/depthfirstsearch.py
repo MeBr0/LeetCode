@@ -5,6 +5,26 @@ from utils import TreeNode
 
 # noinspection PyShadowingBuiltins
 class Solution:
+    # id98 _Tree _DepthFirstSearch
+    def isValidBST(self, root: TreeNode) -> bool:
+        """
+        For root set interval as huge negative and positive numbers
+        For every node:
+        If node is None -> True
+        If node value within given interval (_min, _max) -> recursion for left and right nodes with new intervals
+        Otherwise -> False
+        """
+        return self._isValidBST(root, -10000000000, 10000000000)
+
+    def _isValidBST(self, node: TreeNode, _min: int, _max: int) -> bool:
+        if node is None:
+            return True
+
+        if _min < node.val < _max:
+            return self._isValidBST(node.left, _min, node.val) and self._isValidBST(node.right, node.val, _max)
+
+        return False
+
     # id100 _Tree _DepthFirstSearch
     def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
         """
@@ -81,59 +101,6 @@ class Solution:
 
         return max(left, right) + 1
 
-    # id98 _Tree _DepthFirstSearch
-    def isValidBST(self, root: TreeNode) -> bool:
-        """
-        For root set interval as huge negative and positive numbers
-        For every node:
-        If node is None -> True
-        If node value within given interval (_min, _max) -> recursion for left and right nodes with new intervals
-        Otherwise -> False
-        """
-        return self._isValidBST(root, -10000000000, 10000000000)
-
-    def _isValidBST(self, node: TreeNode, _min: int, _max: int) -> bool:
-        if node is None:
-            return True
-
-        if _min < node.val < _max:
-            return self._isValidBST(node.left, _min, node.val) and self._isValidBST(node.right, node.val, _max)
-
-        return False
-
-    # id501 _Tree
-    def findMode(self, root: TreeNode) -> List[int]:
-        """
-        If root is None -> []
-        Create count dict for counting each element (incrementing)
-        With DFS count all element in tree
-        Retrieve mode as maximum value (frequency) in count
-        Iterate over count
-        If value is equal to mode -> append to result
-        Return result
-        """
-        result = []
-
-        if root is None:
-            return result
-
-        count = self._findMode(root, {})
-        mode = max(count.values())
-
-        for value, frequency in count.items():
-            if frequency == mode:
-                result.append(value)
-
-        return result
-
-    def _findMode(self, node: TreeNode, count: dict) -> dict:
-        if node is not None:
-            count[node.val] = count.get(node.val, 0) + 1
-            self._findMode(node.left, count)
-            self._findMode(node.right, count)
-
-        return count
-
     # id112 _Tree _DepthFirstSearch
     def hasPathSum(self, root: TreeNode, sum: int) -> bool:
         """
@@ -190,6 +157,69 @@ class Solution:
 
         return left_result
 
+    # id124 _Tree _DepthFirstSearch
+    # Todo: think about class field, not list
+    def maxPathSum(self, root: TreeNode) -> int:
+        """
+        Create list with single value (target) to pass recursively
+        Go recursive from root with minimum int value in num:
+        If node is None -> 0
+        If results from children is negative -> zero them
+        If sum of values of children and root itself gives greater value -> override num
+        Return max value of children + node value
+        Return updated num
+        """
+        num = [-999999999999999]
+
+        self._maxPathSum(root, num)
+
+        return num[0]
+
+    def _maxPathSum(self, node: TreeNode, num: List[int]):
+        if node is None:
+            return 0
+
+        left_result = max(self._maxPathSum(node.left, num), 0)
+        right_result = max(self._maxPathSum(node.right, num), 0)
+        num[0] = max(num[0], left_result + right_result + node.val)
+
+        return node.val + max(left_result, right_result)
+
+    # id129 _Tree _DepthFirstSearch
+    def sumNumbers(self, root: TreeNode) -> int:
+        """
+        Go recursive from root with empty path list:
+        If node is None -> 0
+        If node is leaf -> number constructed from digits in path
+        Otherwise -> append value to path and gather results from children
+        Delete value from path
+        Return sum of results of two children
+        """
+        return self._sumNumbers(root, [])
+
+    def _sumNumbers(self, node: TreeNode, path: List[int]) -> int:
+        if node is None:
+            return 0
+
+        if node.left is None and node.right is None:
+            dummy = path[:]
+            dummy.append(node.val)
+
+            num = 0
+            for value in dummy:
+                num = 10 * num + value
+
+            return num
+
+        path.append(node.val)
+
+        left_result = self._sumNumbers(node.left, path)
+        right_result = self._sumNumbers(node.right, path)
+
+        path.pop()
+
+        return left_result + right_result
+
     # id257 _Tree _DepthFirstSearch
     def binaryTreePaths(self, root: TreeNode) -> List[str]:
         """
@@ -221,6 +251,39 @@ class Solution:
         left_result.extend(right_result)
 
         return left_result
+
+    # id501 _Tree
+    def findMode(self, root: TreeNode) -> List[int]:
+        """
+        If root is None -> []
+        Create count dict for counting each element (incrementing)
+        With DFS count all element in tree
+        Retrieve mode as maximum value (frequency) in count
+        Iterate over count
+        If value is equal to mode -> append to result
+        Return result
+        """
+        result = []
+
+        if root is None:
+            return result
+
+        count = self._findMode(root, {})
+        mode = max(count.values())
+
+        for value, frequency in count.items():
+            if frequency == mode:
+                result.append(value)
+
+        return result
+
+    def _findMode(self, node: TreeNode, count: dict) -> dict:
+        if node is not None:
+            count[node.val] = count.get(node.val, 0) + 1
+            self._findMode(node.left, count)
+            self._findMode(node.right, count)
+
+        return count
 
     # id988 _Tree _DepthFirstSearch
     def smallestFromLeaf(self, root: TreeNode) -> str:
@@ -259,66 +322,3 @@ class Solution:
             return left_result
         else:
             return right_result
-
-    # id129 _Tree _DepthFirstSearch
-    def sumNumbers(self, root: TreeNode) -> int:
-        """
-        Go recursive from root with empty path list:
-        If node is None -> 0
-        If node is leaf -> number constructed from digits in path
-        Otherwise -> append value to path and gather results from children
-        Delete value from path
-        Return sum of results of two children
-        """
-        return self._sumNumbers(root, [])
-
-    def _sumNumbers(self, node: TreeNode, path: List[int]) -> int:
-        if node is None:
-            return 0
-
-        if node.left is None and node.right is None:
-            dummy = path[:]
-            dummy.append(node.val)
-
-            num = 0
-            for value in dummy:
-                num = 10 * num + value
-
-            return num
-
-        path.append(node.val)
-
-        left_result = self._sumNumbers(node.left, path)
-        right_result = self._sumNumbers(node.right, path)
-
-        path.pop()
-
-        return left_result + right_result
-
-    # id124 _Tree _DepthFirstSearch
-    # Todo: think about class field, not list
-    def maxPathSum(self, root: TreeNode) -> int:
-        """
-        Create list with single value (target) to pass recursively
-        Go recursive from root with minimum int value in num:
-        If node is None -> 0
-        If results from children is negative -> zero them
-        If sum of values of children and root itself gives greater value -> override num
-        Return max value of children + node value
-        Return updated num
-        """
-        num = [-999999999999999]
-
-        self._maxPathSum(root, num)
-
-        return num[0]
-
-    def _maxPathSum(self, node: TreeNode, num: List[int]):
-        if node is None:
-            return 0
-
-        left_result = max(self._maxPathSum(node.left, num), 0)
-        right_result = max(self._maxPathSum(node.right, num), 0)
-        num[0] = max(num[0], left_result + right_result + node.val)
-
-        return node.val + max(left_result, right_result)

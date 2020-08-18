@@ -5,6 +5,43 @@ from utils import TreeNode
 
 # noinspection PyMethodMayBeStatic,DuplicatedCode
 class Solution:
+    # id102 _Tree _BreadthFirstSearch
+    def levelOrder(self, root: TreeNode) -> List[List[int]]:
+        """
+        If root is None -> []
+        Prepare for BFS with list as queue
+        Start BSF from root
+        While queue is not empty:
+        Pop all nodes in queue
+        Add current nodes to level list
+        For every not None children append to queue
+        Append level list to result
+        Return result
+        """
+        result = []
+
+        if root is None:
+            return result
+
+        queue = [root]
+
+        while len(queue) != 0:
+            level = []
+
+            for i in range(len(queue)):
+                current = queue.pop(0)
+
+                level.append(current.val)
+
+                if current.left is not None:
+                    queue.append(current.left)
+                if current.right is not None:
+                    queue.append(current.right)
+
+            result.append(level)
+
+        return result
+
     # id103 _Stack _Tree _BreadthFirstSearch
     def zigzagLevelOrder(self, root: TreeNode) -> List[List[int]]:
         """
@@ -48,79 +85,6 @@ class Solution:
 
         return result
 
-    # id111 _Tree _DepthFirstSearch _BreadthFirstSearch
-    # Todo: see should dfs?
-    def minDepth(self, root: TreeNode) -> int:
-        """
-        If root is None -> 0
-        Prepare for BFS with list as queue and levelling
-        Start BSF from root
-        While queue is not empty:
-        Pop all nodes in queue
-        If it is leaf -> level (i.e. minimum found)
-        For every not None children append to queue
-        Increment level
-        If function did not return value in cycle -> level
-        """
-        if root is None:
-            return 0
-
-        queue = [root]
-        level = 1
-
-        while len(queue) != 0:
-            for i in range(len(queue)):
-                current = queue.pop(0)
-
-                if current.left is None and current.right is None:
-                    return level
-
-                if current.left is not None:
-                    queue.append(current.left)
-                if current.right is not None:
-                    queue.append(current.right)
-
-            level += 1
-
-        return level
-
-    # id102 _Tree _BreadthFirstSearch
-    def levelOrder(self, root: TreeNode) -> List[List[int]]:
-        """
-        If root is None -> []
-        Prepare for BFS with list as queue
-        Start BSF from root
-        While queue is not empty:
-        Pop all nodes in queue
-        Add current nodes to level list
-        For every not None children append to queue
-        Append level list to result
-        Return result
-        """
-        result = []
-
-        if root is None:
-            return result
-
-        queue = [root]
-
-        while len(queue) != 0:
-            level = []
-
-            for i in range(len(queue)):
-                current = queue.pop(0)
-
-                level.append(current.val)
-
-                if current.left is not None:
-                    queue.append(current.left)
-                if current.right is not None:
-                    queue.append(current.right)
-
-            result.append(level)
-
-        return result
-
     # id107 _Tree _BreadthFirstSearch
     def levelOrderBottom(self, root: TreeNode) -> List[List[int]]:
         """
@@ -157,6 +121,42 @@ class Solution:
             result.insert(0, level)
 
         return result
+
+    # id111 _Tree _DepthFirstSearch _BreadthFirstSearch
+    # Todo: see should dfs?
+    def minDepth(self, root: TreeNode) -> int:
+        """
+        If root is None -> 0
+        Prepare for BFS with list as queue and levelling
+        Start BSF from root
+        While queue is not empty:
+        Pop all nodes in queue
+        If it is leaf -> level (i.e. minimum found)
+        For every not None children append to queue
+        Increment level
+        If function did not return value in cycle -> level
+        """
+        if root is None:
+            return 0
+
+        queue = [root]
+        level = 1
+
+        while len(queue) != 0:
+            for i in range(len(queue)):
+                current = queue.pop(0)
+
+                if current.left is None and current.right is None:
+                    return level
+
+                if current.left is not None:
+                    queue.append(current.left)
+                if current.right is not None:
+                    queue.append(current.right)
+
+            level += 1
+
+        return level
 
     # id637 _Tree
     def averageOfLevels(self, root: TreeNode) -> List[float]:
