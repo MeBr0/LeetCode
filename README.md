@@ -6,7 +6,7 @@ written on python3
 
 ## Solved solutions
 
-**Total count:** **55**
+**Total count:** **86**
 
 ## Navigation
 
@@ -16,6 +16,8 @@ divided by main sections
 ### Structure
 
 * [solutions](solutions)
+    * [advanced](solutions/advanced) - advanced problems
+    * [base](solutions/base) - base problems
     * [bits](solutions/bits) - bit manipulations
     * [design](solutions/design) - data structure design
     * [lists](solutions/lists) - arrays, linked lists, 
@@ -23,10 +25,6 @@ divided by main sections
     * [maps](solutions/maps) - hash tables
     * [search](solutions/search) - binary search
     * [trees](solutions/trees) - dfs & bfs
-    * [math](solutions/math.py) - math
-    * [string](solutions/string.py) - strings
-    * [two pointers](solutions/twopointers.py) - two 
-    pointers
 * [utils](utils)
     * [lists](utils/lists.py) - ListNode class
     * [trees](utils/trees.py) - TreeNode class

@@ -1,4 +1,7 @@
-# noinspection PyMethodMayBeStatic,PyShadowingBuiltins,PyPep8Naming
+from typing import List
+
+
+# noinspection PyMethodMayBeStatic,PyShadowingBuiltins,PyPep8Naming,PyUnusedLocal,SpellCheckingInspection
 class Solution:
     # id8 _Math _String
     def myAtoi(self, str: str) -> int:
@@ -50,6 +53,51 @@ class Solution:
             return _min
         else:
             return result
+
+    # id14 _String
+    # Todo: could be slow
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        """
+        Create i as index of selected character, current as current character for prefix
+        For every string:
+        If current is None -> override it with character
+        Otherwise -> If current not equal to character -> return result
+        If current is still None -> break
+        If everything is ok -> append current character to result, null current and increment i
+        Return result
+        """
+        i, result, current = 0, '', None
+
+        while True:
+            for string in strs:
+                if i == len(string):
+                    return result
+
+                if current is None:
+                    current = string[i]
+                else:
+                    if current != string[i]:
+                        return result
+
+            if current is None:
+                break
+
+            result += current
+            current = None
+            i += 1
+
+        return result
+
+    # id 58 _String
+    def lengthOfLastWord(self, s: str) -> int:
+        """
+        If s contains only from whitespaces or empty -> return 0
+        Otherwise -> return length last word in list split by whitespaces
+        """
+        if s.strip() == '':
+            return 0
+
+        return len(s.split()[-1])
 
     # id151 _String
     def reverseWords(self, s: str) -> str:
@@ -145,3 +193,32 @@ class Solution:
             i += 1
 
         return result
+
+    # id647 _String _DynamicProgramming
+    # Todo: thinking
+    def countSubstrings(self, s: str) -> int:
+        for i in range(len(s)):
+            for j in range(i, len(s)):
+                pass
+
+    # id657 _String
+    def judgeCircle(self, moves: str) -> bool:
+        """
+        Create deltas for x and y axis (initial origin coordinates)
+        For every D - decrement y, for every U - increment y
+        For every L - decrement x, for every R - increment x
+        Return whether x and y still origin coordinates
+        """
+        x, y = 0, 0
+
+        for move in moves:
+            if move == 'D':
+                y -= 1
+            elif move == 'U':
+                y += 1
+            elif move == 'L':
+                x -= 1
+            else:
+                x += 1
+
+        return x == 0 and y == 0

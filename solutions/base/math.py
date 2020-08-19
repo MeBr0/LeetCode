@@ -146,6 +146,70 @@ class Solution:
 
         return _sum
 
+    # id412
+    def fizzBuzz(self, n: int) -> List[str]:
+        """
+        Iterate each number from 1 to n:
+        If i divisible by 3 and 5 -> append FizzBuzz
+        If i divisible only by 3 -> append Fizz
+        If i divisible only by 5 -> append Buzz
+        Otherwise -> append string representation of number
+        """
+        result = []
+
+        for i in range(1, n + 1):
+            if i % 3 == 0:
+                if i % 5 == 0:
+                    result.append('FizzBuzz')
+                else:
+                    result.append('Fizz')
+            else:
+                if i % 5 == 0:
+                    result.append('Buzz')
+                else:
+                    result.append(str(i))
+
+        return result
+
+    # id836 _Math
+    def isRectangleOverlap(self, rec1: List[int], rec2: List[int]) -> bool:
+        """
+        Check two corner x and y separately
+        If first x of rec1 greater than second x of rec2 -> return False (i.e. rec1 is to the right of rec2)
+        If first x of rec2 greater than second x of rec1 -> return False (i.e. rec2 is to the right of rec1)
+        If first y of rec1 greater than second y of rec2 -> return False (i.e. rec1 is above of rec2)
+        If first y of rec2 greater than second x of rec1 -> return False (i.e. rec2 is above of rec1)
+        Otherwise -> return True (i.e. other cases they are overlap)
+        """
+        if rec1[0] >= rec2[2] or rec2[0] >= rec1[2]:
+            return False
+
+        if rec1[1] >= rec2[3] or rec2[1] >= rec1[3]:
+            return False
+
+        return True
+
+    # id1281 _Math
+    def subtractProductAndSum(self, n: int) -> int:
+        """
+        Create sum and product variable
+        Get last digit by % 10
+        Add it to sum
+        Multiply it to product
+        Divide n by 10 for next digit
+        Return difference between product and sum
+        """
+        _sum, product = 0, 1
+
+        while n != 0:
+            digit = n % 10
+            _sum += digit
+            product *= digit
+
+            n //= 10
+
+        return product - _sum
+
     # id1317 _Math
     def getNoZeroIntegers(self, n: int) -> List[int]:
         """

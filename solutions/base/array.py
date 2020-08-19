@@ -248,6 +248,42 @@ class Solution:
 
         return result
 
+    # id414 _Array
+    def thirdMax(self, nums: List[int]) -> int:
+        """
+        Create three variables for first, second and third maximums
+        Iterate over all numbers:
+        If first not set or current number greater than first -> make second maximum third, first second, number first
+        If current number equal to first -> ignore it
+        If second not set or current number greater than second -> make first second, number first
+        If current number equal to second -> ignore it
+        If third not set or current number greater than third -> make number third
+        If third not set -> return first maximum
+        Otherwise -> return third maximum
+
+        """
+        first, second, third = None, None, None
+
+        for num in nums:
+            if first is None or num > first:
+                third = second
+                second = first
+                first = num
+            elif num == first:
+                continue
+            elif second is None or num > second:
+                third = second
+                second = num
+            elif num == second:
+                continue
+            elif third is None or num > third:
+                third = num
+
+        if third is None:
+            return first
+        else:
+            return third
+
     # id509 _Array
     # Todo: see matrix exponential and golden ratio solutions
     def fib(self, N: int) -> int:
@@ -276,6 +312,45 @@ class Solution:
             i += 1
 
         return current
+
+    # id643 _Array
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        if len(nums) < k:
+            return 0
+
+        _max = -1000000000000
+
+        for i in range(0, len(nums) - k + 1):
+            _max = max(_max, sum(nums[i:i + 5]))
+
+        return _max
+
+    # id674 _Array
+    def findLengthOfLCIS(self, nums: List[int]) -> int:
+        """
+        If nums is empty -> return 0
+        Create longest sequence size and current sequence size
+        For every number compare with next number:
+        If next one is greater -> increment current
+        Otherwise -> sequence ended, override longest if current is greater and set current to 1
+        After left from for override longest again (for last element)
+        Return longest
+        """
+        if len(nums) == 0:
+            return 0
+
+        longest, current = 1, 1
+
+        for i in range(len(nums) - 1):
+            if nums[i] < nums[i + 1]:
+                current += 1
+            else:
+                longest = max(current, longest)
+                current = 1
+
+        longest = max(current, longest)
+
+        return longest
 
     # id989 _Array
     def addToArrayForm(self, A: List[int], K: int) -> List[int]:

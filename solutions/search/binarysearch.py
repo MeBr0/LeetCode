@@ -1,7 +1,7 @@
 from typing import List
 
 
-# noinspection PyMethodMayBeStatic,DuplicatedCode,PyRedeclaration
+# noinspection PyMethodMayBeStatic,DuplicatedCode,PyRedeclaration,PyPep8Naming
 class Solution:
     # id33 _Array _BinarySearch
     def search(self, nums: List[int], target: int) -> int:
@@ -161,3 +161,24 @@ class Solution:
                 return _mid
 
         return left
+
+    # id852 _BinarySearch
+    def peakIndexInMountainArray(self, A: List[int]) -> int:
+        """
+        Use Binary Search with initial interval 0 and len(A)
+        If middle number greater than next and less than previous -> return middle index (found it!)
+        If numbers are increasing -> peak in left part (shift right to middle)
+        Otherwise -> peak in right part (shift left to middle)
+        """
+        left, right = 0, len(A) - 1
+
+        while left <= right:
+            _mid = (left + right) // 2
+
+            if A[_mid - 1] < A[_mid] > A[_mid + 1]:
+                return _mid
+
+            if A[_mid - 1] > A[_mid] > A[_mid + 1]:
+                right = _mid
+            else:
+                left = _mid

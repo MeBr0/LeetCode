@@ -1,7 +1,7 @@
 from typing import List
 
 
-# noinspection PyMethodMayBeStatic
+# noinspection PyMethodMayBeStatic,PyPep8Naming
 class Solution:
     # id1 _Array _HashTable
     def twoSum(self, nums: List[int], target: int) -> List[int]:
@@ -41,3 +41,22 @@ class Solution:
                 indices.append(restaurant)
 
         return indices
+
+    # id771 _HashTable
+    def numJewelsInStones(self, J: str, S: str) -> int:
+        """
+        Create dictionary with values of J
+        Iterate over S and check every character in jewels
+        If in jewels -> increment count
+        Return count
+        """
+        jewels, count = {}, 0
+
+        for char in J:
+            jewels[char] = True
+
+        for char in S:
+            if jewels.get(char):
+                count += 1
+
+        return count
