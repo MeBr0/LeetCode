@@ -1,10 +1,11 @@
-from solutions.advanced import DynamicProgramming, Greedy, TwoPointers, NumArray
+from solutions.advanced import DynamicProgramming, Greedy, TwoPointers, NumArray, NumMatrix
 from solutions.base import Math, String, Array
 from solutions.bits import BitManipulation
 from solutions.design import MyStack, MinStack
 from solutions.lists import LinkedList, Stack
 from solutions.maps import HashTable
 from solutions.search import BinarySearch
+from solutions.sort import Sorts
 from solutions.trees import Dfs, Bfs
 from utils import ListNode, TreeNode
 
@@ -19,6 +20,7 @@ def _import():
     Greedy()
     TwoPointers()
     NumArray([])
+    NumMatrix([])
 
     # Base
     Math()
@@ -41,6 +43,9 @@ def _import():
 
     # Search
     BinarySearch()
+
+    # Sort
+    Sorts()
 
     # Trees
     Dfs()

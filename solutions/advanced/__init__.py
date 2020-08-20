@@ -1,3 +1,3 @@
-from .dynamicprogramming import Solution as DynamicProgramming, NumArray
+from .dynamicprogramming import Solution as DynamicProgramming, NumArray, NumMatrix
 from .greedy import Solution as Greedy
 from .twopointers import Solution as TwoPointers

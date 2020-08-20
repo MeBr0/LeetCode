@@ -59,6 +59,65 @@ class Solution:
 
         return len(nums)
 
+    # id48 _Array
+    def rotate(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+
+        Make transpose matrix
+        Reverse each row
+        """
+        n = len(matrix)
+
+        for i in range(n):
+            for j in range(i, n):
+                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+
+        for row in matrix:
+            row.reverse()
+
+    # id54 _Array
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        """
+        Handle empty matrices
+        Init x0 y0 x1 y1 as bounds from top, left, botom and right
+        Extend result list to the four directions step by step
+        If bounds cross each other -> break
+        Return order list
+        """
+        if not matrix or not matrix[0]:
+            return []
+
+        order = []
+        x0, y0, x1, y1 = 0, 0, len(matrix) - 1, len(matrix[0]) - 1
+
+        while True:
+            order.extend(matrix[x0][j] for j in range(y0, y1 + 1))
+            x0 += 1
+
+            if x0 > x1:
+                break
+
+            order.extend(matrix[i][y1] for i in range(x0, x1 + 1))
+            y1 -= 1
+
+            if y0 > y1:
+                break
+
+            order.extend(matrix[x1][j] for j in range(y1, y0 - 1, -1))
+            x1 -= 1
+
+            if x0 > x1:
+                break
+
+            order.extend(matrix[i][y0] for i in range(x1, x0 - 1, -1))
+            y0 += 1
+
+            if y0 > y1:
+                break
+
+        return order
+
     # id66 _Array
     def plusOne(self, digits: List[int]) -> List[int]:
         """
@@ -82,6 +141,29 @@ class Solution:
             right -= 1
 
         return digits
+
+    # id73 _Array
+    # Todo: see O(1) memory
+    def setZeroes(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+
+        Store any pair of row and column when 0 spotted
+        For every such pair:
+        Zero row and column
+        """
+        rows_columns, zero_row = [], [0 for _ in matrix[0]]
+
+        for i in range(len(matrix)):
+            for j in range(len(matrix[i])):
+                if matrix[i][j] == 0:
+                    rows_columns.append((i, j))
+
+        for row, column in rows_columns:
+            matrix[row] = zero_row
+
+            for _row in matrix:
+                _row[column] = 0
 
     # id80 _Array _TwoPointers
     # Todo: see tp
@@ -351,6 +433,37 @@ class Solution:
         longest = max(current, longest)
 
         return longest
+
+    # id766 _Array
+    def isToeplitzMatrix(self, matrix: List[List[int]]) -> bool:
+        """
+        Iterate from left bottom corner to right top by edges:
+        Iterate by diagonal:
+        If num not set -> set num by first number
+        Otherwise -> if number no match with num -> return False
+        Shift i, j by edge to the top and afterwards, to the right
+        If left from outer while -> return True
+        """
+        i, j = len(matrix) - 1, 0
+
+        while j != len(matrix[0]):
+            x, y, num = i, j, None
+
+            while x != len(matrix) and y != len(matrix[0]):
+                if num is None:
+                    num = matrix[x][y]
+                else:
+                    if num != matrix[x][y]:
+                        return False
+
+                x, y = x + 1, y + 1
+
+            if i != 0:
+                i -= 1
+            else:
+                j += 1
+
+        return True
 
     # id989 _Array
     def addToArrayForm(self, A: List[int], K: int) -> List[int]:
