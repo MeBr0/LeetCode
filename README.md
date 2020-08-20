@@ -4,9 +4,11 @@ This repo is collection of solutions for problems
 on [leetcode](https://leetcode.com/problemset/all/) 
 written on python3
 
-## Solved solutions
+## Solutions
 
-**Total count:** **86**
+**Unique:** **101**
+
+**Total:** **102**
 
 ## Navigation
 
@@ -24,6 +26,7 @@ divided by main sections
     stacks
     * [maps](solutions/maps) - hash tables
     * [search](solutions/search) - binary search
+    * [sort](solutions/sort) - sorts
     * [trees](solutions/trees) - dfs & bfs
 * [utils](utils)
     * [lists](utils/lists.py) - ListNode class
