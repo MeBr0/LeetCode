@@ -3,7 +3,7 @@ from solutions.base import Math, String, Array
 from solutions.bits import BitManipulation
 from solutions.design import MyStack, MinStack
 from solutions.lists import LinkedList, Stack
-from solutions.maps import HashTable
+from solutions.maps import HashTable, Reservoir
 from solutions.search import BinarySearch
 from solutions.sort import Sorts
 from solutions.trees import Dfs, Bfs
@@ -40,6 +40,7 @@ def _import():
 
     # Maps
     HashTable()
+    Reservoir([])
 
     # Search
     BinarySearch()

@@ -102,6 +102,31 @@ class Solution:
 
         return False
 
+    # id219 _Array _HashTable
+    def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
+        """
+        Create hash table for last appearance of number
+        If number already appeared ->
+            If difference between indeces not exceeded k -> return True
+            Otherwise -> update last appearance
+        Otherwise -> update last appearance
+        Return False (no matching)
+        """
+        last_duplucates = {}
+
+        for i in range(len(nums)):
+            last_index = last_duplucates.get(nums[i])
+
+            if last_index is None:
+                last_duplucates[nums[i]] = i
+            else:
+                if i - last_index <= k:
+                    return True
+                else:
+                    last_duplucates[nums[i]] = i
+
+        return False
+
     # id290 _HashTable
     def wordPattern(self, pattern: str, str: str) -> bool:
         """
