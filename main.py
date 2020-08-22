@@ -1,9 +1,9 @@
 from solutions.advanced import DynamicProgramming, Greedy, TwoPointers, NumArray, NumMatrix
 from solutions.base import Math, String, Array
 from solutions.bits import BitManipulation
-from solutions.design import MyStack, MinStack
+from solutions.design import MyStack, MinStack, RandomPicker, MedianFinder
 from solutions.lists import LinkedList, Stack
-from solutions.maps import HashTable, Reservoir
+from solutions.maps import HashTable
 from solutions.search import BinarySearch
 from solutions.sort import Sorts
 from solutions.trees import Dfs, Bfs
@@ -33,6 +33,8 @@ def _import():
     # Design
     MyStack()
     MinStack()
+    RandomPicker([])
+    MedianFinder()
 
     # Lists
     LinkedList()
@@ -40,7 +42,6 @@ def _import():
 
     # Maps
     HashTable()
-    Reservoir([])
 
     # Search
     BinarySearch()

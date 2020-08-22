@@ -131,6 +131,48 @@ class Solution:
 
         return head
 
+    # id86 _LinkedList _TwoPointers
+    def partition(self, head: ListNode, x: int) -> ListNode:
+        """
+        Create two linked list for less and more values
+        Create two pointers for current last and head
+        Iterate nodes in head:
+        If value greater than x -> append in head_more
+        Otherwise -> append in less_more
+        If one of lists is None -> return other one
+        Otherwise -> return merged list
+        """
+        head_less, less, head_more, more = None, None, None, None
+
+        while head is not None:
+            value = head.val
+
+            if head.val < x:
+                if head_less is None:
+                    head_less = ListNode(value)
+                    less = head_less
+                else:
+                    less.next = ListNode(value)
+                    less = less.next
+            else:
+                if head_more is None:
+                    head_more = ListNode(value)
+                    more = head_more
+                else:
+                    more.next = ListNode(value)
+                    more = more.next
+
+            head = head.next
+
+        if head_less is None:
+            return head_more
+        else:
+            if head_more is None:
+                return head_less
+            else:
+                less.next = head_more
+                return head_less
+
     # id160 _LinkedList
     # Todo: re-read solution
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
@@ -147,3 +189,37 @@ class Solution:
             intercept_b = intercept_b.next if intercept_b is not None else headA
 
         return intercept_a
+
+    # id206 _LinkedList
+    def reverseList(self, head: ListNode) -> ListNode:
+        """
+        For every node in original linked list:
+        If first node -> create node in _head
+        Otherwise -> create dummy node and link with previous _head, then override _head
+        Return _head
+        """
+        dummy, _head = None, None
+
+        while head is not None:
+            if _head is None:
+                _head = ListNode(head.val)
+            else:
+                dummy = ListNode(head.val)
+                dummy.next = _head
+                _head = dummy
+
+            head = head.next
+
+        return _head
+
+    # id237 _LinkedList
+    def deleteNode(self, node):
+        """
+        :type node: ListNode
+        :rtype: void Do not return anything, modify node in-place instead.
+
+        Change value of node to the next
+        Change next node to one more next (i.e. node with given value deleted)
+        """
+        node.val = node.next.val
+        node.next = node.next.next

@@ -37,7 +37,7 @@ class Solution:
         return intervals
 
     # id215 _DivideAndConquer _Heap
-    # Todo: see d&c, heap
+    # Todo: see d&c
     def findKthLargest(self, nums: List[int], k: int) -> int:
         """
         Sort nums
