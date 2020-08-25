@@ -11,7 +11,7 @@ from utils import ListNode, TreeNode
 
 
 def main():
-    pass
+    print(TwoPointers().moveZeroes([0,1,0,3,12]))
 
 
 def _import():

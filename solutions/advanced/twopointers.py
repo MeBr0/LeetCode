@@ -33,6 +33,25 @@ class Solution:
 
         return _max
 
+    # id27 _Array _TwoPointers
+    def removeElement(self, nums: List[int], val: int) -> int:
+        """
+        For every element in nums:
+        If element equal to val -> Replace it by value of last element (dependent on right) and decrease right
+        Otherwise -> next
+        Return right
+        """
+        left, right = 0, len(nums)
+
+        while left < right:
+            if nums[left] == val:
+                nums[left] = nums[right - 1]
+                right -= 1
+            else:
+                left += 1
+
+        return right
+
     # id28 _TwoPointers _String
     def strStr(self, haystack: str, needle: str) -> int:
         """
@@ -173,6 +192,51 @@ class Solution:
 
         return [left + 1, right + 1]
 
+    # id228 _Array
+    def summaryRanges(self, nums: List[int]) -> List[str]:
+        """
+        Iterate over nums:
+        Iterate till sequence not finished
+        If start equal to finished (single number) -> append single number
+        Otherwise -> append range of start and finish
+        Iterate start to incremented finish
+        Return result
+        """
+        start = 0
+        result = []
+
+        while start < len(nums):
+            finish = start
+
+            while finish + 1 < len(nums) and nums[finish] + 1 == nums[finish + 1]:
+                finish += 1
+
+            if start == finish:
+                result.append(str(nums[finish]))
+            else:
+                result.append(str(nums[start]) + '->' + str(nums[finish]))
+
+            start = finish + 1
+
+        return result
+
+    # id283 _Array _TwoPointers
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+
+        Iterate over nums and save last non_zero element set:
+        If non zero element found -> swap with non_zero index
+        """
+        i, non_zero = 0, 0
+
+        while i < len(nums):
+            if nums[i] != 0:
+                nums[non_zero], nums[i] = nums[i], nums[non_zero]
+                non_zero += 1
+
+            i += 1
+
     # id344 _TwoPointers _String
     def reverseString(self, s: List[str]) -> None:
         """
@@ -213,6 +277,38 @@ class Solution:
             right -= 1
 
         return ''.join(string)
+
+    # id350 _HashTable _TwoPointers _BinarySearch _Sort
+    # Todo: see ht, bs
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        """
+        Sort lists
+        Set two pointers to start of lists
+        If elements equal -> append to result
+        If first element greater -> increment second
+        Otherwise -> increment first
+        Return result
+        """
+        nums1.sort()
+        nums2.sort()
+
+        result = []
+        first, second = 0, 0
+
+        while first < len(nums1) or second < len(nums2):
+            first_el = nums1[first]
+            second_el = nums2[second]
+
+            if first_el == second_el:
+                result.append(first_el)
+                first += 1
+                second += 1
+            elif first_el > second_el:
+                second += 1
+            else:
+                first += 1
+
+        return result
 
     # id680 _String
     def validPalindrome(self, s: str) -> bool:

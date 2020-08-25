@@ -27,7 +27,6 @@ class Solution:
         return len(nums)
 
     # id27 _Array _TwoPointers
-    # Todo: see tp
     def removeElement(self, nums: List[int], val: int) -> int:
         """
         Iterate nums:
