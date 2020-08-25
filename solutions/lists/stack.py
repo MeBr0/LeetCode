@@ -33,6 +33,29 @@ class Solution:
 
         return len(stack) == 0
 
+    # id71 _String _Stack
+    def simplifyPath(self, path: str) -> str:
+        """
+        Split path with /
+        For every word in split path:
+        If empty string or dot (current directory) -> do nothing
+        If word is two dots -> exit last directory (if not root)
+        Otherwise -> append new directory name to stack (i.e. enter it)
+        Return path beginning with /
+        """
+        stack = []
+
+        for word in path.split('/'):
+            if word == '' or word == '.':
+                continue
+            elif word == '..':
+                if len(stack) > 0:
+                    stack.pop()
+            else:
+                stack.append(word)
+
+        return '/' + '/'.join(stack)
+
     # id150 _Stack
     # Todo: too slow
     def evalRPN(self, tokens: List[str]) -> int:

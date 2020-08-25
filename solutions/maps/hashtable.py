@@ -1,7 +1,7 @@
 from typing import List
 
 
-# noinspection PyMethodMayBeStatic,PyPep8Naming,SpellCheckingInspection,PyShadowingBuiltins
+# noinspection PyMethodMayBeStatic,PyPep8Naming,SpellCheckingInspection,PyShadowingBuiltins,PyRedeclaration
 class Solution:
     # id1 _Array _HashTable
     def twoSum(self, nums: List[int], target: int) -> List[int]:
@@ -163,7 +163,25 @@ class Solution:
 
         return True
 
+    # id347 _HashTable _Heap
+    # Todo: see heap
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        """
+        Count every element with hash table
+        Sort hash table with values
+        Return last k keys (nums themselves)
+        """
+        frequency = {}
+
+        for num in nums:
+            frequency[num] = frequency.get(num, 0) + 1
+
+        frequency = {key: value for key, value in sorted(frequency.items(), key=lambda item: item[1])}
+
+        return list(frequency.keys())[-k:]
+
     # id349 _HashTable _TwoPointers _BinarySearch _Sort
+    # Todo: see tp, bs, sort
     def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
         """
         Construct set from each list
@@ -232,6 +250,23 @@ class Solution:
                 indices.append(restaurant)
 
         return indices
+
+    # id692 _HashTable _Heap _Trie
+    # Todo: see heap, trie
+    def topKFrequent(self, words: List[str], k: int) -> List[str]:
+        """
+        Count every element with hash table
+        Sort hash table with values
+        Return first k keys (sort reversed by counts and normal by word)
+        """
+        frequency = {}
+
+        for word in words:
+            frequency[word] = frequency.get(word, 0) + 1
+
+        frequency = {key: value for key, value in sorted(frequency.items(), key=lambda item: (-item[1], item[0]))}
+
+        return list(frequency.keys())[:k]
 
     # id771 _HashTable
     def numJewelsInStones(self, J: str, S: str) -> int:

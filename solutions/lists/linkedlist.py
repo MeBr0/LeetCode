@@ -65,6 +65,12 @@ class Solution:
     # id21 _LinkedList
     # Todo: less memory
     def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+        """
+        If one of lists None -> return other
+        Otherwise -> create new node with lower value and next it
+        Link next one with new list nodes
+        Return first head
+        """
         if l1 is None:
             return l2
 

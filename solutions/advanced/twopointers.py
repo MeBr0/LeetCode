@@ -5,6 +5,34 @@ from utils import ListNode
 
 # noinspection PyMethodMayBeStatic
 class Solution:
+    # id3 _HashTable _TwoPointers _String _SlidingWindow
+    # Todo: see sw
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        """
+        Init two pointers for sliding windows and hash table
+        Iterate over characters in s:
+        If char not saved or saved but expired (left greater) -> save new index
+        Otherwise -> calculate maximum with difference of right and left, shift left for last appearance of character
+        When left from while -> check _max again (for longest susbtring in the end of s)
+        Return _max
+        """
+        saved = {}
+        left, right, _max = 0, 0, -1
+
+        while right < len(s):
+            if s[right] not in saved or s[right] in saved and saved[s[right]] < left:
+                saved[s[right]] = right
+            else:
+                _max = max(_max, right - left)
+                left = saved[s[right]] + 1
+                saved[s[right]] = right
+
+            right += 1
+
+        _max = max(_max, right - left)
+
+        return _max
+
     # id28 _TwoPointers _String
     def strStr(self, haystack: str, needle: str) -> int:
         """

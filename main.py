@@ -1,4 +1,4 @@
-from solutions.advanced import DynamicProgramming, Greedy, TwoPointers, NumArray, NumMatrix
+from solutions.advanced import DynamicProgramming, Greedy, TwoPointers, NumArray, NumMatrix, DivideAndConquer
 from solutions.base import Math, String, Array
 from solutions.bits import BitManipulation
 from solutions.design import MyStack, MinStack, RandomPicker, MedianFinder
@@ -19,6 +19,7 @@ def _import():
     DynamicProgramming()
     Greedy()
     TwoPointers()
+    DivideAndConquer()
     NumArray([])
     NumMatrix([])
 
