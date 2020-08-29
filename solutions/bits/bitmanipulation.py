@@ -3,6 +3,24 @@ from typing import List
 
 # noinspection PyMethodMayBeStatic,PyRedeclaration
 class Solution:
+    # id78 _Array _Backtracking _BitManipulation
+    # Todo: write solution
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        result = []
+
+        for i in range(2 ** len(nums)):
+            subset = []
+
+            for j in range(len(nums)):
+                if i & 1:
+                    subset.append(nums[j])
+
+                i >>= 1
+
+            result.append(subset)
+
+        return result
+
     # id136 _HashTable _BitManipulation
     # Todo: see ht, math
     def singleNumber(self, nums: List[int]) -> int:

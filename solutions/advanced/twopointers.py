@@ -33,6 +33,21 @@ class Solution:
 
         return _max
 
+    # id26 _Array _TwoPointers
+    def removeDuplicates(self, nums: List[int]) -> int:
+        """
+        """
+        i, unique = 0, 0
+
+        while i < len(nums) - 1:
+            if nums[i] != nums[i + 1]:
+                nums[unique], nums[i] = nums[i], nums[unique]
+                unique += 1
+
+            i += 1
+
+        return unique
+
     # id27 _Array _TwoPointers
     def removeElement(self, nums: List[int], val: int) -> int:
         """

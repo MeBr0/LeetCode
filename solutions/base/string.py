@@ -341,7 +341,7 @@ class Solution:
     def countSubstrings(self, s: str) -> int:
         for i in range(len(s)):
             for j in range(i, len(s)):
-                pass
+                return 0
 
     # id657 _String
     def judgeCircle(self, moves: str) -> bool:

@@ -1,4 +1,4 @@
-from solutions.advanced import DynamicProgramming, Greedy, TwoPointers, NumArray, NumMatrix, DivideAndConquer
+from solutions.advanced import DynamicProgramming, Greedy, TwoPointers, NumArray, NumMatrix, DivideAndConquer, BackTracking
 from solutions.base import Math, String, Array
 from solutions.bits import BitManipulation
 from solutions.design import MyStack, MinStack, RandomPicker, MedianFinder
@@ -11,7 +11,7 @@ from utils import ListNode, TreeNode
 
 
 def main():
-    print(TwoPointers().moveZeroes([0,1,0,3,12]))
+    pass
 
 
 def _import():
@@ -20,6 +20,7 @@ def _import():
     Greedy()
     TwoPointers()
     DivideAndConquer()
+    BackTracking()
     NumArray([])
     NumMatrix([])
 

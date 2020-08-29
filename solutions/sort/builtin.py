@@ -36,6 +36,14 @@ class Solution:
 
         return intervals
 
+    # id75 _Array _TwoPointers _Sort
+    # Todo: see tp
+    def sortColors(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        nums.sort()
+
     # id215 _DivideAndConquer _Heap
     # Todo: see d&c
     def findKthLargest(self, nums: List[int], k: int) -> int:

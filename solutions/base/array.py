@@ -4,7 +4,6 @@ from typing import List
 # noinspection PyMethodMayBeStatic,PyPep8Naming,PyRedeclaration
 class Solution:
     # id26 _Array _TwoPointers
-    # Todo: see tp
     def removeDuplicates(self, nums: List[int]) -> int:
         """
         Iterate nums:
