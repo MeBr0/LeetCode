@@ -6,9 +6,9 @@ written on python3
 
 ## Solutions
 
-**Unique:** **149**
+**Unique:** **153**
 
-**Total:** **155**
+**Total:** **160**
 
 ## Navigation
 

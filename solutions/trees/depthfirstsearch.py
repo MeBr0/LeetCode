@@ -3,7 +3,7 @@ from typing import List
 from utils import TreeNode
 
 
-# noinspection PyShadowingBuiltins
+# noinspection PyShadowingBuiltins,PyPep8Naming,PyMethodMayBeStatic
 class Solution:
     # id98 _Tree _DepthFirstSearch
     def isValidBST(self, root: TreeNode) -> bool:
@@ -220,6 +220,46 @@ class Solution:
 
         return left_result + right_result
 
+    # id200 _DepthFirstSearch _BreadthFirstSearch _UnionFind
+    def numIslands(self, grid: List[List[str]]) -> int:
+        """
+        Init same size matrix with used (visited) property
+        _numIslands mark element as used
+        Check all adjacent elements for bounds, used property and value
+        If element valid and not used -> call recursion from element
+        Iterate over matrix and call recursion function
+        Since one outer call of function mark as used whole island, count all calls of outer function
+        Return count
+        """
+        count = 0
+        used = [[False for _ in row] for row in grid]
+
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if not used[i][j] and grid[i][j] == '1':
+                    count += 1
+                    self._numIslands(grid, used, i, j)
+
+        return count
+
+    def _numIslands(self, grid: List[List[str]], used: List[List[bool]], i: int, j: int) -> None:
+        used[i][j] = True
+
+        if self._numIslandsCheck(grid, used, i + 1, j):
+            self._numIslands(grid, used, i + 1, j)
+
+        if self._numIslandsCheck(grid, used, i - 1, j):
+            self._numIslands(grid, used, i - 1, j)
+
+        if self._numIslandsCheck(grid, used, i, j + 1):
+            self._numIslands(grid, used, i, j + 1)
+
+        if self._numIslandsCheck(grid, used, i, j - 1):
+            self._numIslands(grid, used, i, j - 1)
+
+    def _numIslandsCheck(self, grid: List[List[str]], used: List[List[bool]], i: int, j: int) -> bool:
+        return -1 < i < len(grid) and -1 < j < len(grid[0]) and not used[i][j] and grid[i][j] == '1'
+
     # id257 _Tree _DepthFirstSearch
     def binaryTreePaths(self, root: TreeNode) -> List[str]:
         """
@@ -251,6 +291,46 @@ class Solution:
         left_result.extend(right_result)
 
         return left_result
+
+    # id463 _HashTable
+    # Todo: see ht
+    # Todo: write solution
+    def islandPerimeter(self, grid: List[List[int]]) -> int:
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 1:
+                    return self._islandPerimeter(grid, [[False for _ in row] for row in grid], i, j)
+
+    def _islandPerimeter(self, grid: List[List[int]], visited: List[List[bool]], i: int, j: int) -> int:
+        visited[i][j] = True
+
+        result = 4
+
+        if -1 < i + 1 < len(grid) and -1 < j < len(grid[0]) and grid[i + 1][j] == 1:
+            result -= 1
+
+            if not visited[i + 1][j]:
+                result += self._islandPerimeter(grid, visited, i + 1, j)
+
+        if -1 < i - 1 < len(grid) and -1 < j < len(grid[0]) and grid[i - 1][j] == 1:
+            result -= 1
+
+            if not visited[i - 1][j]:
+                result += self._islandPerimeter(grid, visited, i - 1, j)
+
+        if -1 < i < len(grid) and -1 < j + 1 < len(grid[0]) and grid[i][j + 1] == 1:
+            result -= 1
+
+            if not visited[i][j + 1]:
+                result += self._islandPerimeter(grid, visited, i, j + 1)
+
+        if -1 < i < len(grid) and -1 < j - 1 < len(grid[0]) and grid[i][j - 1] == 1:
+            result -= 1
+
+            if not visited[i][j - 1]:
+                result += self._islandPerimeter(grid, visited, i, j - 1)
+
+        return result
 
     # id501 _Tree
     def findMode(self, root: TreeNode) -> List[int]:
@@ -284,6 +364,62 @@ class Solution:
             self._findMode(node.right, count)
 
         return count
+
+    # id547 _DepthFirstSearch _UnionFind
+    def findCircleNum(self, M: List[List[int]]) -> int:
+        """
+        Init count for every outer call of dfs function
+        Each dfs function:
+        Visit friend as visited
+        For every not visited friend (friend: index equal 1): call dfs function
+        Thus, each outer call of dfs should visit one circle friends
+        Return count of circles
+        """
+        count, visited = 0, [False for _ in M]
+
+        for i in range(len(M)):
+            if not visited[i]:
+                count += 1
+                self._findCircleNum(M, visited, i)
+
+        return count
+
+    def _findCircleNum(self, M: List[List[int]], visited: List[bool], index: int) -> None:
+        visited[index] = True
+
+        for i in range(len(M)):
+            if M[index][i] == 1:
+                if not visited[i]:
+                    self._findCircleNum(M, visited, i)
+
+    # id841 _DepthFirstSearch _Tree
+    # Todo: see alternative for count
+    def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
+        """
+        Store opened door in opened as True
+        If count of opened door equal to number of rooms -> return True (all rooms visited)
+        Otherwise -> iterate over all keys in current room:
+            If door not opened -> visit door with recursion
+            If recursion returned True -> return True (all rooms visited)
+            If left for loop -> return False (count not reached number of rooms)
+        Note: count initialized as list for storing count value by pointer (in one branch of recursion we can open door
+        which can be used in other branch)
+        """
+        return self._canVisitAllRooms(rooms, [0], [False for _ in rooms], 0)
+
+    def _canVisitAllRooms(self, rooms: List[List[int]], count: List[int], opened: List[bool], current: int) -> bool:
+        opened[current] = True
+        count[0] += 1
+
+        if count[0] == len(rooms):
+            return True
+
+        for key in rooms[current]:
+            if not opened[key]:
+                if self._canVisitAllRooms(rooms, count, opened, key):
+                    return True
+
+        return False
 
     # id988 _Tree _DepthFirstSearch
     def smallestFromLeaf(self, root: TreeNode) -> str:

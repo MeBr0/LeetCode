@@ -158,6 +158,67 @@ class Solution:
 
         return level
 
+    # id463 _HashTable
+    # Todo: see ht
+    # Todo: write solution
+    def islandPerimeter(self, grid: List[List[int]]) -> int:
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 1:
+                    return self._islandPerimeter(grid, i, j)
+
+    def _islandPerimeter(self, grid: List[List[int]], i: int, j: int) -> int:
+        visited = [[False for _ in row] for row in grid]
+        result = 0
+
+        queue = [(i, j)]
+        visited[i][j] = True
+
+        while len(queue) != 0:
+            x, y = queue.pop(0)
+
+            if -1 < x + 1 < len(grid) and -1 < y < len(grid[0]):
+                if grid[x + 1][y] == 0:
+                    result += 1
+                else:
+                    if not visited[x + 1][y]:
+                        visited[x + 1][y] = True
+                        queue.append((x + 1, y))
+            else:
+                result += 1
+
+            if -1 < x - 1 < len(grid) and -1 < y < len(grid[0]):
+                if grid[x - 1][y] == 0:
+                    result += 1
+                else:
+                    if not visited[x - 1][y]:
+                        visited[x - 1][y] = True
+                        queue.append((x - 1, y))
+            else:
+                result += 1
+
+            if -1 < x < len(grid) and -1 < y + 1 < len(grid[0]):
+                if grid[x][y + 1] == 0:
+                    result += 1
+                else:
+                    if not visited[x][y + 1]:
+                        visited[x][y + 1] = True
+                        queue.append((x, y + 1))
+            else:
+                result += 1
+
+            if -1 < x < len(grid) and -1 < y - 1 < len(grid[0]):
+                if grid[x][y - 1] == 0:
+                    result += 1
+                else:
+                    if not visited[x][y - 1]:
+                        visited[x][y - 1] = True
+                        queue.append((x, y - 1))
+            else:
+                result += 1
+
+        return result
+
     # id637 _Tree
     def averageOfLevels(self, root: TreeNode) -> List[float]:
         """
