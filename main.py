@@ -11,7 +11,7 @@ from utils import ListNode, TreeNode
 
 
 def main():
-    pass
+    print(BitManipulation().rangeBitwiseAnd(5, 7))
 
 
 def _import():
