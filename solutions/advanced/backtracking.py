@@ -268,6 +268,41 @@ class Solution:
 
         return board[i][j] == char
 
+    # id357 _Math _DynamicProgramming _Backtracking
+    def countNumbersWithUniqueDigits(self, n: int) -> int:
+        """
+        Init dict with used digits
+        Previous is filled number
+        If previous greater or equal n -> return 0 (not counted)
+        For every 10 digits:
+        If not used -> append and used it, save result to count
+        Increment count to count previous itself
+        Return count
+        """
+        used = {i: False for i in range(10)}
+        return self._countNumbersWithUniqueDigits(10 ** n, 0, used)
+
+    def _countNumbersWithUniqueDigits(self, n: int, previous: int, used: dict) -> int:
+        if previous >= n:
+            return 0
+
+        count = 0
+
+        for i in range(10):
+            if previous == 0 and i == 0:
+                continue
+
+            if not used[i]:
+                used[i] = True
+                previous = previous * 10 + i
+                count += self._countNumbersWithUniqueDigits(n, previous, used)
+                used[i] = False
+                previous //= 10
+
+        count += 1
+
+        return count
+
     # id494 _DynamicProgramming _DepthFirstSearch
     # Todo: see dp
     def findTargetSumWays(self, nums: List[int], S: int) -> int:

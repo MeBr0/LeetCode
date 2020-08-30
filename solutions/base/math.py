@@ -71,6 +71,30 @@ class Solution:
 
         return _sum
 
+    # id50 _Math _BinarySearch
+    def myPow(self, x: float, n: int) -> float:
+        """
+        If n less x -> return inverted result of -n
+        While n not equal 0:
+        If n divisible by 2 -> double x, divide n by 2
+        Otherwise -> multiply result by x, decrement n
+        Return result
+        """
+        if n < 0:
+            return 1 / self.myPow(x, -n)
+
+        result = 1
+
+        while n != 0:
+            if n % 2 == 0:
+                x *= x
+                n //= 2
+            else:
+                result *= x
+                n -= 1
+
+        return result
+
     # id168 _Math
     def convertToTitle(self, n: int) -> str:
         """
@@ -110,7 +134,52 @@ class Solution:
 
         return result
 
+    # id172 _Math
+    def trailingZeroes(self, n: int) -> int:
+        """
+        While n not equal 0:
+        Add to count numbers of 5 in n
+        Divide n by 5
+        Return result
+        """
+        count = 0
+
+        while n != 0:
+            count += n // 5
+            n //= 5
+
+        return count
+
+    # id204 _HashTable _Math
+    def countPrimes(self, n: int) -> int:
+        """
+        Init Sieve of Eratosthenes with length n
+        Fill sieve as follows:
+        Find first prime number
+        Count it
+        Mark every number from i * i and +i as non prime (guaranteed that between i and i * i all numbers already marked
+        Return count
+        """
+        primes = [False for _ in range(n)]
+        count = 0
+        i = 2
+
+        while i < n:
+            if not primes[i]:
+                count += 1
+
+                j = i * i
+
+                while j < n:
+                    primes[j] = True
+                    j += i
+
+            i += 1
+
+        return count
+
     # id231 _Math _BitManipulation
+    # Todo: see bm
     def isPowerOfTwo(self, n: int) -> bool:
         """
         If n == 0 -> False
@@ -131,7 +200,7 @@ class Solution:
         return True
 
     # id268 _Array _Math _BitManipulation
-    # Todo: see bit manipulation solution
+    # Todo: see bm
     def missingNumber(self, nums: List[int]) -> int:
         """
         Calculate overall sum of digits in range(len(nums))
@@ -145,6 +214,66 @@ class Solution:
             _sum -= num
 
         return _sum
+
+    # id292 _Brainteaser _Minimax
+    def canWinNim(self, n: int) -> bool:
+        """
+        If in heap left 1, 2 or 3 stones -> return True
+        If 4 stones -> return False
+        For next numbers analogical
+        Return inverted whether n divisible by 4
+        """
+        return n % 4 != 0
+
+    # id326 _Math
+    def isPowerOfThree(self, n: int) -> bool:
+        """
+        If n == 0 -> False
+        While n != 1:
+        If n divisible by 3 -> divide by 3
+        Otherwise -> False
+        Return True
+        """
+        if n == 0:
+            return False
+
+        while n != 1:
+            if n % 3 == 0:
+                n //= 3
+            else:
+                return False
+
+        return True
+
+    # id357 _Math _DynamicProgramming _Backtracking
+    def countNumbersWithUniqueDigits(self, n: int) -> int:
+        """
+        If n equal 0 -> return 1
+        Init count as 10 (for n == 1)
+        While i less n:
+        Init sub_count as 9 (first element have 9 variants)
+        Count next variants with inner while (9, 8, etc)
+        Multiply all this with sub_count
+        Add sub_count to count
+        Return count
+        """
+        if n == 0:
+            return 1
+
+        count, i = 10, 1
+
+        while i < n:
+            sub_count, variants = 9, 9
+            j = i
+            while j != 0:
+                sub_count *= variants
+                variants -= 1
+                j -= 1
+
+            count += sub_count
+            i += 1
+
+        return count
 
     # id412
     def fizzBuzz(self, n: int) -> List[str]:
@@ -168,6 +297,56 @@ class Solution:
                     result.append('Buzz')
                 else:
                     result.append(str(i))
+
+        return result
+
+    # id504
+    def convertToBase7(self, num: int) -> str:
+        """
+        If num equal 0 -> return 0
+        If num negative -> return - with inverse num result
+        While num not equal 0:
+        Append last digit (divide by 7) to chars
+        Divide num by 7
+        Join all chars in reversed order to string
+        """
+        if num == 0:
+            return '0'
+
+        if num < 0:
+            return '-' + self.convertToBase7(-num)
+
+        chars = []
+
+        while num != 0:
+            chars.append(str(num % 7))
+            num //= 7
+
+        return ''.join(reversed(chars))
+
+    # id650 _DynamicProgramming
+    def minSteps(self, n: int) -> int:
+        """
+        Iterate till sqrt(n):
+        While n divisible by i:
+        Add to result i (1 operation for copy and i - 1 for inserting copies)
+        Divide n by i
+        Increment next i
+        Since one factor can be behind sqrt(n) (i.e. n not equal 1) ->
+            Add to result n (1 operation for copy and n - 1 for inserting A)
+        Return result
+        """
+        result, i = 0, 2
+
+        while i * i <= n:
+            while n % i == 0:
+                result += i
+                n //= i
+
+            i += 1
+
+        if n != 1:
+            result += n
 
         return result
 

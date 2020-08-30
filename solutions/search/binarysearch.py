@@ -37,6 +37,57 @@ class Solution:
 
         return -1
 
+    # id34 _Array _BinarySearch
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        """
+        Search by binary search for first appearance in outer while
+        If target first found ->
+            Save it as first and last appearance
+            Do binary search to left for first appearance
+            Do binary search to right for last appearance
+        Return first and last appearances
+        """
+        left, right = 0, len(nums) - 1
+        first, last = -1, -1
+
+        while left <= right:
+            mid = (left + right) // 2
+
+            if nums[mid] == target:
+                last = mid
+                first = mid
+
+                left_mid = mid
+
+                while left <= left_mid:
+                    first_mid = (left + left_mid) // 2
+
+                    if nums[first_mid] == target:
+                        first = first_mid
+                        left_mid = first_mid - 1
+                    else:
+                        left = first_mid + 1
+
+                right_mid = mid
+
+                while right_mid <= right:
+                    last_mid = (right_mid + right) // 2
+
+                    if nums[last_mid] == target:
+                        last = last_mid
+                        right_mid = last_mid + 1
+                    else:
+                        right = last_mid - 1
+
+                break
+
+            elif nums[mid] > target:
+                right = mid - 1
+            else:
+                left = mid + 1
+
+        return [first, last]
+
     # id69 _Math _BinarySearch
     def mySqrt(self, x: int) -> int:
         """
@@ -63,6 +114,34 @@ class Solution:
                 right = mid - 1
 
         return 0
+
+    # id74 _Array _BinarySearch
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        """
+        Since matrix has following conditions, it is list in form of matrix
+        Do binary search but to converting i, j coordinates to one number and vice-versa
+        If number equal target -> return True
+        Otherwise -> shift to left or right
+        Return False
+        """
+        x = len(matrix)
+        y = len(matrix[0]) if x > 0 else 0
+        left, right = 0, x * y - 1
+
+        while left <= right:
+            mid = (left + right) // 2
+
+            i, j = mid // y, mid % y
+
+            if matrix[i][j] == target:
+                return True
+
+            if matrix[i][j] > target:
+                right = mid - 1
+            else:
+                left = mid + 1
+
+        return False
 
     # id153 _Array _BinarySearch
     def findMin(self, nums: List[int]) -> int:
@@ -109,7 +188,32 @@ class Solution:
 
         return left
 
+    # id287 _Array _TwoPointers _BinarySearch
+    def findDuplicate(self, nums: List[int]) -> int:
+        """
+        Sort nums for binary search
+        For middle number
+        If one of the neighbours are equal with number -> return it
+        If number greater or equal to its index (+1) -> no duplicates from left (consider right half)
+        Otherwise -> no duplicates from right (consider left half)
+        """
+        left, right = 0, len(nums) - 1
+
+        nums.sort()
+
+        while left < right:
+            mid = (left + right) // 2
+
+            if nums[mid - 1] == nums[mid] or nums[mid] == nums[mid + 1]:
+                return nums[mid]
+
+            if nums[mid] >= mid + 1:
+                left = mid + 1
+            else:
+                right = mid - 1
+
     # id367 _Math _BinarySearch
+    # Todo: see math
     def isPerfectSquare(self, num: int) -> bool:
         """
         Use Binary search from 0 to half of num
