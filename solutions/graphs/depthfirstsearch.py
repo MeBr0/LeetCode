@@ -5,6 +5,20 @@ from utils import TreeNode
 
 # noinspection PyShadowingBuiltins,PyPep8Naming,PyMethodMayBeStatic
 class Solution:
+    # id94 _HashTable _Stack _Tree
+    def inorderTraversal(self, root: TreeNode) -> List[int]:
+        return self._inorderTraversal(root)
+
+    def _inorderTraversal(self, node: TreeNode) -> List[int]:
+        if node is None:
+            return []
+
+        order.extend(self._inorderTraversal(node.left))
+        order.append(node.val)
+        order.extend(self._inorderTraversal(node.right))
+
+        return order
+
     # id98 _Tree _DepthFirstSearch
     def isValidBST(self, root: TreeNode) -> bool:
         """
@@ -220,6 +234,91 @@ class Solution:
 
         return left_result + right_result
 
+    # id130 _DepthFirstSearch _BreadthFirstSearch _UnionFind
+    def solve(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+
+        With dfs function visit all nodes connected with borders (go dfs from borders nodes and mark them as visited)
+        Next, for other nodes go dfs and then flip them to X (since all union related with borders already marked
+            and not included in current dfs runs)
+        """
+        if len(board) == 0:
+            return
+
+        visited = [[False for _ in row] for row in board]
+
+        for i in range(len(board)):
+            if self._solveCheck(i, 0, visited, board):
+                self._solve(i, 0, visited, board, False)
+            if self._solveCheck(i, len(board[0]) - 1, visited, board):
+                self._solve(i, len(board[0]) - 1, visited, board, False)
+
+        for j in range(len(board[0])):
+            if self._solveCheck(0, j, visited, board):
+                self._solve(0, j, visited, board, False)
+            if self._solveCheck(len(board) - 1, j, visited, board):
+                self._solve(len(board) - 1, j, visited, board, False)
+
+        for i in range(1, len(board) - 1):
+            for j in range(1, len(board[0]) - 1):
+                if self._solveCheck(i, j, visited, board):
+                    self._solve(i, j, visited, board, True)
+
+    def _solve(self, i: int, j: int, visited: List[List[bool]], board: List[List[str]], mode: bool) -> None:
+        visited[i][j] = True
+
+        if mode:
+            board[i][j] = 'X'
+
+        if self._solveCheckRange(i + 1, j, visited, board):
+            self._solve(i + 1, j, visited, board, mode)
+
+        if self._solveCheckRange(i - 1, j, visited, board):
+            self._solve(i - 1, j, visited, board, mode)
+
+        if self._solveCheckRange(i, j + 1, visited, board):
+            self._solve(i, j + 1, visited, board, mode)
+
+        if self._solveCheckRange(i, j - 1, visited, board):
+            self._solve(i, j - 1, visited, board, mode)
+
+    def _solveCheckRange(self, i: int, j: int, visited: List[List[bool]], board: List[List[str]]):
+        return -1 < i < len(board) and -1 < j < len(board[0]) and self._solveCheck(i, j, visited, board)
+
+    def _solveCheck(self, i: int, j: int, visited: List[List[bool]], board: List[List[str]]):
+        return not visited[i][j] and board[i][j] == 'O'
+
+    # id144 _Stack _Tree
+    def preorderTraversal(self, root: TreeNode) -> List[int]:
+        return self._preorderTraversal(root)
+
+    def _preorderTraversal(self, node: TreeNode) -> List[int]:
+        if node is None:
+            return []
+
+        order = [node.val]
+        order.extend(self._preorderTraversal(node.left))
+        order.extend(self._preorderTraversal(node.right))
+
+        return order
+
+    # id145 _Stack _Tree
+    def postorderTraversal(self, root: TreeNode) -> List[int]:
+        return self._postorderTraversal(root)
+
+    def _postorderTraversal(self, node: TreeNode) -> List[int]:
+        if node is None:
+            return []
+
+        order = []
+
+        order.extend(self._postorderTraversal(node.left))
+        order.extend(self._postorderTraversal(node.right))
+        order.append(node.val)
+
+        return order
+
     # id200 _DepthFirstSearch _BreadthFirstSearch _UnionFind
     def numIslands(self, grid: List[List[str]]) -> int:
         """
@@ -260,6 +359,66 @@ class Solution:
     def _numIslandsCheck(self, grid: List[List[str]], used: List[List[bool]], i: int, j: int) -> bool:
         return -1 < i < len(grid) and -1 < j < len(grid[0]) and not used[i][j] and grid[i][j] == '1'
 
+    # id207 _DepthFirstSearch _BreadthFirstSearch _Graph _TopologicalSort
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        """
+        Create for each node visited list (0 not visited, 1 visiting, 2 visited)
+        Transform edge list prerequisites to adjacency list
+        Iterate over courses:
+        If node not visited ->
+            If dfs function return False (there is cycle) -> return False
+        If no cycle found -> return True
+        """
+        visited = [0 for _ in range(numCourses)]
+        adjacency_list = [[] for _ in range(10002)]
+
+        for edge in prerequisites:
+            adjacency_list[edge[0]].append(edge[1])
+
+        for i in range(numCourses):
+            if visited[i] == 0:
+                if not self._canFinish(numCourses, adjacency_list, visited, i):
+                    return False
+
+        return True
+
+    def _canFinish(self, numCourses: int, adjacency_list: List[List[int]], visited: List[int], current: int) -> bool:
+        """
+        Mark node as visiting
+        For every node which adjacent to current one:
+        If node is visiting (there is cycle) -> return False
+        Elif node not visited ->
+            If dfs function return False -> return False
+        Mark node as visited
+        Return True
+        """
+        visited[current] = 1
+
+        for node in adjacency_list[current]:
+            if visited[node] == 1:
+                return False
+            elif visited[node] == 0:
+                if not self._canFinish(numCourses, adjacency_list, visited, node):
+                    return False
+
+        visited[current] = 2
+
+        return True
+
+    # id226 _Tree
+    def invertTree(self, root: TreeNode) -> TreeNode:
+        self._invertTree(root)
+        return root
+
+    def _invertTree(self, node: TreeNode):
+        if node is None:
+            return
+
+        self._invertTree(node.left)
+        self._invertTree(node.right)
+
+        node.left, node.right = node.right, node.left
+
     # id257 _Tree _DepthFirstSearch
     def binaryTreePaths(self, root: TreeNode) -> List[str]:
         """
@@ -291,6 +450,31 @@ class Solution:
         left_result.extend(right_result)
 
         return left_result
+
+    # id230 _BinarySearch _Tree
+    def kthSmallest(self, root: TreeNode, k: int) -> int:
+        return self._kthSmallest(root, k, [0])[1]
+
+    def _kthSmallest(self, node: TreeNode, k: int, level: List[int]) -> int:
+        if node is None:
+            return 0
+
+        left = self._kthSmallest(node.left, k, level)
+
+        if level[0] == k:
+            return left
+
+        level[0] += 1
+
+        if level[0] == k:
+            return node.val
+
+        right = self._kthSmallest(node.right, k, level)
+
+        if level[0] == k:
+            return right
+
+        return level[0]
 
     # id463 _HashTable
     # Todo: see ht

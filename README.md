@@ -6,9 +6,9 @@ written on python3
 
 ## Solutions
 
-**Unique:** **153**
+**Unique:** **164**
 
-**Total:** **160**
+**Total:** **173**
 
 ## Navigation
 
@@ -27,7 +27,7 @@ divided by main sections
     * [maps](solutions/maps) - hash tables
     * [search](solutions/search) - binary search
     * [sort](solutions/sort) - sorts
-    * [trees](solutions/trees) - dfs & bfs
+    * [graphs](solutions/graphs) - dfs & bfs & trees
 * [utils](utils)
     * [lists](utils/lists.py) - ListNode class
     * [trees](utils/trees.py) - TreeNode class
