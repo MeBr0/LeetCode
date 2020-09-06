@@ -1,6 +1,6 @@
 from typing import List
 
-from utils import TreeNode
+from utils import TreeNode, Node
 
 
 # noinspection PyShadowingBuiltins,PyPep8Naming,PyMethodMayBeStatic
@@ -170,6 +170,50 @@ class Solution:
         left_result.extend(right_result)
 
         return left_result
+
+    # id116 _Tree _DepthFirstSearch
+    def connect(self, root: 'Node') -> 'Node':
+        """
+        Index of root is 1
+        Return mutated root
+        """
+        self._connect(root, 1, {})
+
+        return root
+
+    def _connect(self, node: 'Node', index: int, nodes: dict):
+        """
+        If node is child of leaf -> return
+        Start from right nodes (index 2 * x + 1, like heap)
+        If current index not right most node (check by index is not 2 ** n - 1) -> link next with next node in nodes
+        Register node in nodes with index
+        End with left nodes (index 2 * x, like heap)
+        """
+        if node is None:
+            return
+
+        self._connect(node.right, index * 2 + 1, nodes)
+
+        if not self._connectDegree(index):
+            node.next = nodes[index + 1]
+
+        nodes[index] = node
+
+        self._connect(node.left, index * 2, nodes)
+
+    def _connectDegree(self, index: int) -> bool:
+        """
+        Check whether index matches formula 2 ** n - 1
+        """
+        index += 1
+
+        while index != 1:
+            if index % 2 == 0:
+                index //= 2
+            else:
+                return False
+
+        return True
 
     # id124 _Tree _DepthFirstSearch
     # Todo: think about class field, not list
@@ -476,6 +520,56 @@ class Solution:
 
         return level[0]
 
+    # id450 _Tree
+    # Todo: doing
+    def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
+        dummy = root
+
+        self._deleteNode(dummy, key)
+
+        return root
+
+    def _deleteNode(self, node: TreeNode, key: int):
+        if node.left is not None:
+            if node.left.val == key:
+                if node.left.left is not None:
+                    if node.left.right is not None:
+                        node.left.val = self._deleteNodeFind(node.left.right)
+                    else:
+                        node.left = node.left.left
+                else:
+                    if node.left.right is not None:
+                        node.left = node.left.right
+                    else:
+                        node.left = None
+            else:
+                self._deleteNode(node.left, key)
+
+        if node.right is not None:
+            if node.right.val == key:
+                if node.right.left is not None:
+                    if node.right.right is not None:
+                        node.right.val = self._deleteNodeFind(node.left.right)
+                    else:
+                        node.right = node.left.left
+                else:
+                    if node.left.right is not None:
+                        node.right = node.right.right
+                    else:
+                        node.right = None
+            else:
+                self._deleteNode(node.right, key)
+
+    def _deleteNodeFind(self, node: TreeNode):
+        while node.left is not None and node.left.left is not None:
+            node.left = node.left.left
+
+        value = node.left.val
+
+        node.left = None
+
+        return value
+
     # id463 _HashTable
     # Todo: see ht
     # Todo: write solution
@@ -575,6 +669,28 @@ class Solution:
             if M[index][i] == 1:
                 if not visited[i]:
                     self._findCircleNum(M, visited, i)
+
+    # id563 _Tree
+    def findTilt(self, root: TreeNode) -> int:
+        """
+        Launch dfs from root
+        Return second element (sum of tilts)
+        """
+        return self._findTilt(root)[1]
+
+    def _findTilt(self, node: TreeNode) -> (int, int):
+        """
+        If node is child of leaf -> return 0 (sum of children values) and 0 (sum of tilts)
+        Launch dfs from left and right children
+        Return sum of values and sum of tilts (current and previous)
+        """
+        if node is None:
+            return 0, 0
+
+        left = self._findTilt(node.left)
+        right = self._findTilt(node.right)
+
+        return left[0] + right[0] + node.val, left[1] + right[1] + abs(left[0] - right[0])
 
     # id841 _DepthFirstSearch _Tree
     # Todo: see alternative for count

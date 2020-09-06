@@ -2,22 +2,17 @@ from solutions.advanced import DynamicProgramming, Greedy, TwoPointers, NumArray
     BackTracking
 from solutions.base import Math, String, Array
 from solutions.bits import BitManipulation
-from solutions.design import MyStack, MinStack, RandomPicker, MedianFinder
+from solutions.design import MyStack, MinStack, RandomPicker, MedianFinder, Codec
 from solutions.graphs import Dfs, Bfs, TopologicalSort
 from solutions.lists import LinkedList, Stack
 from solutions.maps import HashTable
 from solutions.search import BinarySearch
 from solutions.sort import Sorts
-from utils import ListNode, TreeNode
+from utils import ListNode, TreeNode, Node
 
 
 def main():
-    root = TreeNode(3)
-    root.left = TreeNode(1)
-    root.right = TreeNode(4)
-    root.left.right = TreeNode(2)
-    print(Dfs().kthSmallest(root, 1
-))
+    pass
 
 
 def _import():
@@ -43,6 +38,7 @@ def _import():
     MinStack()
     RandomPicker([])
     MedianFinder()
+    Codec()
 
     # Lists
     LinkedList()
@@ -65,6 +61,7 @@ def _import():
     # Utils
     ListNode()
     TreeNode()
+    Node()
 
 
 if __name__ == '__main__':
