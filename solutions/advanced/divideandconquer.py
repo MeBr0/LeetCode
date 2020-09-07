@@ -3,10 +3,10 @@ from typing import List
 from utils import ListNode
 
 
+# noinspection PyTypeChecker
 class Solution:
     # id23 _LinkedList _DivideAndConquer _Heap
     # Todo: see heap
-    # noinspection PyTypeChecker
     def mergeKLists(self, lists: List[ListNode]) -> ListNode:
         """
         Each time divide list by two and merge them

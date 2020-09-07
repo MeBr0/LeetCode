@@ -328,29 +328,34 @@ class Solution:
     # id680 _String
     def validPalindrome(self, s: str) -> bool:
         """
-        While left less than right (i.e. two pointers from start and end):
-        If characters equal -> next iteration
-        Otherwise -> check for valid palindrome two substrings without left and right characters
-        If left from while -> return True
+        While left less than right ->
+            If characters not equal ->
+                Return whether one valid palindrome of two substrings without left or right characters
+            Move pointers nearer
+        Return true (s already palindrome)
         """
+        def check(i: int, j: int) -> bool:
+            """
+            Check whether substring of s between i and j is palindrome
+            Compare pairs from begin and end
+            """
+            length = j + i
+
+            while i < length / 2:
+                if s[i] != s[length - 1 - i]:
+                    return False
+
+                i += 1
+
+            return True
+
         left, right = 0, len(s) - 1
 
         while left < right:
-            if s[left] == s[right]:
-                left += 1
-                right -= 1
-            else:
-                return self._validPalindrome(s[left: right]) or self._validPalindrome(s[left + 1: right + 1])
+            if s[left] != s[right]:
+                return check(left, right) or check(left + 1, right + 1)
 
-        return True
-
-    def _validPalindrome(self, string: str) -> bool:
-        i, size = 0, len(string)
-
-        while i < size / 2:
-            if string[i] != string[size - 1 - i]:
-                return False
-
-            i += 1
+            left += 1
+            right -= 1
 
         return True

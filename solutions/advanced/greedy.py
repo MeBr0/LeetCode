@@ -8,21 +8,23 @@ class Solution:
     def lemonadeChange(self, bills: List[int]) -> bool:
         """
         Create dictionary with count of bills
-        For every bill in bills:
-        Add bill to dict money
-        Calculate change
-        Count how many 10-bill can be constructed from change
-        If enough in money -> remove that count from money and take away it from change
-        Count how many 5-bill can be constructed from change
-        If enough in money -> remove that count from money and take away it from change
-        If change is zero -> change can be given
-        Otherwise -> cannot
-        If change cannot be given -> return False
-        If all bills can be given change -> return True
+        For every bill in bills ->
+            If change cannot be given -> return false
+        Return true (all bills can be given change)
         """
         money, price = {5: 0, 10: 0, 20: 0}, 5
 
         def get_change(bill: int):
+            """
+            Add bill to dict money
+            Calculate change
+            Count how many 10-bill can be constructed from change
+            If enough in money -> remove that count from money and take away it from change
+            Count how many 5-bill can be constructed from change
+            If enough in money -> remove that count from money and take away it from change
+            If change is zero -> change can be given
+            Otherwise -> cannot
+            """
             money[bill] += 1
             change = bill - price
 
