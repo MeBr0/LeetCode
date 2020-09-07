@@ -251,6 +251,41 @@ class Solution:
     def _solveCheck(self, i: int, j: int, visited: List[List[bool]], board: List[List[str]]):
         return not visited[i][j] and board[i][j] == 'O'
 
+    # id199 _Tree _DepthFirstSearch _BreadthFirstSearch
+    def rightSideView(self, root: TreeNode) -> List[int]:
+        """
+        Init queue for bfs
+        For every level of tree (with inner for loop) update value as right_most
+        After leaving level -> append to result
+        Return result
+        """
+        from collections import deque
+
+        queue = deque()
+
+        if root:
+            queue.append(root)
+
+        result = []
+
+        while queue:
+            right_most = -1
+
+            for _ in range(len(queue)):
+                node = queue.popleft()
+
+                right_most = node.val
+
+                if node.left:
+                    queue.append(node.left)
+
+                if node.right:
+                    queue.append(node.right)
+
+            result.append(right_most)
+
+        return result
+
     # id200 _DepthFirstSearch _BreadthFirstSearch _UnionFind
     def numIslands(self, grid: List[List[str]]) -> int:
         """

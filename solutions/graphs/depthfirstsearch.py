@@ -3,7 +3,7 @@ from typing import List
 from utils import TreeNode, Node
 
 
-# noinspection PyShadowingBuiltins,PyPep8Naming,PyMethodMayBeStatic
+# noinspection PyShadowingBuiltins,PyPep8Naming,PyMethodMayBeStatic,PyTypeChecker
 class Solution:
     # id94 _HashTable _Stack _Tree
     def inorderTraversal(self, root: TreeNode) -> List[int]:
@@ -89,6 +89,79 @@ class Solution:
             return 0
 
         return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
+
+    # id105 _Array _Tree _DepthFirstSearch
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
+        """
+        Create dict with indices of element in preorder (first) and inorder (second)
+        Return root node from whole list preorder
+        """
+        from collections import defaultdict
+        indices = {}
+        indices = defaultdict(lambda: [-1, -1], indices)
+
+        for i in range(len(preorder)):
+            indices[preorder[i]][0] = i
+            indices[inorder[i]][1] = i
+
+        def node_from_preorder(p_i: int, p_j: int) -> TreeNode:
+            """
+            p_i and p_j is left and right bounds for preorder list
+            If bounds not valid (list not empty) -> return null
+            Create node from left element in preorder
+            With binary search search for first element which index in inorder is greater than node's
+            Link node created with bounds p_i + 1 (miss first element) and left as left child
+            Link node created with bound left and p_j as right child
+            Return node
+            """
+            if p_i >= p_j:
+                return None
+
+            node = TreeNode(preorder[p_i])
+
+            left, right = p_i + 1, p_j - 1
+
+            while left <= right:
+                mid = (left + right) // 2
+
+                if indices[preorder[mid]][1] > indices[node.val][1]:
+                    right = mid - 1
+                else:
+                    left = mid + 1
+
+            node.left = node_from_preorder(p_i + 1, left)
+            node.right = node_from_preorder(left, p_j)
+
+            return node
+
+        return node_from_preorder(0, len(preorder))
+
+    # id108 _Tree _DepthFirstSearch
+    def sortedArrayToBST(self, nums: List[int]) -> TreeNode:
+        """
+        Return root create from nums list
+        """
+        def node_from_sorted(left: int, right: int) -> TreeNode:
+            """
+            If bounds not valid -> return null
+            Find middle element and create node from it
+            Link node created with left half as left child
+            Link node create with right half as right child
+            Return node
+            """
+            if left > right:
+                return None
+
+            mid = (left + right) // 2
+
+            node = TreeNode(nums[mid])
+
+            node.left = node_from_sorted(left, mid - 1)
+            node.right = node_from_sorted(mid + 1, right)
+
+            return node
+
+        return node_from_sorted(0, len(nums) - 1)
 
     int_max = 10000000000
 
@@ -463,6 +536,42 @@ class Solution:
 
         node.left, node.right = node.right, node.left
 
+    # id235 _Tree
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        """
+        Fill p_path and q_path with get_path
+        Iterate for both path until first non-match
+        Return last matched node
+        """
+        p_path, q_path = [], []
+
+        def get_path(node: TreeNode, target: TreeNode, path: List[TreeNode]) -> None:
+            """
+            Append current node to path
+            If target found -> return
+            If node value greater than target -> dfs for left child
+            Otherwise -> dfs for right child
+            """
+            path.append(node)
+
+            if node.val == target.val:
+                return
+
+            if node.val > target.val:
+                get_path(node.left, target, path)
+            else:
+                get_path(node.right, target, path)
+
+        get_path(root, p, p_path)
+        get_path(root, q, q_path)
+
+        i = 0
+
+        while i < len(p_path) and i < len(q_path) and p_path[i] == q_path[i]:
+            i += 1
+
+        return p_path[i - 1]
+
     # id257 _Tree _DepthFirstSearch
     def binaryTreePaths(self, root: TreeNode) -> List[str]:
         """
@@ -521,54 +630,44 @@ class Solution:
         return level[0]
 
     # id450 _Tree
-    # Todo: doing
     def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
-        dummy = root
+        """
+        If root value must be deleted ->
+            If right child is null -> return left one
+            If left child is null -> return right one
+            Otherwise ->
+                Go one child right and maximum to the left (finding next larger value in tree)
+                After node with value found
+                Mark root value with found value
+                And delete in right subtree founded (original value)
+        If root value greater than key -> delete in left subtree
+        Otherwise -> delete in right subtree
+        """
+        if not root:
+            return None
 
-        self._deleteNode(dummy, key)
+        if root.val == key:
+            if not root.right:
+                return root.left
+
+            if not root.left:
+                return root.right
+
+            if root.left and root.right:
+                large = root.right
+
+                while large.left:
+                    large = large.left
+
+                root.val = large.val
+                root.right = self.deleteNode(root.right, root.val)
+
+        elif root.val > key:
+            root.left = self.deleteNode(root.left, key)
+        else:
+            root.right = self.deleteNode(root.right, key)
 
         return root
-
-    def _deleteNode(self, node: TreeNode, key: int):
-        if node.left is not None:
-            if node.left.val == key:
-                if node.left.left is not None:
-                    if node.left.right is not None:
-                        node.left.val = self._deleteNodeFind(node.left.right)
-                    else:
-                        node.left = node.left.left
-                else:
-                    if node.left.right is not None:
-                        node.left = node.left.right
-                    else:
-                        node.left = None
-            else:
-                self._deleteNode(node.left, key)
-
-        if node.right is not None:
-            if node.right.val == key:
-                if node.right.left is not None:
-                    if node.right.right is not None:
-                        node.right.val = self._deleteNodeFind(node.left.right)
-                    else:
-                        node.right = node.left.left
-                else:
-                    if node.left.right is not None:
-                        node.right = node.right.right
-                    else:
-                        node.right = None
-            else:
-                self._deleteNode(node.right, key)
-
-    def _deleteNodeFind(self, node: TreeNode):
-        while node.left is not None and node.left.left is not None:
-            node.left = node.left.left
-
-        value = node.left.val
-
-        node.left = None
-
-        return value
 
     # id463 _HashTable
     # Todo: see ht
@@ -643,6 +742,32 @@ class Solution:
 
         return count
 
+    # id543 _Tree
+    def diameterOfBinaryTree(self, root: TreeNode) -> int:
+        """
+        If root is null -> return 0
+        Return decremented diameter of tree (diameter is number of edges in path)
+        """
+        if not root:
+            return 0
+
+        def height_and_diameter(node: TreeNode) -> (int, int):
+            """
+            If node is null -> return 0 (height) and -1 (diameter)
+            Find left and right child results
+            Return height (incremented maximum of both children) and
+                diameter (maximum of diameter of two children and current node diameter)
+            """
+            if not node:
+                return 0, -1
+
+            left = height_and_diameter(node.left)
+            right = height_and_diameter(node.right)
+
+            return max(left[0], right[0]) + 1, max(left[1], right[1], left[0] + 1 + right[0])
+
+        return height_and_diameter(root)[1] - 1
+
     # id547 _DepthFirstSearch _UnionFind
     def findCircleNum(self, M: List[List[int]]) -> int:
         """
@@ -691,6 +816,34 @@ class Solution:
         right = self._findTilt(node.right)
 
         return left[0] + right[0] + node.val, left[1] + right[1] + abs(left[0] - right[0])
+
+    # id617 _Tree
+    def mergeTrees(self, t1: TreeNode, t2: TreeNode) -> TreeNode:
+        """
+        Return merged two trees
+        """
+        def merge(first: TreeNode, second: TreeNode) -> TreeNode:
+            """
+            If both node not null -> update first node values with second node
+            If only first not null -> stay first
+            If only second not null -> init first with values of second
+            Otherwise -> return null
+            Return (updated) first
+            """
+            if first:
+                if second:
+                    first.val += second.left
+                    first.left = merge(first.left, second.left)
+                    first.right = merge(first.right, second.right)
+            else:
+                if second:
+                    first = TreeNode(second.val)
+                    first.left = merge(None, second.left)
+                    first.right = merge(None, second.right)
+
+            return first
+
+        return merge(t1, t2)
 
     # id841 _DepthFirstSearch _Tree
     # Todo: see alternative for count
