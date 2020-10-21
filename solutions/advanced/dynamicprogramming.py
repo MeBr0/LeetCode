@@ -1,7 +1,7 @@
 from typing import List
 
 
-# noinspection PyMethodMayBeStatic,PyRedeclaration
+# noinspection PyMethodMayBeStatic,PyRedeclaration,PyPep8Naming
 class Solution:
     # id53 _Array _DynamicProgramming _DivideAndConquer
     # Todo: see dp, d&c
@@ -73,6 +73,140 @@ class Solution:
             dp.append(dp[i - 1] + dp[i - 2])
 
         return dp[n]
+
+    # id91 _String _DynamicProgramming
+    def numDecodings(self, s: str) -> int:
+        """
+        Check for special cases
+        Create dp[0] as dummy value
+        Let dp[i] is number of decodings finished at i-th index
+        Then dp[1] = 1
+        For each next dp ->
+            If current char is valid decoding ->
+                dp[i] includes all decodings from dp[i-1]
+
+                If last two chars is valid decoding ->
+                    dp[i] includes all decoding from dp[i-2]
+            Else ->
+                If last two chars is valid decoding ->
+                    dp[i] includes all decoding from dp[i-2]
+                Else ->
+                    dp[i] = 0 (not valid decoding)
+        Return dp[len(s)] as result
+        """
+        if s[0] == '0':
+            return 0
+
+        if len(s) < 2:
+            return 1
+
+        def valid(code: str) -> bool:
+            """
+            Check whether string is valid decoding
+            """
+            code_len = len(code)
+
+            if code_len == 1:
+                return code[0] != '0'
+            elif code_len == 2:
+                if code[0] == '0':
+                    return False
+                elif code[0] == '1':
+                    return True
+                elif code[0] == '2':
+                    return code[1] <= '6'
+                else:
+                    return False
+            else:
+                return False
+
+        dp = [1 for _ in range(len(s) + 1)]
+
+        for i in range(2, len(s) + 1):
+            if valid(s[i - 1]):
+                dp[i] = dp[i - 1]
+
+                if valid(s[i - 2:i]):
+                    dp[i] += dp[i - 2]
+            else:
+                dp[i] = dp[i - 2]
+
+                if not valid(s[i - 2:i]):
+                    dp[i] = 0
+
+        return dp[len(s)]
+
+    # id139 _DynamicProgramming
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        """
+        Let dp[i] whether can be broken prefix from 0 to i
+        Then dp[0] is True (empty string)
+        For each dp ->
+            For each word ->
+                If word is postfix in i-th and before postfix word is breakable ->
+                    dp[i] = True
+        Return dp[-1] as result for whole string
+        """
+        dp = [True] + [False for _ in s]
+
+        def is_substr(target: str, end: int) -> bool:
+            """
+            Check whether target and s from
+            (begin to end, same size as target) is equal
+            """
+            if end - len(target) - 1 < -1:
+                return False
+
+            delta = end - len(target)
+            j = 0
+
+            while j < len(target):
+                if s[j + delta] != target[j]:
+                    return False
+
+                j += 1
+
+            return True
+
+        for i in range(len(s)):
+            for word in wordDict:
+                if is_substr(word, i + 1) and dp[i - len(word) + 1]:
+                    dp[i + 1] = True
+
+        return dp[-1]
+
+    # id198 _DynamicProgramming
+    def rob(self, nums: List[int]) -> int:
+        """
+        Check for special cases
+        Let dp[i] - maximum amount of money from robbing from 0 to i-th houses
+        Then dp[0] = nums[0], dp[1] = nums[1], dp[2] = nums[0] + nums[2]
+        For each next dp ->
+            dp[i] is nums[i] with maximum amount frm rubbing
+            either i-2 or i-3 houses
+        Return maximum of last two elements
+        """
+        nums_len = len(nums)
+
+        if nums_len == 0:
+            return 0
+
+        if nums_len <= 2:
+            return max(nums)
+
+        if nums_len == 3:
+            return max(nums[1], nums[0] + nums[2])
+
+        dp = [0 for _ in nums]
+
+        dp[0] = nums[0]
+        dp[1] = nums[1]
+        dp[2] = dp[0] + nums[2]
+
+        for i in range(3, len(nums)):
+            dp[i] = nums[i] + max(dp[i - 2], dp[i - 3])
+
+        return max(dp[-1], dp[-2])
 
     # id300 _BinarySearch _DynamicProgramming
     def lengthOfLIS(self, nums: List[int]) -> int:
@@ -171,6 +305,56 @@ class Solution:
 
         return -1 if dp[-1] == 10 ** 9 else dp[-1]
 
+    # id329 _DepthFirstSearch _TopologicalSort _Memoization
+    def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
+        """
+        Let dp[i][j] is longest increasing path ending in (i, j)
+        Not counted dp[i][j] = -1 (marked as not used or calculated)
+        For each row ->
+            For each number ->
+                Calculate dp[i][j] as incremented maximum of neighbour's dp
+        Return maximum in dp
+        """
+        if len(matrix) == 0:
+            return 0
+
+        dp = [[-1 for _ in row] for row in matrix]
+
+        def calculate(x: int, y: int):
+            """
+            If dp[x][y] already calculated -> return it
+            For each neighbour ->
+                If bounds valid and neighbour is less than current value ->
+                    Save maximum of such values in adjacent
+            Save in dp and return it
+            """
+            if dp[x][y] != -1:
+                return dp[x][y]
+
+            adjacent = 0
+
+            directions = ((0, 1), (0, -1), (1, 0), (-1, 0))
+
+            for direction in directions:
+                dx = x + direction[0]
+                dy = y + direction[1]
+
+                if -1 < dx < len(matrix) and -1 < dy < len(matrix[0]):
+                    if matrix[x][y] > matrix[dx][dy]:
+                        adjacent = max(adjacent, calculate(dx, dy))
+
+            dp[x][y] = adjacent + 1
+
+            return dp[x][y]
+
+        maxi = -1
+
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                maxi = max(calculate(i, j), maxi)
+
+        return maxi
+
     # id416 _DynamicProgramming
     # Todo: see faster solutions
     # Todo: write solution
@@ -195,6 +379,40 @@ class Solution:
                     dp[i][j] = dp[i - 1][j] or dp[i - 1][j - nums[i - 1]]
 
         return dp[-1][-1]
+
+    # id486 _DynamicProgramming _Minimax
+    def PredictTheWinner(self, nums: List[int]) -> bool:
+        """
+        Let dp[l][r] - score difference between players between l-th and r-th
+        Return dp[0][-1]
+        """
+        dp = [[0 for _ in nums] for _ in nums]
+
+        def winner(left: int, right: int):
+            """
+            If left == right ->
+                Return nums[left] itself
+            If dp[left][right] calculated ->
+                Return it
+            Calculate left and right result
+            from dp[left+1][right] and dp[left][right-1]
+            Update dp[left][right] as maximum of them
+            Return dp[left][right]
+            """
+            if left == right:
+                return nums[left]
+
+            if dp[left][right]:
+                return dp[left][right]
+
+            left_result = nums[left] - winner(left + 1, right)
+            right_result = nums[right] - winner(left, right - 1)
+
+            dp[left][right] = max(left_result, right_result)
+
+            return dp[left][right]
+
+        return winner(0, len(nums) - 1) >= 0
 
     # id518
     def change(self, amount: int, coins: List[int]) -> int:
