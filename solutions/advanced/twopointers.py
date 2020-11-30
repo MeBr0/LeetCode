@@ -33,6 +33,100 @@ class Solution:
 
         return _max
 
+    # id11 _Array _TwoPointers
+    def maxArea(self, height: List[int]) -> int:
+        """
+        Calculate area as minimum of height[left] and height[right] times
+        difference of right and left
+        Update area if this value is greater than current one
+        Move pointer which has less value
+        If they are equal -> move to greatest neighbour value
+        Return area
+        """
+        left, right, area = 0, len(height) - 1, 0
+
+        while left < right:
+            area = max(area, min(height[left], height[right]) * (right - left))
+
+            if height[left] < height[right]:
+                left += 1
+            elif height[left] > height[right]:
+                right -= 1
+            else:
+                if height[left + 1] > height[right - 1]:
+                    left += 1
+                else:
+                    right -= 1
+
+        return area
+
+    # id15 _Array _TwoPointers
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        """
+        Sort nums
+        Fix i-th element and solve twoSum with sorted array and value -nums[i]
+        Append each matching to sums
+        Return sums
+        """
+        sums = []
+        nums.sort()
+
+        for i in range(len(nums)):
+
+            # Get rid of duplicates with continuing same fixed element
+            if i > 0 and nums[i] == nums[i - 1]:
+                continue
+
+            left, right = i + 1, len(nums) - 1
+
+            while left < right:
+                if nums[left] + nums[right] > -nums[i]:
+                    right -= 1
+                elif nums[left] + nums[right] < -nums[i]:
+                    left += 1
+                else:
+                    result = [nums[i], nums[left], nums[right]]
+                    sums.append(result)
+
+                    left += 1
+
+                    # Get rid of duplicates with continuing same left element
+                    while nums[left] == nums[left - 1] and left < right:
+                        left += 1
+
+        return sums
+
+    # id16 _Array _TwoPointers
+    def threeSumClosest(self, nums: List[int], target: int) -> int:
+        """
+        Sort nums
+        Fix i-th element and solve twoSum with sorted array and value -nums[i]
+        If difference less than current -> update closest and difference
+        Move one of pointers
+        Return closest
+        """
+        closest, difference = None, 1 << 34
+        nums.sort()
+
+        for i in range(len(nums)):
+            left, right = i + 1, len(nums) - 1
+
+            while left < right:
+                value = nums[left] + nums[right] + nums[i]
+
+                if closest is None or difference > abs(target - value):
+                    closest = value
+                    difference = abs(target - value)
+
+                if value > target:
+                    right -= 1
+                elif value < target:
+                    left += 1
+                else:
+                    return closest
+
+        return closest
+
     # id26 _Array _TwoPointers
     def removeDuplicates(self, nums: List[int]) -> int:
         """
