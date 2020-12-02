@@ -364,6 +364,26 @@ class Solution:
         else:
             return third
 
+    # id454 _HashTable _BinarySearch
+    def fourSumCount(self, A: List[int], B: List[int], C: List[int], D: List[int]) -> int:
+        """
+        Merge four array into two arrays as pairwise sums
+        Count elements in these arrays
+        For each value in first:
+            Search negative value in second:
+                Append overall matching
+        Return result
+        """
+        first = Counter([a + b for a in A for b in B])
+        second = Counter([c + d for c in C for d in D])
+        result = 0
+
+        for num in first:
+            if -num in second:
+                result += first[num] * second[-num]
+
+        return result
+
     # id509 _Array
     # Todo: see matrix exponential and golden ratio solutions
     def fib(self, N: int) -> int:

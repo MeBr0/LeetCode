@@ -127,6 +127,51 @@ class Solution:
 
         return closest
 
+    # id18 _Array _HashTable _TwoPointers
+    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+        """
+        Sort nums
+        Fix i-th and j-th element
+        and solve twoSum with sorted array and value -nums[i]
+        Append each matching to sums
+        Return sums
+        """
+        sums = []
+        nums.sort()
+
+        for i in range(len(nums)):
+
+            # Get rid of duplicates with continuing same fixed element
+            if i > 0 and nums[i] == nums[i - 1]:
+                continue
+
+            for j in range(i + 1, len(nums)):
+
+                # Get rid of duplicates with continuing same fixed element
+                if j > i + 1 and nums[j] == nums[j - 1]:
+                    continue
+
+                left, right = j + 1, len(nums) - 1
+
+                while left < right:
+                    _sum = nums[i] + nums[j] + nums[left] + nums[right]
+
+                    if _sum > target:
+                        right -= 1
+                    elif _sum < target:
+                        left += 1
+                    else:
+                        result = [nums[i], nums[j], nums[left], nums[right]]
+                        sums.append(result)
+
+                        left += 1
+
+                        # Get rid of duplicates with continuing same left element
+                        while nums[left] == nums[left - 1] and left < right:
+                            left += 1
+
+        return sums
+
     # id26 _Array _TwoPointers
     def removeDuplicates(self, nums: List[int]) -> int:
         """
@@ -276,6 +321,37 @@ class Solution:
 
         return True
 
+    # id142 _LinkedList _TwoPointers
+    def detectCycle(self, head: ListNode) -> ListNode:
+        """
+
+        :param head:
+        :return:
+        """
+        if head is None or head.next is None:
+            return None
+
+        slow, fast, loop = head, head, False
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+            if slow == fast:
+                loop = True
+                break
+
+        if not loop:
+            return None
+
+        slow = head
+
+        while slow != fast:
+            slow = slow.next
+            fast = fast.next
+
+        return slow
+
     # id167 _Array _TwoPointers _BinarySearch
     # Todo: see bs
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
@@ -300,6 +376,28 @@ class Solution:
                 left += 1
 
         return [left + 1, right + 1]
+
+    # id209 _Array _TwoPointers _BinarySearch
+    def minSubArrayLen(self, s: int, nums: List[int]) -> int:
+        if len(nums) == 0:
+            return 0
+
+        prefix_sum = [0]
+
+        for i in range(len(nums)):
+            prefix_sum.append(prefix_sum[-1] + nums[i])
+
+        left, right = 0, 1
+        _min = len(prefix_sum) + 1
+
+        while left < right < len(prefix_sum):
+            if prefix_sum[right] - prefix_sum[left] < s:
+                right += 1
+            else:
+                _min = min(_min, right - left)
+                left += 1
+
+        return 0 if _min == len(prefix_sum) + 1 else _min
 
     # id228 _Array
     def summaryRanges(self, nums: List[int]) -> List[str]:
@@ -453,3 +551,38 @@ class Solution:
             right -= 1
 
         return True
+
+    # id1658 _TwoPointers _BinarySearch _Greedy
+    def minOperations(self, nums: List[int], x: int) -> int:
+        prefix_sum = [0]
+
+        for i in range(len(nums)):
+            prefix_sum.append(prefix_sum[-1] + nums[i])
+
+        suffix_sum = [0]
+
+        for i in range(len(nums) - 1, -1, -1):
+            suffix_sum.append(suffix_sum[-1] + nums[i])
+
+        left, right, _min = 0, len(suffix_sum) - 1, len(prefix_sum) + 1
+
+        while right > 0:
+            if prefix_sum[left] + suffix_sum[right] <= x:
+                break
+
+            right -= 1
+
+        while left < len(prefix_sum) and right > -1:
+            _sum = prefix_sum[left] + suffix_sum[right]
+
+            if left + right > len(prefix_sum):
+                right -= 1
+                continue
+            if _sum == x:
+                _min = min(_min, left + right)
+            elif _sum > x:
+                right -= 1
+            else:
+                left += 1
+
+        return -1 if _min == len(prefix_sum) + 1 else _min

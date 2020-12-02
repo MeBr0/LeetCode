@@ -228,6 +228,20 @@ class Solution:
 
         return result
 
+    # id560 _Array _HashTable
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        sums = defaultdict(int)
+        sums[0] = 1
+
+        count, _sum = 0, 0
+
+        for num in nums:
+            _sum += num
+            count += sums[_sum - k]
+            sums[_sum] += 1
+
+        return count
+
     # id599 _HashTable
     # Todo: too slow
     def findRestaurant(self, list1: List[str], list2: List[str]) -> List[str]:
