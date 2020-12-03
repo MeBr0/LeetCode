@@ -228,6 +228,24 @@ class Solution:
 
         return result
 
+    # id523 _Math _DynamicProgramming
+    def checkSubarraySum(self, nums: List[int], k: int) -> bool:
+        first, _sum = {0: -1}, 0
+
+        for i, num in enumerate(nums):
+            _sum += num
+
+            if k != 0:
+                _sum %= k
+
+            if other_sum in first:
+                if i - first[other_sum] > 1:
+                    return True
+            else:
+                first[_sum] = i
+
+        return False
+
     # id560 _Array _HashTable
     def subarraySum(self, nums: List[int], k: int) -> int:
         sums = defaultdict(int)

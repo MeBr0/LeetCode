@@ -1,7 +1,7 @@
 from typing import List
 
 
-# noinspection PyMethodMayBeStatic,DuplicatedCode
+# noinspection PyMethodMayBeStatic,DuplicatedCode,PyPep8Naming
 class Solution:
     # id7 _Math
     def reverse(self, x: int) -> int:
@@ -275,6 +275,24 @@ class Solution:
 
         return count
 
+    # id396 _Math
+    def maxRotateFunction(self, A: List[int]) -> int:
+        elements, _sum = 0, 0
+
+        for i in range(len(A)):
+            elements += A[i]
+            _sum += A[i] * i
+
+        answer = _sum
+
+        for i in range(1, len(A)):
+            _sum += A[i - 1] * (len(A) - 1) - (elements - A[i - 1])
+
+            if _sum > answer:
+                answer = _sum
+
+        return answer
+
     # id412
     def fizzBuzz(self, n: int) -> List[str]:
         """
@@ -367,6 +385,29 @@ class Solution:
             return False
 
         return True
+
+    # id949 _Math
+    def largestTimeFromDigits(self, arr: List[int]) -> str:
+        digits = ''
+        largest = -1
+
+        def get_minutes(hours: int, minutes: int) -> int:
+            if hours < 0 or hours > 23:
+                return -1
+
+            if minutes < 0 or minutes > 59:
+                return -1
+
+            return hours * 60 + minutes
+
+        for nums in permutations(arr):
+            minutes = get_minutes(nums[0] * 10 + nums[1], arnums[2] * 10 + nums[3])
+
+            if minutes > largest:
+                largest = minutes
+                digits = f'{nums[0]}{nums[1]}:{nums[2]}{nums[3]}'
+
+        return digits
 
     # id1281 _Math
     def subtractProductAndSum(self, n: int) -> int:

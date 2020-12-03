@@ -1,7 +1,7 @@
 from typing import List
 
 
-# noinspection PyMethodMayBeStatic
+# noinspection PyMethodMayBeStatic,PyPep8Naming
 class Solution:
     # id56 _Array _Sort
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
@@ -90,3 +90,25 @@ class Solution:
         nums = sorted(nums)
 
         return max(nums[0] * nums[1] * nums[-1], nums[-3] * nums[-2] * nums[-1])
+
+    # id976 _Math _Sort
+    def largestPerimeter(self, A: List[int]) -> int:
+        A.sort()
+
+        def is_valid(first: int, second: int, third: int) -> bool:
+            if first >= second + third:
+                return False
+
+            if second >= first + third:
+                return False
+
+            if third >= first + second:
+                return False
+
+            return True
+
+        for i in range(len(A) - 1, -3, -1):
+            if is_valid(A[i], A[i - 1], A[i - 2]):
+                return A[i] + A[i - 1] + A[i - 2]
+
+        return 0

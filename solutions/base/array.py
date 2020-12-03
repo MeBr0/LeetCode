@@ -413,6 +413,20 @@ class Solution:
 
         return current
 
+    # id523 _Math _DynamicProgramming
+    def checkSubarraySum(self, nums: List[int], k: int) -> bool:
+        prefix_sum = [0]
+
+        for i in range(len(nums)):
+            prefix_sum.append(prefix_sum[-1] + nums[i])
+
+        for i in range(len(prefix_sum)):
+            for j in range(i + 1, len(prefix_sum)):
+                if prefix_sum[j] - prefix_sum[i] % k == 0:
+                    return True
+
+        return False
+
     # id643 _Array
     def findMaxAverage(self, nums: List[int], k: int) -> float:
         if len(nums) < k:
