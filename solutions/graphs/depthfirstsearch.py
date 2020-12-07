@@ -911,3 +911,25 @@ class Solution:
             return left_result
         else:
             return right_result
+
+    # id1306 _DepthFirstSearch _BreadthFirstSearch _Recursion
+    def canReach(self, arr: List[int], start: int) -> bool:
+        used = [False for _ in arr]
+
+        def dfs(index: int) -> bool:
+            used[index] = True
+
+            if arr[index] == 0:
+                return True
+
+            result = False
+
+            if index + arr[index] < len(arr) and not used[index + arr[index]]:
+                result = result or dfs(index + arr[index])
+
+            if index - arr[index] > -1 and not used[index - arr[index]]:
+                result = result or dfs(index - arr[index])
+
+            return result
+
+        return dfs(start)

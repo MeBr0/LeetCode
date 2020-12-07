@@ -1,8 +1,52 @@
 from typing import List
 
 
-# noinspection PyMethodMayBeStatic
+# noinspection PyMethodMayBeStatic,PyPep8Naming
 class Solution:
+
+    # id55 _Array _Greedy
+    def canJump(self, nums: List[int]) -> bool:
+        power = nums[0]
+
+        for i in range(1, len(nums)):
+            power -= 1
+
+            if power < 0:
+                return False
+
+            if nums[i] > power:
+                power = nums[i]
+
+        return power >= 0
+
+    # id45 _Array _Greedy
+    def jump(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return 0
+
+        power = nums[0]
+        power2 = -1
+        count = 1
+
+        for i in range(1, len(nums)):
+            power -= 1
+
+            if power2 != -1:
+                power2 -= 1
+
+            if power < 0:
+                count += 1
+                power = power2
+                power2 = -1
+
+            if nums[i] > power and nums[i] > power2:
+                power2 = nums[i]
+
+        if power < 0:
+            count += 1
+
+        return count
+
     # id860 _Greedy
     # Todo: see greedy, for now stay here
     def lemonadeChange(self, bills: List[int]) -> bool:
