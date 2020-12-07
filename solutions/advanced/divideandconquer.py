@@ -3,7 +3,7 @@ from typing import List
 from utils import ListNode
 
 
-# noinspection PyTypeChecker
+# noinspection PyTypeChecker,PyPep8Naming
 class Solution:
     # id23 _LinkedList _DivideAndConquer _Heap
     # Todo: see heap

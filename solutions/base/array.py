@@ -219,23 +219,23 @@ class Solution:
         result = []
         i = 0
 
+        # Todo: check how it works (copy pasted from stackoverflow)
+        def combination(n, r):
+            import operator as op
+            from functools import reduce
+
+            r = min(r, n - r)
+
+            numerator = reduce(op.mul, range(n, n - r, -1), 1)
+            denominator = reduce(op.mul, range(1, r + 1), 1)
+
+            return numerator // denominator
+
         while i != rowIndex + 1:
-            result.append(self._combination(rowIndex, i))
+            result.append(combination(rowIndex, i))
             i += 1
 
         return result
-
-    # Todo: check how it works (copy pasted from stackoverflow)
-    def _combination(self, n, r):
-        import operator as op
-        from functools import reduce
-
-        r = min(r, n - r)
-
-        numerator = reduce(op.mul, range(n, n - r, -1), 1)
-        denominator = reduce(op.mul, range(1, r + 1), 1)
-
-        return numerator // denominator
 
     # id121 _Array _DynamicProgramming
     # Todo: see dp solution

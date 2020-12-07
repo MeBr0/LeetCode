@@ -206,50 +206,46 @@ class Solution:
 
         visited = [[False for _ in row] for row in board]
 
+        def bfs(x: int, y: int, mode: bool) -> None:
+            queue = [(x, y)]
+            visited[x][y] = True
+
+            while queue:
+                x, y = queue.pop()
+
+                if mode:
+                    board[x][y] = 'X'
+
+                pairs = ((0, 1), (0, -1), (1, 0), (-1, 0))
+
+                for pair in pairs:
+                    _x, _y = x + pair[0], y + pair[1]
+
+                    if check_range(_x, _y):
+                        bfs(_x, _y, mode)
+
+        def check_range(x: int, y: int):
+            return -1 < x < len(board) and -1 < y < len(board[0]) and check_value(x, y)
+
+        def check_value(x: int, y: int):
+            return not visited[x][y] and board[x][y] == 'O'
+
         for i in range(len(board)):
-            if self._solveCheck(i, 0, visited, board):
-                self._solve(i, 0, visited, board, False)
-            if self._solveCheck(i, len(board[0]) - 1, visited, board):
-                self._solve(i, len(board[0]) - 1, visited, board, False)
+            if check_value(i, 0):
+                bfs(i, 0, False)
+            if check_value(i, len(board[0]) - 1):
+                bfs(i, len(board[0]) - 1, False)
 
         for j in range(len(board[0])):
-            if self._solveCheck(0, j, visited, board):
-                self._solve(0, j, visited, board, False)
-            if self._solveCheck(len(board) - 1, j, visited, board):
-                self._solve(len(board) - 1, j, visited, board, False)
+            if check_value(0, j):
+                bfs(0, j, False)
+            if check_value(len(board) - 1, j):
+                bfs(len(board) - 1, j, False)
 
         for i in range(1, len(board) - 1):
             for j in range(1, len(board[0]) - 1):
-                if self._solveCheck(i, j, visited, board):
-                    self._solve(i, j, visited, board, True)
-
-    def _solve(self, i: int, j: int, visited: List[List[bool]], board: List[List[str]], mode: bool) -> None:
-        queue = [(i, j)]
-        visited[i][j] = True
-
-        while queue:
-            x, y = queue.pop()
-
-            if mode:
-                board[x][y] = 'X'
-
-            if self._solveCheckRange(x + 1, y, visited, board):
-                self._solve(x + 1, y, visited, board, mode)
-
-            if self._solveCheckRange(x - 1, y, visited, board):
-                self._solve(x - 1, y, visited, board, mode)
-
-            if self._solveCheckRange(x, y + 1, visited, board):
-                self._solve(x, y + 1, visited, board, mode)
-
-            if self._solveCheckRange(x, y - 1, visited, board):
-                self._solve(x, y - 1, visited, board, mode)
-
-    def _solveCheckRange(self, i: int, j: int, visited: List[List[bool]], board: List[List[str]]):
-        return -1 < i < len(board) and -1 < j < len(board[0]) and self._solveCheck(i, j, visited, board)
-
-    def _solveCheck(self, i: int, j: int, visited: List[List[bool]], board: List[List[str]]):
-        return not visited[i][j] and board[i][j] == 'O'
+                if check_value(i, j):
+                    bfs(i, j, True)
 
     # id199 _Tree _DepthFirstSearch _BreadthFirstSearch
     def rightSideView(self, root: TreeNode) -> List[int]:
@@ -300,100 +296,69 @@ class Solution:
         count = 0
         used = [[False for _ in row] for row in grid]
 
+        def bfs(x: int, y: int) -> None:
+            queue = [(x, y)]
+            used[x][y] = True
+
+            while queue:
+                x, y = queue.pop(0)
+
+                pairs = ((1, 0), (-1, 0), (0, 1), (0, -1))
+
+                for pair in pairs:
+                    _x, _y = x + pair[0], y + pair[1]
+
+                    if check(_x, _y):
+                        used[_x][_y] = True
+                        queue.append((_x, _y))
+
+        def check(x: int, y: int) -> bool:
+            return -1 < x < len(grid) and -1 < y < len(grid[0]) and not used[x][y] and grid[x][y] == '1'
+
         for i in range(len(grid)):
             for j in range(len(grid[0])):
                 if not used[i][j] and grid[i][j] == '1':
                     count += 1
-                    self._numIslands(grid, used, i, j)
+                    bfs(i, j)
 
         return count
-
-    def _numIslands(self, grid: List[List[str]], used: List[List[bool]], i: int, j: int) -> None:
-        queue = [(i, j)]
-        used[i][j] = True
-
-        while queue:
-            x, y = queue.pop(0)
-
-            if self._numIslandsCheck(grid, used, x + 1, y):
-                used[x + 1][y] = True
-                queue.append((x + 1, y))
-
-            if self._numIslandsCheck(grid, used, x - 1, y):
-                used[x - 1][y] = True
-                queue.append((x - 1, y))
-
-            if self._numIslandsCheck(grid, used, x, y + 1):
-                used[x][y + 1] = True
-                queue.append((x, y + 1))
-
-            if self._numIslandsCheck(grid, used, x, y - 1):
-                used[x][y - 1] = True
-                queue.append((x, y - 1))
-
-    def _numIslandsCheck(self, grid: List[List[str]], used: List[List[bool]], i: int, j: int) -> bool:
-        return -1 < i < len(grid) and -1 < j < len(grid[0]) and not used[i][j] and grid[i][j] == '1'
 
     # id463 _HashTable
     # Todo: see ht
     # Todo: write solution
     def islandPerimeter(self, grid: List[List[int]]) -> int:
+        visited = [[False for _ in row] for row in grid]
+
+        def bfs(x: int, y: int) -> int:
+            result = 0
+
+            queue = [(x, y)]
+            visited[x][y] = True
+
+            while len(queue) != 0:
+                x, y = queue.pop(0)
+
+                pairs = ((1, 0), (-1, 0), (0, 1), (0, -1))
+
+                for pair in pairs:
+                    _x, _y = x + pair[0], y + pair[1]
+
+                    if -1 < _x < len(grid) and -1 < _y < len(grid[0]):
+                        if grid[_x][_y] == 0:
+                            result += 1
+                        else:
+                            if not visited[_x][_y]:
+                                visited[_x][_y] = True
+                                queue.append((_x, _y))
+                    else:
+                        result += 1
+
+            return result
+
         for i in range(len(grid)):
             for j in range(len(grid[0])):
                 if grid[i][j] == 1:
-                    return self._islandPerimeter(grid, i, j)
-
-    def _islandPerimeter(self, grid: List[List[int]], i: int, j: int) -> int:
-        visited = [[False for _ in row] for row in grid]
-        result = 0
-
-        queue = [(i, j)]
-        visited[i][j] = True
-
-        while len(queue) != 0:
-            x, y = queue.pop(0)
-
-            if -1 < x + 1 < len(grid) and -1 < y < len(grid[0]):
-                if grid[x + 1][y] == 0:
-                    result += 1
-                else:
-                    if not visited[x + 1][y]:
-                        visited[x + 1][y] = True
-                        queue.append((x + 1, y))
-            else:
-                result += 1
-
-            if -1 < x - 1 < len(grid) and -1 < y < len(grid[0]):
-                if grid[x - 1][y] == 0:
-                    result += 1
-                else:
-                    if not visited[x - 1][y]:
-                        visited[x - 1][y] = True
-                        queue.append((x - 1, y))
-            else:
-                result += 1
-
-            if -1 < x < len(grid) and -1 < y + 1 < len(grid[0]):
-                if grid[x][y + 1] == 0:
-                    result += 1
-                else:
-                    if not visited[x][y + 1]:
-                        visited[x][y + 1] = True
-                        queue.append((x, y + 1))
-            else:
-                result += 1
-
-            if -1 < x < len(grid) and -1 < y - 1 < len(grid[0]):
-                if grid[x][y - 1] == 0:
-                    result += 1
-                else:
-                    if not visited[x][y - 1]:
-                        visited[x][y - 1] = True
-                        queue.append((x, y - 1))
-            else:
-                result += 1
-
-        return result
+                    return bfs(i, j)
 
     # id542 _DepthFirstSearch _BreadthFirstSearch
     def updateMatrix(self, matrix: List[List[int]]) -> List[List[int]]:
@@ -402,36 +367,32 @@ class Solution:
         Run bfs with returning level of bfs for finding nearest 0 and set element value
         Return result
         """
-        return [[self._updateMatrix(matrix, i, j) for j in range(len(matrix[0]))] for i in range(len(matrix))]
+        def bfs(i: int, j: int) -> int:
+            """
+            Run bfs until find 0
+            Return level (distance) for that 0
+            """
+            level = 0
+            queue = [(i, j)]
 
-    def _updateMatrix(self, matrix: List[List[int]], i: int, j: int) -> int:
-        """
-        Run bfs until find 0
-        Return level (distance) for that 0
-        """
-        level = 0
-        queue = [(i, j)]
+            while queue:
+                for _ in range(len(queue)):
+                    x, y = queue.pop(0)
 
-        while queue:
-            for _ in range(len(queue)):
-                x, y = queue.pop(0)
+                    if matrix[x][y] == 0:
+                        return level
 
-                if matrix[x][y] == 0:
-                    return level
+                    pairs = ((1, 0), (-1, 0), (0, 1), (0, -1))
 
-                if -1 < x + 1 < len(matrix) and -1 < y < len(matrix[0]):
-                    queue.append((x + 1, y))
+                    for pair in pairs:
+                        _x, _y = x + pair[0], y + pair[1]
 
-                if -1 < x - 1 < len(matrix) and -1 < y < len(matrix[0]):
-                    queue.append((x - 1, y))
+                        if -1 < _x < len(matrix) and -1 < _y < len(matrix[0]):
+                            queue.append((_x, _y))
 
-                if -1 < x < len(matrix) and -1 < y + 1 < len(matrix[0]):
-                    queue.append((x, y + 1))
+                level += 1
 
-                if -1 < x < len(matrix) and -1 < y - 1 < len(matrix[0]):
-                    queue.append((x, y - 1))
-
-            level += 1
+        return [[bfs(i, j) for j in range(len(matrix[0]))] for i in range(len(matrix))]
 
     # id637 _Tree
     def averageOfLevels(self, root: TreeNode) -> List[float]:
@@ -507,7 +468,11 @@ class Solution:
         If current transformation is result -> return moves
         Otherwise -> not possible, return -1
         """
-        used = {self._slidingPuzzle(board): True}
+        def hash_board(matrix: List[List[int]]) -> int:
+            return matrix[0][0] + 31 * matrix[0][1] + 31 ** 2 * matrix[0][2] + \
+                   31 ** 3 * matrix[1][0] + 31 ** 4 * matrix[1][1] + 31 ** 5 * matrix[1][2]
+
+        used = {hash_board(board): True}
         queue = [board]
         result = [[1, 2, 3], [4, 5, 0]]
         moves = 0
@@ -532,14 +497,11 @@ class Solution:
                     if -1 < x + pair[0] < len(current) and -1 < y + pair[1] < len(current[0]):
                         copy = [[el for el in row] for row in current]
                         copy[x][y], copy[x + pair[0]][y + pair[1]] = copy[x + pair[0]][y + pair[1]], copy[x][y]
-                        if not used.get(self._slidingPuzzle(copy)):
-                            used[self._slidingPuzzle(copy)] = True
+
+                        if not used.get(hash_board(copy)):
+                            used[hash_board(copy)] = True
                             queue.append(copy)
 
             moves += 1
 
         return -1
-
-    def _slidingPuzzle(self, board: List[List[int]]) -> int:
-        return board[0][0] + 31 * board[0][1] + 31 ** 2 * board[0][2] + \
-               31 ** 3 * board[1][0] + 31 ** 4 * board[1][1] + 31 ** 5 * board[1][2]

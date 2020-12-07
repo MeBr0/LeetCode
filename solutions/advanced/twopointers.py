@@ -3,7 +3,7 @@ from typing import List
 from utils import ListNode
 
 
-# noinspection PyMethodMayBeStatic
+# noinspection PyMethodMayBeStatic,PyPep8Naming
 class Solution:
     # id3 _HashTable _TwoPointers _String _SlidingWindow
     # Todo: see sw

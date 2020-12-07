@@ -1,7 +1,7 @@
 from typing import List
 
 
-# noinspection PyPep8Naming,PyTypeChecker
+# noinspection PyPep8Naming,PyTypeChecker,PyMethodMayBeStatic
 class Solution:
     # id210 _DepthFirstSearch _BreadthFirstSearch _Graph _TopologicalSort
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
@@ -22,9 +22,18 @@ class Solution:
 
         order = []
 
+        def visit(k: int) -> None:
+            visited[k] = True
+
+            for neighbour in adjacency_list[k]:
+                if not visited[neighbour]:
+                    visit(neighbour)
+
+            order.append(k)
+
         for i in range(numCourses):
             if not visited[i]:
-                self._findOrder(adjacency_list, visited, order, i)
+                visit(i)
 
         indices = [-1 for _ in range(numCourses)]
 
@@ -37,12 +46,3 @@ class Solution:
                     return []
 
         return reversed(order)
-
-    def _findOrder(self, prerequisites: List[List[int]], visited: List[bool], result: List[int], i: int) -> None:
-        visited[i] = True
-
-        for node in prerequisites[i]:
-            if not visited[node]:
-                self._findOrder(prerequisites, visited, result, node)
-
-        result.append(i)

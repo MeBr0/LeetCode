@@ -7,17 +7,19 @@ from utils import TreeNode, Node
 class Solution:
     # id94 _HashTable _Stack _Tree
     def inorderTraversal(self, root: TreeNode) -> List[int]:
-        return self._inorderTraversal(root)
+        def dfs(node: TreeNode) -> List[int]:
+            if node is None:
+                return []
 
-    def _inorderTraversal(self, node: TreeNode) -> List[int]:
-        if node is None:
-            return []
+            order = []
 
-        order.extend(self._inorderTraversal(node.left))
-        order.append(node.val)
-        order.extend(self._inorderTraversal(node.right))
+            order.extend(dfs(node.left))
+            order.append(node.val)
+            order.extend(dfs(node.right))
 
-        return order
+            return order
+
+        return dfs(root)
 
     # id98 _Tree _DepthFirstSearch
     def isValidBST(self, root: TreeNode) -> bool:
@@ -28,16 +30,16 @@ class Solution:
         If node value within given interval (_min, _max) -> recursion for left and right nodes with new intervals
         Otherwise -> False
         """
-        return self._isValidBST(root, -10000000000, 10000000000)
+        def dfs(node: TreeNode, _min: int, _max: int) -> bool:
+            if node is None:
+                return True
 
-    def _isValidBST(self, node: TreeNode, _min: int, _max: int) -> bool:
-        if node is None:
-            return True
+            if _min < node.val < _max:
+                return dfs(node.left, _min, node.val) and dfs(node.right, node.val, _max)
 
-        if _min < node.val < _max:
-            return self._isValidBST(node.left, _min, node.val) and self._isValidBST(node.right, node.val, _max)
+            return False
 
-        return False
+        return dfs(root, -10000000000, 10000000000)
 
     # id100 _Tree _DepthFirstSearch
     def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
@@ -68,16 +70,16 @@ class Solution:
         if root is None:
             return True
 
-        return self._isSymmetric(root.left, root.right)
+        def dfs(left: TreeNode, right: TreeNode) -> bool:
+            if left is None or right is None:
+                return left == right
 
-    def _isSymmetric(self, left: TreeNode, right: TreeNode) -> bool:
-        if left is None or right is None:
-            return left == right
+            if left.val != right.val:
+                return False
 
-        if left.val != right.val:
-            return False
+            return dfs(left.right, right.left) and dfs(left.left, right.right)
 
-        return self._isSymmetric(left.right, right.left) and self._isSymmetric(left.left, right.right)
+        return dfs(root.left, root.right)
 
     # id104 _Tree _DepthFirstSearch
     def maxDepth(self, root: TreeNode) -> int:
@@ -163,8 +165,6 @@ class Solution:
 
         return node_from_sorted(0, len(nums) - 1)
 
-    int_max = 10000000000
-
     # id110 _Tree _DepthFirstSearch
     def isBalanced(self, root: TreeNode) -> bool:
         """
@@ -174,19 +174,19 @@ class Solution:
         Otherwise -> maximum depth
         :int_max is value of depth for unbalanced subtree
         """
-        return self._isBalanced(root) != self.int_max
+        def dfs(node: TreeNode) -> int:
+            if node is None:
+                return 0
 
-    def _isBalanced(self, node: TreeNode) -> int:
-        if node is None:
-            return 0
+            left = dfs(node.left)
+            right = dfs(node.right)
 
-        left = self._isBalanced(node.left)
-        right = self._isBalanced(node.right)
+            if abs(left - right) > 1 or left == 10000000000 and right == 10000000000:
+                return 10000000000
 
-        if abs(left - right) > 1 or left == self.int_max and right == self.int_max:
-            return self.int_max
+            return max(left, right) + 1
 
-        return max(left, right) + 1
+        return dfs(root) != 10000000000
 
     # id112 _Tree _DepthFirstSearch
     def hasPathSum(self, root: TreeNode, sum: int) -> bool:
@@ -196,18 +196,18 @@ class Solution:
         If current (saved sum) + node.val == sum and node is leaf -> True
         Otherwise check children with updated current value (add node.val)
         """
-        return self._hasPathSum(root, sum, 0)
+        def dfs(node: TreeNode, current: int) -> bool:
+            if node is None:
+                return False
 
-    def _hasPathSum(self, node: TreeNode, _sum: int, current: int) -> bool:
-        if node is None:
-            return False
+            new_value = current + node.val
 
-        new_value = current + node.val
+            if new_value == sum and node.left is None and node.right is None:
+                return True
 
-        if new_value == _sum and node.left is None and node.right is None:
-            return True
+            return dfs(node.left, new_value) or dfs(node.right, new_value)
 
-        return self._hasPathSum(node.left, _sum, new_value) or self._hasPathSum(node.right, _sum, new_value)
+        return dfs(root, 0)
 
     # id113 _Tree _DepthFirstSearch
     def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
@@ -220,29 +220,31 @@ class Solution:
         Delete value from path
         Return merged results of two children
         """
-        return self._pathSum(root, sum, 0, [])
+        path = []
 
-    def _pathSum(self, node: TreeNode, _sum: int, current: int, path: List[int]) -> List[List[int]]:
-        if node is None:
-            return []
+        def dfs(node: TreeNode, current: int) -> List[List[int]]:
+            if node is None:
+                return []
 
-        new_value = current + node.val
+            new_value = current + node.val
 
-        if new_value == _sum and node.left is None and node.right is None:
-            result = path[:]
-            result.append(node.val)
-            return [result]
+            if new_value == sum and node.left is None and node.right is None:
+                result = path[:]
+                result.append(node.val)
+                return [result]
 
-        path.append(node.val)
+            path.append(node.val)
 
-        left_result = self._pathSum(node.left, _sum, new_value, path)
-        right_result = self._pathSum(node.right, _sum, new_value, path)
+            left_result = dfs(node.left, new_value)
+            right_result = dfs(node.right, new_value)
 
-        path.pop()
+            path.pop()
 
-        left_result.extend(right_result)
+            left_result.extend(right_result)
 
-        return left_result
+            return left_result
+
+        return dfs(root, 0)
 
     # id116 _Tree _DepthFirstSearch
     def connect(self, root: 'Node') -> 'Node':
@@ -250,43 +252,45 @@ class Solution:
         Index of root is 1
         Return mutated root
         """
-        self._connect(root, 1, {})
+        nodes = {}
 
-        return root
+        def dfs(node: 'Node', index: int) -> 'Node':
+            """
+            If node is child of leaf -> return
+            Start from right nodes (index 2 * x + 1, like heap)
+            If current index not right most node (check by index is not 2 ** n - 1) -> link next with next node in nodes
+            Register node in nodes with index
+            End with left nodes (index 2 * x, like heap)
+            """
+            if node is None:
+                return None
 
-    def _connect(self, node: 'Node', index: int, nodes: dict):
-        """
-        If node is child of leaf -> return
-        Start from right nodes (index 2 * x + 1, like heap)
-        If current index not right most node (check by index is not 2 ** n - 1) -> link next with next node in nodes
-        Register node in nodes with index
-        End with left nodes (index 2 * x, like heap)
-        """
-        if node is None:
-            return
+            dfs(node.right, index * 2 + 1)
 
-        self._connect(node.right, index * 2 + 1, nodes)
+            if not check(index):
+                node.next = nodes[index + 1]
 
-        if not self._connectDegree(index):
-            node.next = nodes[index + 1]
+            nodes[index] = node
 
-        nodes[index] = node
+            dfs(node.left, index * 2)
 
-        self._connect(node.left, index * 2, nodes)
+            return node
 
-    def _connectDegree(self, index: int) -> bool:
-        """
-        Check whether index matches formula 2 ** n - 1
-        """
-        index += 1
+        def check(index: int) -> bool:
+            """
+            Check whether index matches formula 2 ** n - 1
+            """
+            index += 1
 
-        while index != 1:
-            if index % 2 == 0:
-                index //= 2
-            else:
-                return False
+            while index != 1:
+                if index % 2 == 0:
+                    index //= 2
+                else:
+                    return False
 
-        return True
+            return True
+
+        return dfs(root, 1)
 
     # id124 _Tree _DepthFirstSearch
     # Todo: think about class field, not list
@@ -300,21 +304,25 @@ class Solution:
         Return max value of children + node value
         Return updated num
         """
-        num = [-999999999999999]
+        num = -999999999999999
 
-        self._maxPathSum(root, num)
+        def dfs(node: TreeNode) -> int:
+            if node is None:
+                return 0
 
-        return num[0]
+            left_result = max(dfs(node.left), 0)
+            right_result = max(dfs(node.right), 0)
 
-    def _maxPathSum(self, node: TreeNode, num: List[int]):
-        if node is None:
-            return 0
+            nonlocal num
 
-        left_result = max(self._maxPathSum(node.left, num), 0)
-        right_result = max(self._maxPathSum(node.right, num), 0)
-        num[0] = max(num[0], left_result + right_result + node.val)
+            if left_result + right_result + node.val > num:
+                num = left_result + right_result + node.val
 
-        return node.val + max(left_result, right_result)
+            return node.val + max(left_result, right_result)
+
+        dfs(root)
+
+        return num
 
     # id129 _Tree _DepthFirstSearch
     def sumNumbers(self, root: TreeNode) -> int:
@@ -326,30 +334,32 @@ class Solution:
         Delete value from path
         Return sum of results of two children
         """
-        return self._sumNumbers(root, [])
+        path = []
 
-    def _sumNumbers(self, node: TreeNode, path: List[int]) -> int:
-        if node is None:
-            return 0
+        def dfs(node: TreeNode) -> int:
+            if node is None:
+                return 0
 
-        if node.left is None and node.right is None:
-            dummy = path[:]
-            dummy.append(node.val)
+            if node.left is None and node.right is None:
+                dummy = path[:]
+                dummy.append(node.val)
 
-            num = 0
-            for value in dummy:
-                num = 10 * num + value
+                num = 0
+                for value in dummy:
+                    num = 10 * num + value
 
-            return num
+                return num
 
-        path.append(node.val)
+            path.append(node.val)
 
-        left_result = self._sumNumbers(node.left, path)
-        right_result = self._sumNumbers(node.right, path)
+            left_result = dfs(node.left)
+            right_result = dfs(node.right)
 
-        path.pop()
+            path.pop()
 
-        return left_result + right_result
+            return left_result + right_result
+
+        return dfs(root)
 
     # id130 _DepthFirstSearch _BreadthFirstSearch _UnionFind
     def solve(self, board: List[List[str]]) -> None:
@@ -365,76 +375,72 @@ class Solution:
 
         visited = [[False for _ in row] for row in board]
 
+        def dfs(x: int, y: int, mode: bool) -> None:
+            visited[x][y] = True
+
+            if mode:
+                board[x][y] = 'X'
+
+            pairs = ((0, 1), (0, -1), (1, 0), (-1, 0))
+
+            for pair in pairs:
+                _x, _y = x + pair[0], y + pair[1]
+
+                if check_range(_x, _y):
+                    dfs(_x, _y, mode)
+
+        def check_range(x: int, y: int) -> bool:
+            return -1 < x < len(board) and -1 < y < len(board[0]) and check_value(x, y)
+
+        def check_value(x: int, y: int) -> bool:
+            return not visited[x][y] and board[x][y] == 'O'
+
         for i in range(len(board)):
-            if self._solveCheck(i, 0, visited, board):
-                self._solve(i, 0, visited, board, False)
-            if self._solveCheck(i, len(board[0]) - 1, visited, board):
-                self._solve(i, len(board[0]) - 1, visited, board, False)
+            if check_value(i, 0):
+                dfs(i, 0, False)
+            if check_value(i, len(board[0]) - 1):
+                dfs(i, len(board[0]) - 1, False)
 
         for j in range(len(board[0])):
-            if self._solveCheck(0, j, visited, board):
-                self._solve(0, j, visited, board, False)
-            if self._solveCheck(len(board) - 1, j, visited, board):
-                self._solve(len(board) - 1, j, visited, board, False)
+            if check_value(0, j):
+                dfs(0, j, False)
+            if check_value(len(board) - 1, j):
+                dfs(len(board) - 1, j, False)
 
         for i in range(1, len(board) - 1):
             for j in range(1, len(board[0]) - 1):
-                if self._solveCheck(i, j, visited, board):
-                    self._solve(i, j, visited, board, True)
-
-    def _solve(self, i: int, j: int, visited: List[List[bool]], board: List[List[str]], mode: bool) -> None:
-        visited[i][j] = True
-
-        if mode:
-            board[i][j] = 'X'
-
-        if self._solveCheckRange(i + 1, j, visited, board):
-            self._solve(i + 1, j, visited, board, mode)
-
-        if self._solveCheckRange(i - 1, j, visited, board):
-            self._solve(i - 1, j, visited, board, mode)
-
-        if self._solveCheckRange(i, j + 1, visited, board):
-            self._solve(i, j + 1, visited, board, mode)
-
-        if self._solveCheckRange(i, j - 1, visited, board):
-            self._solve(i, j - 1, visited, board, mode)
-
-    def _solveCheckRange(self, i: int, j: int, visited: List[List[bool]], board: List[List[str]]):
-        return -1 < i < len(board) and -1 < j < len(board[0]) and self._solveCheck(i, j, visited, board)
-
-    def _solveCheck(self, i: int, j: int, visited: List[List[bool]], board: List[List[str]]):
-        return not visited[i][j] and board[i][j] == 'O'
+                if check_value(i, j):
+                    dfs(i, j, True)
 
     # id144 _Stack _Tree
     def preorderTraversal(self, root: TreeNode) -> List[int]:
-        return self._preorderTraversal(root)
+        def dfs(node: TreeNode) -> List[int]:
+            if node is None:
+                return []
 
-    def _preorderTraversal(self, node: TreeNode) -> List[int]:
-        if node is None:
-            return []
+            order = [node.val]
+            order.extend(dfs(node.left))
+            order.extend(dfs(node.right))
 
-        order = [node.val]
-        order.extend(self._preorderTraversal(node.left))
-        order.extend(self._preorderTraversal(node.right))
+            return order
 
-        return order
+        return dfs(root)
 
     # id145 _Stack _Tree
     def postorderTraversal(self, root: TreeNode) -> List[int]:
-        return self._postorderTraversal(root)
+        def dfs(node: TreeNode) -> List[int]:
+            if node is None:
+                return []
 
-    def _postorderTraversal(self, node: TreeNode) -> List[int]:
-        if node is None:
-            return []
+            order = []
 
-        order = []
+            order.extend(dfs(node.left))
+            order.extend(dfs(node.right))
+            order.append(node.val)
 
-        order.extend(self._postorderTraversal(node.left))
-        order.extend(self._postorderTraversal(node.right))
-        order.append(node.val)
+            return order
 
-        return order
+        return dfs(root)
 
     # id200 _DepthFirstSearch _BreadthFirstSearch _UnionFind
     def numIslands(self, grid: List[List[str]]) -> int:
@@ -450,31 +456,27 @@ class Solution:
         count = 0
         used = [[False for _ in row] for row in grid]
 
+        def dfs(x: int, y: int) -> None:
+            used[x][y] = True
+
+            pairs = ((1, 0), (-1, 0), (0, 1), (0, -1))
+
+            for pair in pairs:
+                _x, _y = x + pair[0], y + pair[1]
+
+                if check(_x, _y):
+                    dfs(_x, _y)
+
+        def check(x: int, y: int) -> bool:
+            return -1 < x < len(grid) and -1 < y < len(grid[0]) and not used[x][y] and grid[x][y] == '1'
+
         for i in range(len(grid)):
             for j in range(len(grid[0])):
                 if not used[i][j] and grid[i][j] == '1':
                     count += 1
-                    self._numIslands(grid, used, i, j)
+                    dfs(i, j)
 
         return count
-
-    def _numIslands(self, grid: List[List[str]], used: List[List[bool]], i: int, j: int) -> None:
-        used[i][j] = True
-
-        if self._numIslandsCheck(grid, used, i + 1, j):
-            self._numIslands(grid, used, i + 1, j)
-
-        if self._numIslandsCheck(grid, used, i - 1, j):
-            self._numIslands(grid, used, i - 1, j)
-
-        if self._numIslandsCheck(grid, used, i, j + 1):
-            self._numIslands(grid, used, i, j + 1)
-
-        if self._numIslandsCheck(grid, used, i, j - 1):
-            self._numIslands(grid, used, i, j - 1)
-
-    def _numIslandsCheck(self, grid: List[List[str]], used: List[List[bool]], i: int, j: int) -> bool:
-        return -1 < i < len(grid) and -1 < j < len(grid[0]) and not used[i][j] and grid[i][j] == '1'
 
     # id207 _DepthFirstSearch _BreadthFirstSearch _Graph _TopologicalSort
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
@@ -492,49 +494,50 @@ class Solution:
         for edge in prerequisites:
             adjacency_list[edge[0]].append(edge[1])
 
+        def dfs(current: int) -> bool:
+            """
+            Mark node as visiting
+            For every node which adjacent to current one:
+            If node is visiting (there is cycle) -> return False
+            Elif node not visited ->
+                If dfs function return False -> return False
+            Mark node as visited
+            Return True
+            """
+            visited[current] = 1
+
+            for node in adjacency_list[current]:
+                if visited[node] == 1:
+                    return False
+                elif visited[node] == 0:
+                    if not dfs(node):
+                        return False
+
+            visited[current] = 2
+
+            return True
+
         for i in range(numCourses):
             if visited[i] == 0:
-                if not self._canFinish(numCourses, adjacency_list, visited, i):
+                if not dfs(i):
                     return False
-
-        return True
-
-    def _canFinish(self, numCourses: int, adjacency_list: List[List[int]], visited: List[int], current: int) -> bool:
-        """
-        Mark node as visiting
-        For every node which adjacent to current one:
-        If node is visiting (there is cycle) -> return False
-        Elif node not visited ->
-            If dfs function return False -> return False
-        Mark node as visited
-        Return True
-        """
-        visited[current] = 1
-
-        for node in adjacency_list[current]:
-            if visited[node] == 1:
-                return False
-            elif visited[node] == 0:
-                if not self._canFinish(numCourses, adjacency_list, visited, node):
-                    return False
-
-        visited[current] = 2
 
         return True
 
     # id226 _Tree
     def invertTree(self, root: TreeNode) -> TreeNode:
-        self._invertTree(root)
-        return root
+        def dfs(node: TreeNode) -> TreeNode:
+            if node is None:
+                return
 
-    def _invertTree(self, node: TreeNode):
-        if node is None:
-            return
+            dfs(node.left)
+            dfs(node.right)
 
-        self._invertTree(node.left)
-        self._invertTree(node.right)
+            node.left, node.right = node.right, node.left
 
-        node.left, node.right = node.right, node.left
+            return node
+
+        return dfs(root)
 
     # id235 _Tree
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
@@ -582,52 +585,58 @@ class Solution:
         Delete value from path
         Return merged results of two children
         """
-        return self._binaryTreePaths(root, [])
+        path = []
 
-    def _binaryTreePaths(self, node: TreeNode, path: List[int]) -> List[str]:
-        if node is None:
-            return []
+        def dfs(node: TreeNode) -> List[str]:
+            if node is None:
+                return []
 
-        if node.left is None and node.right is None:
-            dummy = path[:]
-            dummy.append(node.val)
-            return ['->'.join([str(num) for num in dummy])]
+            if node.left is None and node.right is None:
+                dummy = path[:]
+                dummy.append(node.val)
+                return ['->'.join([str(num) for num in dummy])]
 
-        path.append(node.val)
+            path.append(node.val)
 
-        left_result = self._binaryTreePaths(node.left, path)
-        right_result = self._binaryTreePaths(node.right, path)
+            left_result = dfs(node.left)
+            right_result = dfs(node.right)
 
-        path.pop()
+            path.pop()
 
-        left_result.extend(right_result)
+            left_result.extend(right_result)
 
-        return left_result
+            return left_result
+
+        return dfs(root)
 
     # id230 _BinarySearch _Tree
     def kthSmallest(self, root: TreeNode, k: int) -> int:
-        return self._kthSmallest(root, k, [0])[1]
+        level = 0
 
-    def _kthSmallest(self, node: TreeNode, k: int, level: List[int]) -> int:
-        if node is None:
-            return 0
+        def dfs(node: TreeNode) -> int:
+            if node is None:
+                return 0
 
-        left = self._kthSmallest(node.left, k, level)
+            left = dfs(node.left)
 
-        if level[0] == k:
-            return left
+            nonlocal level
 
-        level[0] += 1
+            if level == k:
+                return left
 
-        if level[0] == k:
-            return node.val
+            level += 1
 
-        right = self._kthSmallest(node.right, k, level)
+            if level == k:
+                return node.val
 
-        if level[0] == k:
-            return right
+            right = dfs(node.right)
 
-        return level[0]
+            if level == k:
+                return right
+
+            return level
+
+        return dfs(root)
 
     # id450 _Tree
     def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
@@ -673,41 +682,30 @@ class Solution:
     # Todo: see ht
     # Todo: write solution
     def islandPerimeter(self, grid: List[List[int]]) -> int:
+        visited = [[False for _ in row] for row in grid]
+
+        def dfs(x: int, y: int) -> int:
+            visited[x][y] = True
+
+            result = 4
+
+            pairs = ((1, 0), (-1, 0), (0, 1), (0, -1))
+
+            for pair in pairs:
+                _x, _y = x + pair[0], y + pair[1]
+
+                if -1 < _x < len(grid) and -1 < _y < len(grid[0]) and grid[_x][_y] == 1:
+                    result -= 1
+
+                    if not visited[_x][_y]:
+                        result += dfs(_x, _y)
+
+            return result
+
         for i in range(len(grid)):
             for j in range(len(grid[0])):
                 if grid[i][j] == 1:
-                    return self._islandPerimeter(grid, [[False for _ in row] for row in grid], i, j)
-
-    def _islandPerimeter(self, grid: List[List[int]], visited: List[List[bool]], i: int, j: int) -> int:
-        visited[i][j] = True
-
-        result = 4
-
-        if -1 < i + 1 < len(grid) and -1 < j < len(grid[0]) and grid[i + 1][j] == 1:
-            result -= 1
-
-            if not visited[i + 1][j]:
-                result += self._islandPerimeter(grid, visited, i + 1, j)
-
-        if -1 < i - 1 < len(grid) and -1 < j < len(grid[0]) and grid[i - 1][j] == 1:
-            result -= 1
-
-            if not visited[i - 1][j]:
-                result += self._islandPerimeter(grid, visited, i - 1, j)
-
-        if -1 < i < len(grid) and -1 < j + 1 < len(grid[0]) and grid[i][j + 1] == 1:
-            result -= 1
-
-            if not visited[i][j + 1]:
-                result += self._islandPerimeter(grid, visited, i, j + 1)
-
-        if -1 < i < len(grid) and -1 < j - 1 < len(grid[0]) and grid[i][j - 1] == 1:
-            result -= 1
-
-            if not visited[i][j - 1]:
-                result += self._islandPerimeter(grid, visited, i, j - 1)
-
-        return result
+                    return dfs(i, j)
 
     # id501 _Tree
     def findMode(self, root: TreeNode) -> List[int]:
@@ -720,12 +718,19 @@ class Solution:
         If value is equal to mode -> append to result
         Return result
         """
-        result = []
+        result, count = [], {}
 
         if root is None:
             return result
 
-        count = self._findMode(root, {})
+        def dfs(node: TreeNode) -> None:
+            if node is not None:
+                count[node.val] = count.get(node.val, 0) + 1
+                dfs(node.left)
+                dfs(node.right)
+
+        dfs(root)
+
         mode = max(count.values())
 
         for value, frequency in count.items():
@@ -733,14 +738,6 @@ class Solution:
                 result.append(value)
 
         return result
-
-    def _findMode(self, node: TreeNode, count: dict) -> dict:
-        if node is not None:
-            count[node.val] = count.get(node.val, 0) + 1
-            self._findMode(node.left, count)
-            self._findMode(node.right, count)
-
-        return count
 
     # id543 _Tree
     def diameterOfBinaryTree(self, root: TreeNode) -> int:
@@ -751,7 +748,7 @@ class Solution:
         if not root:
             return 0
 
-        def height_and_diameter(node: TreeNode) -> (int, int):
+        def dfs(node: TreeNode) -> (int, int):
             """
             If node is null -> return 0 (height) and -1 (diameter)
             Find left and right child results
@@ -761,12 +758,12 @@ class Solution:
             if not node:
                 return 0, -1
 
-            left = height_and_diameter(node.left)
-            right = height_and_diameter(node.right)
+            left = dfs(node.left)
+            right = dfs(node.right)
 
             return max(left[0], right[0]) + 1, max(left[1], right[1], left[0] + 1 + right[0])
 
-        return height_and_diameter(root)[1] - 1
+        return dfs(root)[1] - 1
 
     # id547 _DepthFirstSearch _UnionFind
     def findCircleNum(self, M: List[List[int]]) -> int:
@@ -780,20 +777,20 @@ class Solution:
         """
         count, visited = 0, [False for _ in M]
 
+        def dfs(index: int) -> None:
+            visited[index] = True
+
+            for k in range(len(M)):
+                if M[index][k] == 1:
+                    if not visited[k]:
+                        dfs(k)
+
         for i in range(len(M)):
             if not visited[i]:
                 count += 1
-                self._findCircleNum(M, visited, i)
+                dfs(i)
 
         return count
-
-    def _findCircleNum(self, M: List[List[int]], visited: List[bool], index: int) -> None:
-        visited[index] = True
-
-        for i in range(len(M)):
-            if M[index][i] == 1:
-                if not visited[i]:
-                    self._findCircleNum(M, visited, i)
 
     # id563 _Tree
     def findTilt(self, root: TreeNode) -> int:
@@ -801,28 +798,28 @@ class Solution:
         Launch dfs from root
         Return second element (sum of tilts)
         """
-        return self._findTilt(root)[1]
+        def dfs(node: TreeNode) -> (int, int):
+            """
+            If node is child of leaf -> return 0 (sum of children values) and 0 (sum of tilts)
+            Launch dfs from left and right children
+            Return sum of values and sum of tilts (current and previous)
+            """
+            if node is None:
+                return 0, 0
 
-    def _findTilt(self, node: TreeNode) -> (int, int):
-        """
-        If node is child of leaf -> return 0 (sum of children values) and 0 (sum of tilts)
-        Launch dfs from left and right children
-        Return sum of values and sum of tilts (current and previous)
-        """
-        if node is None:
-            return 0, 0
+            left = dfs(node.left)
+            right = dfs(node.right)
 
-        left = self._findTilt(node.left)
-        right = self._findTilt(node.right)
+            return left[0] + right[0] + node.val, left[1] + right[1] + abs(left[0] - right[0])
 
-        return left[0] + right[0] + node.val, left[1] + right[1] + abs(left[0] - right[0])
+        return dfs(root)[1]
 
     # id617 _Tree
     def mergeTrees(self, t1: TreeNode, t2: TreeNode) -> TreeNode:
         """
         Return merged two trees
         """
-        def merge(first: TreeNode, second: TreeNode) -> TreeNode:
+        def dfs(first: TreeNode, second: TreeNode) -> TreeNode:
             """
             If both node not null -> update first node values with second node
             If only first not null -> stay first
@@ -833,17 +830,17 @@ class Solution:
             if first:
                 if second:
                     first.val += second.left
-                    first.left = merge(first.left, second.left)
-                    first.right = merge(first.right, second.right)
+                    first.left = dfs(first.left, second.left)
+                    first.right = dfs(first.right, second.right)
             else:
                 if second:
                     first = TreeNode(second.val)
-                    first.left = merge(None, second.left)
-                    first.right = merge(None, second.right)
+                    first.left = dfs(None, second.left)
+                    first.right = dfs(None, second.right)
 
             return first
 
-        return merge(t1, t2)
+        return dfs(t1, t2)
 
     # id841 _DepthFirstSearch _Tree
     # Todo: see alternative for count
@@ -858,21 +855,26 @@ class Solution:
         Note: count initialized as list for storing count value by pointer (in one branch of recursion we can open door
         which can be used in other branch)
         """
-        return self._canVisitAllRooms(rooms, [0], [False for _ in rooms], 0)
+        count = 0
+        opened = [False for _ in rooms]
 
-    def _canVisitAllRooms(self, rooms: List[List[int]], count: List[int], opened: List[bool], current: int) -> bool:
-        opened[current] = True
-        count[0] += 1
+        def dfs(index: int) -> bool:
+            opened[index] = True
 
-        if count[0] == len(rooms):
-            return True
+            nonlocal count
+            count += 1
 
-        for key in rooms[current]:
-            if not opened[key]:
-                if self._canVisitAllRooms(rooms, count, opened, key):
-                    return True
+            if count == len(rooms):
+                return True
 
-        return False
+            for key in rooms[index]:
+                if not opened[key]:
+                    if dfs(key):
+                        return True
+
+            return False
+
+        return dfs(0)
 
     # id988 _Tree _DepthFirstSearch
     def smallestFromLeaf(self, root: TreeNode) -> str:
@@ -888,29 +890,31 @@ class Solution:
         if root.left is None and root.right is None:
             return chr(ord('a') + root.val)
 
-        return self._smallestFromLeaf(root, [])
+        path = []
 
-    def _smallestFromLeaf(self, node: TreeNode, path: List[int]) -> str:
-        if node is None:
-            return 'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz'
+        def dfs(node: TreeNode) -> str:
+            if node is None:
+                return 'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz'
 
-        if node.left is None and node.right is None:
-            dummy = path[:]
-            dummy.append(node.val)
+            if node.left is None and node.right is None:
+                dummy = path[:]
+                dummy.append(node.val)
 
-            return ''.join([chr(ord('a') + num) for num in dummy[::-1]])
+                return ''.join([chr(ord('a') + num) for num in dummy[::-1]])
 
-        path.append(node.val)
+            path.append(node.val)
 
-        left_result = self._smallestFromLeaf(node.left, path)
-        right_result = self._smallestFromLeaf(node.right, path)
+            left_result = dfs(node.left)
+            right_result = dfs(node.right)
 
-        path.pop()
+            path.pop()
 
-        if left_result < right_result:
-            return left_result
-        else:
-            return right_result
+            if left_result < right_result:
+                return left_result
+            else:
+                return right_result
+
+        return dfs(root)
 
     # id1306 _DepthFirstSearch _BreadthFirstSearch _Recursion
     def canReach(self, arr: List[int], start: int) -> bool:

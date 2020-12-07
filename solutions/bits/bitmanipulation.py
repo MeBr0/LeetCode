@@ -1,7 +1,7 @@
 from typing import List
 
 
-# noinspection PyMethodMayBeStatic,PyRedeclaration
+# noinspection PyMethodMayBeStatic,PyRedeclaration,PyPep8Naming
 class Solution:
     # id78 _Array _Backtracking _BitManipulation
     def subsets(self, nums: List[int]) -> List[List[int]]:

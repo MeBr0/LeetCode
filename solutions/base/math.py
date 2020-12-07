@@ -401,7 +401,7 @@ class Solution:
             return hours * 60 + minutes
 
         for nums in permutations(arr):
-            minutes = get_minutes(nums[0] * 10 + nums[1], arnums[2] * 10 + nums[3])
+            minutes = get_minutes(nums[0] * 10 + nums[1], nums[2] * 10 + nums[3])
 
             if minutes > largest:
                 largest = minutes

@@ -223,27 +223,33 @@ class Solution:
         if len(nums) == 0:
             return 0
 
-        dp = [1]
+        if len(nums) == 1:
+            return 1
+
+        dp = [-10 ** 9] + [10 ** 9 for _ in nums]
         i = 1
 
-        while i < len(nums):
-            max_len = -1
-            j = 0
+        while i <= len(nums):
+            left, right = 0, i
 
-            while j < i:
-                if nums[i] > nums[j]:
-                    max_len = max(max_len, dp[j])
+            while left < right:
+                mid = (left + right) // 2
 
-                j += 1
-
-            if max_len != -1:
-                dp[i].append(max_len + 1)
-            else:
-                dp[i].append(1)
+                if nums[i - 1] > dp[mid]:
+                    dp[mid + 1] = min(dp[mid + 1], nums[i - 1])
+                    left = mid + 1
+                else:
+                    right = mid
 
             i += 1
 
-        return max(dp)
+        i = len(dp) - 1
+
+        while i > -1:
+            if dp[i] != 10 ** 9:
+                return i
+
+            i -= 1
 
     # id300 _BinarySearch _DynamicProgramming
     def lengthOfLIS(self, nums: List[int]) -> int:
@@ -448,6 +454,7 @@ class Solution:
 
 
 # id303 _DynamicProgramming
+# noinspection PyPep8Naming
 class NumArray:
     def __init__(self, nums: List[int]):
         """
@@ -473,6 +480,7 @@ class NumArray:
 
 
 # id304 _DynamicProgramming
+# noinspection PyPep8Naming
 class NumMatrix:
 
     def __init__(self, matrix: List[List[int]]):
