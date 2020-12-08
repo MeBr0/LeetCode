@@ -1,6 +1,6 @@
 from typing import List
 
-from utils import TreeNode
+from utils import TreeNode, NAryNode
 
 
 # noinspection PyMethodMayBeStatic,DuplicatedCode,PyPep8Naming
@@ -394,6 +394,25 @@ class Solution:
 
         return [[bfs(i, j) for j in range(len(matrix[0]))] for i in range(len(matrix))]
 
+    # id559 _Tree _DepthFirstSearch _BreadthFirstSearch
+    def maxDepth(self, root: 'NAryNode') -> int:
+        if root is None:
+            return 0
+
+        maxi = 0
+        queue = [(root, 1)]
+
+        while queue:
+            current, level = queue.pop()
+
+            maxi = max(maxi, level)
+
+            if current is not None and current.children is not None:
+                for child in current.children:
+                    queue.append((child, level + 1))
+
+        return maxi
+
     # id637 _Tree
     def averageOfLevels(self, root: TreeNode) -> List[float]:
         """
@@ -505,3 +524,64 @@ class Solution:
             moves += 1
 
         return -1
+
+    # id934 _DepthFirstSearch _BreadthFirstSearch
+    def shortestBridge(self, A: List[List[int]]) -> int:
+        visited = [[False for _ in row] for row in A]
+
+        from collections import deque
+
+        water = deque()
+
+        pairs = ((1, 0), (-1, 0), (0, 1), (0, -1))
+
+        def dfs(x: int, y: int) -> None:
+            visited[x][y] = True
+
+            for qwe in pairs:
+                dx, dy = x + qwe[0], y + qwe[1]
+
+                if check(dx, dy):
+                    dfs(dx, dy)
+
+                if check_water(dx, dy):
+                    if not visited[dx][dy]:
+                        visited[dx][dy] = True
+
+                    water.append((dx, dy, 1))
+
+        def check(x: int, y: int) -> bool:
+            return -1 < x < len(A) and -1 < y < len(A[0]) and not visited[x][y] and A[x][y] == 1
+
+        def check_water(x: int, y: int) -> bool:
+            return -1 < x < len(A) and -1 < y < len(A[0]) and not visited[x][y] and A[x][y] == 0
+
+        def check_value(x: int, y: int) -> bool:
+            return not visited[x][y] and A[x][y] == 1
+
+        first_found = False
+
+        for i in range(len(A)):
+            for j in range(len(A[0])):
+                if check_value(i, j):
+                    dfs(i, j)
+                    first_found = True
+                    break
+
+            if first_found:
+                break
+
+        while water:
+            _i, _j, level = water.popleft()
+
+            for pair in pairs:
+                _x, _y = _i + pair[0], _j + pair[1]
+
+                if check(_x, _y):
+                    return level
+
+                if check_water(_x, _y):
+                    if not visited[_x][_y]:
+                        visited[_x][_y] = True
+
+                    water.append((_x, _y, level + 1))

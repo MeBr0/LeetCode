@@ -1,9 +1,9 @@
 from typing import List
 
-from utils import TreeNode, Node
+from utils import TreeNode, Node, ListNode, NAryNode
 
 
-# noinspection PyShadowingBuiltins,PyPep8Naming,PyMethodMayBeStatic,PyTypeChecker
+# noinspection PyShadowingBuiltins,PyPep8Naming,PyMethodMayBeStatic,PyTypeChecker,PyRedeclaration
 class Solution:
     # id94 _HashTable _Stack _Tree
     def inorderTraversal(self, root: TreeNode) -> List[int]:
@@ -164,6 +164,37 @@ class Solution:
             return node
 
         return node_from_sorted(0, len(nums) - 1)
+
+    # id109 _LinkedList  _DepthFirstSearch
+    def sortedListToBST(self, head: ListNode) -> TreeNode:
+        """
+        Return root create from ListNode
+        """
+        dummy, size = head, 0
+
+        while dummy is not None:
+            dummy = dummy.next
+            size += 1
+
+        def node_from_sorted(left: int, right: int) -> TreeNode:
+            if left >= right:
+                return None
+
+            mid = (left + right) // 2
+
+            nonlocal head
+
+            left = None if left == mid else node_from_sorted(left, mid)
+
+            node = TreeNode(head.val)
+            head = head.next
+            node.left = left
+
+            node.right = None if right == mid else node_from_sorted(mid + 1, right)
+
+            return node
+
+        return node_from_sorted(0, size)
 
     # id110 _Tree _DepthFirstSearch
     def isBalanced(self, root: TreeNode) -> bool:
@@ -791,6 +822,19 @@ class Solution:
                 dfs(i)
 
         return count
+
+    # id559 _Tree _DepthFirstSearch _BreadthFirstSearch
+    def maxDepth(self, root: 'NAryNode') -> int:
+        def dfs(node: 'NAryNode', level: int) -> int:
+            maxi = level
+
+            if node is not None and node.children is not None:
+                for child in node.children:
+                    maxi = max(maxi, dfs(child, level + 1))
+
+            return maxi
+
+        return dfs(root, 1)
 
     # id563 _Tree
     def findTilt(self, root: TreeNode) -> int:

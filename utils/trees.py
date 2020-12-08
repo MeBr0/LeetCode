@@ -17,3 +17,9 @@ class Node:
         self.left = left
         self.right = right
         self.next = next
+
+
+class NAryNode:
+    def __init__(self, val=None, children=None):
+        self.val = val
+        self.children = children

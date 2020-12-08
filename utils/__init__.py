@@ -1,2 +1,2 @@
 from .lists import ListNode
-from .trees import TreeNode, Node
+from .trees import TreeNode, Node, NAryNode
