@@ -58,6 +58,114 @@ class Solution:
 
         return '/' + '/'.join(stack)
 
+    # id84 _Array _Stack
+    def largestRectangleArea(self, heights: List[int]) -> int:
+        stack = []
+        left, right = [0 for _ in heights], [0 for _ in heights]
+
+        for k in range(len(heights)):
+            if len(stack) == 0:
+                left[k] = -1
+            elif stack[-1][0] < heights[k]:
+                left[k] = stack[-1][1]
+            else:
+                while len(stack) > 0 and stack[-1][0] >= heights[k]:
+                    stack.pop()
+
+                if len(stack) == 0:
+                    left[k] = -1
+                else:
+                    left[k] = stack[-1][1]
+
+            stack.append((heights[k], k))
+
+        stack.clear()
+
+        for k in range(len(heights) - 1, -1, -1):
+            if len(stack) == 0:
+                right[k] = len(heights)
+            elif stack[-1][0] < heights[k]:
+                right[k] = stack[-1][1]
+            else:
+                while len(stack) > 0 and stack[-1][0] >= heights[k]:
+                    stack.pop()
+
+                if len(stack) == 0:
+                    right[k] = len(heights)
+                else:
+                    right[k] = stack[-1][1]
+
+            stack.append((heights[k], k))
+
+        area = 0
+
+        for k in range(len(heights)):
+            area = max(area, (right[k] - left[k] - 1) * heights[k])
+
+        return area
+
+    # id85 _Array _HashTable _DynamicProgramming _Stack
+    def maximalRectangle(self, matrix: List[List[str]]) -> int:
+        if len(matrix) == 0:
+            return 0
+
+        heights = [0 for _ in matrix[0]]
+
+        def max_rectangle(heights: List[int]) -> int:
+            stack = []
+            left, right = [0 for _ in heights], [0 for _ in heights]
+
+            for k in range(len(heights)):
+                if len(stack) == 0:
+                    left[k] = -1
+                elif stack[-1][0] < heights[k]:
+                    left[k] = stack[-1][1]
+                else:
+                    while len(stack) > 0 and stack[-1][0] >= heights[k]:
+                        stack.pop()
+
+                    if len(stack) == 0:
+                        left[k] = -1
+                    else:
+                        left[k] = stack[-1][1]
+
+                stack.append((heights[k], k))
+
+            stack.clear()
+
+            for k in range(len(heights) - 1, -1, -1):
+                if len(stack) == 0:
+                    right[k] = len(heights)
+                elif stack[-1][0] < heights[k]:
+                    right[k] = stack[-1][1]
+                else:
+                    while len(stack) > 0 and stack[-1][0] >= heights[k]:
+                        stack.pop()
+
+                    if len(stack) == 0:
+                        right[k] = len(heights)
+                    else:
+                        right[k] = stack[-1][1]
+
+                stack.append((heights[k], k))
+
+            area = 0
+
+            for k in range(len(heights)):
+                area = max(area, (right[k] - left[k] - 1) * heights[k])
+
+            return area
+
+        result = 0
+
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                heights[j] = heights[j] + 1 if matrix[i][j] == '1' else 0
+
+            result = max(result, max_rectangle(heights))
+
+        return result
+
     # id94 _HastTable _Stack _Tree
     def inorderTraversal(self, root: TreeNode) -> List[int]:
         """

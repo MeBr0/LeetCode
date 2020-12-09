@@ -3,6 +3,38 @@ from typing import List
 
 # noinspection PyMethodMayBeStatic,PyRedeclaration,PyPep8Naming
 class Solution:
+    # id5 _String _DynamicProgramming
+    def longestPalindrome(self, s: str) -> str:
+        dp = [[False for _ in s] for _ in s]
+
+        for i in range(len(s)):
+            dp[i][i] = True
+
+        l, r = 0, 0
+
+        for i in range(1, len(s)):
+            for j in range(len(s) - i):
+                right = j + i
+
+                if right - j == 1:
+                    if s[j] == s[right]:
+                        dp[j][right] = True
+
+                        if r - l < right - j:
+                            r = right
+                            l = j
+
+                else:
+                    if dp[j + 1][right - 1]:
+                        if s[j] == s[right]:
+                            dp[j][right] = True
+
+                            if r - l < right - j:
+                                r = right
+                                l = j
+
+        return s[l:r + 1]
+
     # id53 _Array _DynamicProgramming _DivideAndConquer
     # Todo: see dp, d&c
     def maxSubArray(self, nums: List[int]) -> int:
