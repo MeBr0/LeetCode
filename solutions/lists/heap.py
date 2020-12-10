@@ -1,7 +1,7 @@
 from typing import List
 
 
-# noinspection PyMethodMayBeStatic
+# noinspection PyMethodMayBeStatic,PyPep8Naming
 class Solution:
     # id215 _DivideAndConquer _Heap
     # Todo: see d&c
@@ -25,6 +25,33 @@ class Solution:
             i += 1
 
         return value
+
+    # id264 _Math _DynamicProgramming _Heap
+    # Todo: see dp
+    def nthUglyNumber(self, n: int) -> int:
+        if n == 1:
+            return 1
+
+        from queue import PriorityQueue
+
+        queue = PriorityQueue()
+        queue.put(1)
+        seen = {1: True}
+        nums = (2, 3, 5)
+
+        i = 1
+
+        while i < n:
+            x = queue.get()
+
+            for num in nums:
+                if x * num not in seen:
+                    seen[x * num] = True
+                    queue.put(x * num)
+
+            i += 1
+
+        return queue.get()
 
     # id378 _BinarySearch _Heap
     # Todo: see bs (heap too slow)

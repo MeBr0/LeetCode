@@ -84,6 +84,47 @@ class Solution:
 
         return list(anagrams.values())
 
+    # id202 _HashTable _Math
+    def isHappy(self, n: int) -> bool:
+        nums = {}
+
+        def get_sum(x: int) -> int:
+            result = 0
+
+            while x != 0:
+                result += (x % 10) ** 2
+                x //= 10
+
+            return result
+
+        while n != 1:
+            n = get_sum(n)
+
+            if n in nums:
+                return False
+
+            nums[n] = True
+
+        return True
+
+    # id205 _HashTable
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        iso = {}
+        i = 0
+
+        while i < len(s):
+            if s[i] in iso:
+                if iso[s[i]] != t[i]:
+                    return False
+            elif t[i] in iso.values():
+                return False
+            else:
+                iso[s[i]] = t[i]
+
+            i += 1
+
+        return True
+
     # id217 _Array _HashTable
     def containsDuplicate(self, nums: List[int]) -> bool:
         """
@@ -162,6 +203,27 @@ class Solution:
             i += 1
 
         return True
+
+    # id409 _HashTable
+    def longestPalindrome(self, s: str) -> int:
+        chars = {}
+
+        for char in s:
+            if char in chars:
+                chars[char] += 1
+            else:
+                chars[char] = 0
+
+        length = 0
+        odd = False
+
+        for char in chars:
+            if chars[char] % 2 == 1:
+                odd = True
+
+            length += chars[char] // 2
+
+        return 2 * length + 1 if odd else 2 * length
 
     # id347 _HashTable _Heap
     # Todo: see heap

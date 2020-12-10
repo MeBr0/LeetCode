@@ -286,3 +286,32 @@ class Solution:
                 right = _mid
             else:
                 left = _mid
+
+    # id1201 _Math _BinarySearch
+    def nthUglyNumber(self, n: int, a: int, b: int, c: int) -> int:
+        def count(x: int) -> int:
+            return x // a + x // b + x // c - x // lcm(a, b) - x // lcm(b, c) - x // lcm(c, a) + x // lcm(a, lcm(b, c))
+
+        def gcd(x: int, y: int) -> int:
+            if y == 0:
+                return x
+
+            if x < y:
+                return gcd(y, x)
+
+            return gcd(x % y, y)
+
+        def lcm(x: int, y: int) -> int:
+            return x * y // gcd(x, y)
+
+        left, right = min(a, b, c), 2 * 10 ** 8
+
+        while left < right:
+            mid = (left + right) // 2
+
+            if count(mid) >= n:
+                right = mid
+            else:
+                left = mid + 1
+
+        return left
