@@ -669,6 +669,42 @@ class Solution:
 
         return dfs(root)
 
+    # id394 _Stack _DepthFirstSearch
+    def decodeString(self, s: str) -> str:
+        strings = []
+        num, string = '', ''
+        found = 0
+
+        for char in s:
+            if char == '[':
+                if found > 0:
+                    string += char
+
+                found += 1
+
+            elif char == ']':
+                found -= 1
+
+                if found == 0:
+                    strings.append(int(num) * self.decodeString(string))
+                    num, string = '', ''
+                else:
+                    string += char
+
+            else:
+                if found > 0:
+                    string += char
+                else:
+                    if char.isnumeric():
+                        if string != '':
+                            strings.append(string)
+
+                        num += char
+                    else:
+                        strings.append(char)
+
+        return s if len(strings) == 0 else ''.join(strings)
+
     # id450 _Tree
     def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
         """
@@ -738,6 +774,34 @@ class Solution:
                 if grid[i][j] == 1:
                     return dfs(i, j)
 
+    # id491 _DepthFirstSearch
+    def findSubsequences(self, nums: List[int]) -> List[List[int]]:
+        """
+        It is more backtracking
+        """
+        result = set()
+        current = []
+
+        def dfs(j: int) -> None:
+            current.append(nums[j])
+
+            if len(current) > 1:
+                result.add(tuple(current))
+
+            for k in range(j, len(nums)):
+                if k == j:
+                    continue
+
+                if nums[k] >= nums[j]:
+                    dfs(k)
+
+            current.pop()
+
+        for i in range(len(nums)):
+            dfs(i)
+
+        return result
+
     # id501 _Tree
     def findMode(self, root: TreeNode) -> List[int]:
         """
@@ -769,6 +833,44 @@ class Solution:
                 result.append(value)
 
         return result
+
+    # id529 _DepthFirstSearch _BreadthFirstSearch
+    def updateBoard(self, board: List[List[str]], click: List[int]) -> List[List[str]]:
+        x, y = click
+
+        if board[x][y] == 'M':
+            board[x][y] = 'X'
+        else:
+            pairs = ((1, 1), (1, 0), (-1, 0), (0, 1), (0, -1), (-1, -1), (-1, 1), (1, -1))
+
+            def dfs(i: int, j: int) -> None:
+                count = mine_count(i, j)
+
+                if count == 0:
+                    board[i][j] = 'B'
+
+                    for di, dj in pairs:
+                        _x, _y = i + di, j + dj
+
+                        if -1 < _x < len(board) and -1 < _y < len(board[0]) and board[_x][_y] == 'E':
+                            dfs(_x, _y)
+                else:
+                    board[i][j] = str(count)
+
+            def mine_count(i: int, j: int) -> int:
+                count = 0
+
+                for di, dj in pairs:
+                    _x, _y = i + di, j + dj
+
+                    if -1 < _x < len(board) and -1 < _y < len(board[0]) and board[_x][_y] == 'M':
+                        count += 1
+
+                return count
+
+            dfs(x, y)
+
+        return board
 
     # id543 _Tree
     def diameterOfBinaryTree(self, root: TreeNode) -> int:
@@ -886,6 +988,22 @@ class Solution:
 
         return dfs(t1, t2)
 
+    # id700 _Tree
+    def searchBST(self, root: TreeNode, val: int) -> TreeNode:
+        def dfs(node: TreeNode) -> TreeNode:
+            if not node:
+                return None
+
+            if node.val == val:
+                return node
+
+            if val > node.val:
+                return dfs(node.right)
+            else:
+                return dfs(node.left)
+
+        return dfs(root)
+
     # id841 _DepthFirstSearch _Tree
     # Todo: see alternative for count
     def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
@@ -919,6 +1037,30 @@ class Solution:
             return False
 
         return dfs(0)
+
+    # id886 _DepthFirstSearch
+    def possibleBipartition(self, N: int, dislikes: List[List[int]]) -> bool:
+        """
+        Fuck N
+        """
+        from collections import defaultdict
+        graph = defaultdict(list)
+
+        for first, second in dislikes:
+            graph[first].append(second)
+            graph[second].append(first)
+
+        colors = {}
+
+        def dfs(node: int, color: int = 0) -> bool:
+            if node in colors:
+                return colors[node] == color
+
+            colors[node] = color
+
+            return all(dfs(adjacent, 1 - color) for adjacent in graph[node])
+
+        return all(dfs(node) for node in graph if node not in colors)
 
     # id988 _Tree _DepthFirstSearch
     def smallestFromLeaf(self, root: TreeNode) -> str:
@@ -959,6 +1101,36 @@ class Solution:
                 return right_result
 
         return dfs(root)
+
+    # id1254 _DepthFirstSearch
+    def closedIsland(self, grid: List[List[int]]) -> int:
+        visited = [[False for _ in row] for row in grid]
+        pairs = ((1, 0), (-1, 0), (0, 1), (0, -1))
+
+        def dfs(x: int, y: int) -> bool:
+            visited[x][y] = True
+            closed = True
+
+            for dx, dy in pairs:
+                _x, _y = x + dx, y + dy
+
+                if -1 < _x < len(grid) and -1 < _y < len(grid[0]):
+                    if not visited[_x][_y] and grid[_x][_y] == 0:
+                        if not dfs(_x, _y):
+                            closed = False
+                else:
+                    closed = False
+
+            return closed
+
+        count = 0
+
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if not visited[i][j] and grid[i][j] == 0 and not dfs(i, j):
+                    count += 1
+
+        return count
 
     # id1306 _DepthFirstSearch _BreadthFirstSearch _Recursion
     def canReach(self, arr: List[int], start: int) -> bool:

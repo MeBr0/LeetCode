@@ -1,3 +1,4 @@
+from collections import deque
 from typing import List
 
 from utils import TreeNode, NAryNode
@@ -359,6 +360,66 @@ class Solution:
             for j in range(len(grid[0])):
                 if grid[i][j] == 1:
                     return bfs(i, j)
+
+    # id513 _Tree _DepthFirstSearch _BreadthFirstSearch
+    def findBottomLeftValue(self, root: TreeNode) -> int:
+        value = None
+
+        queue = deque()
+        queue.append(root)
+
+        while queue:
+            row_value = None
+
+            for _ in range(len(queue)):
+                node = queue.popleft()
+
+                if row_value is None:
+                    row_value = node.val
+
+                if node.left:
+                    queue.append(node.left)
+
+                if node.right:
+                    queue.append(node.right)
+
+            if row_value is not None:
+                value = row_value
+
+        return value
+
+    # id515 _Tree _DepthFirstSearch _BreadthFirstSearch
+    # Todo: see dfs
+    def largestValues(self, root: TreeNode) -> List[int]:
+        values = []
+
+        if not root:
+            return values
+
+        from collections import deque
+
+        queue = deque()
+
+        queue.append(root)
+
+        while queue:
+            maxi = float('-inf')
+
+            for _ in range(len(queue)):
+                node = queue.popleft()
+
+                if node.val > maxi:
+                    maxi = node.val
+
+                if node.left:
+                    queue.append(node.left)
+
+                if node.right:
+                    queue.append(node.right)
+
+            values.append(maxi)
+
+        return values
 
     # id542 _DepthFirstSearch _BreadthFirstSearch
     def updateMatrix(self, matrix: List[List[int]]) -> List[List[int]]:
