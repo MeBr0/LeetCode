@@ -143,6 +143,37 @@ class Solution:
 
         return False
 
+    # id81 _Array _BinarySearch
+    def search(self, nums: List[int], target: int) -> bool:
+        if len(nums) == 0:
+            return False
+
+        if len(nums) == 1:
+            return nums[0] == target
+
+        left, right = 0, len(nums)
+
+        while left <= right:
+            _mid = (left + right) // 2
+
+            if nums[_mid] == target:
+                return True
+
+            if nums[left] < nums[_mid]:
+                if nums[left] <= target < nums[_mid]:
+                    right = _mid
+                else:
+                    left = _mid + 1
+            elif nums[_mid] < nums[left]:
+                if nums[_mid] < target < nums[left]:
+                    left = _mid + 1
+                else:
+                    right = _mid
+            else:
+                left += 1
+
+        return False
+
     # id153 _Array _BinarySearch
     def findMin(self, nums: List[int]) -> int:
         """

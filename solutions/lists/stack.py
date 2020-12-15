@@ -318,6 +318,33 @@ class Solution:
 
         return int(stack.pop())
 
+    # id735 _Stack
+    def asteroidCollision(self, asteroids: List[int]) -> List[int]:
+        stack = []
+
+        def add(x: int) -> None:
+            if len(stack) == 0:
+                stack.append(x)
+            else:
+                if x > 0:
+                    stack.append(x)
+                else:
+                    if stack[-1] > 0:
+                        last = stack.pop()
+
+                        if last > -x:
+                            add(last)
+                        elif -x > last:
+                            add(x)
+
+                    else:
+                        stack.append(x)
+
+        for asteroid in asteroids:
+            add(asteroid)
+
+        return stack
+
     # id848 _TwoPointers _Stack
     # Todo: see tp
     def backspaceCompare(self, S: str, T: str) -> bool:
