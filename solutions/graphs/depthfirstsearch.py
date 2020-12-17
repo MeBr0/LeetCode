@@ -443,6 +443,28 @@ class Solution:
                 if check_value(i, j):
                     dfs(i, j, True)
 
+    # id133 _DepthFirstSearch _BreadthFirstSearch _Graph
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        nodes = {}
+
+        # noinspection PyShadowingNames
+        def dfs(node: 'Node') -> 'Node':
+            if not node:
+                return None
+
+            if node.val not in nodes:
+                nodes[node.val] = Node(node.val)
+
+            for pair in node.neighbors:
+                if pair.val not in nodes:
+                    nodes[pair.val] = dfs(pair)
+
+                nodes[node.val].neighbors.append(nodes[pair.val])
+
+            return nodes[node.val]
+
+        return dfs(node)
+
     # id144 _Stack _Tree
     def preorderTraversal(self, root: TreeNode) -> List[int]:
         def dfs(node: TreeNode) -> List[int]:

@@ -552,6 +552,42 @@ class Solution:
 
         return True
 
+    # id977 _Array _TwoPointers
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        if len(nums) == 0:
+            return []
+
+        min_square, index = float('inf'), -1
+
+        for i, num in enumerate(nums):
+            if num * num < min_square:
+                min_square = num * num
+                index = i
+
+        result = [nums[index] * nums[index]]
+
+        left, right = index - 1, index + 1
+
+        while left > -1 or right < len(nums):
+            if left > -1 and right < len(nums):
+                if nums[left] * nums[left] < nums[right] * nums[right]:
+                    result.append(nums[left] * nums[left])
+                    left -= 1
+                else:
+                    result.append(nums[right] * nums[right])
+                    right += 1
+
+            else:
+                while left > -1:
+                    result.append(nums[left] * nums[left])
+                    left -= 1
+
+                while right < len(nums):
+                    result.append(nums[right] * nums[right])
+                    right += 1
+
+        return result
+
     # id1658 _TwoPointers _BinarySearch _Greedy
     def minOperations(self, nums: List[int], x: int) -> int:
         prefix_sum = [0]

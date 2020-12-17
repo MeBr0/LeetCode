@@ -23,3 +23,9 @@ class NAryNode:
     def __init__(self, val=None, children=None):
         self.val = val
         self.children = children
+
+
+class NNode:
+    def __init__(self, val = 0, neighbors = None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []

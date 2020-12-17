@@ -366,3 +366,47 @@ class Solution:
                 stack.append(char)
 
         return ''.join(stack)
+
+    # id1021 _Stack
+    def removeOuterParentheses(self, S: str) -> str:
+        balance = 0
+        stack = []
+
+        for char in S:
+            if char == '(':
+                if balance:
+                    stack.append(char)
+
+                balance += 1
+            else:
+                balance -= 1
+
+                if balance:
+                    stack.append(char)
+
+        return ''.join(stack)
+
+    # id1541 _String _Stack
+    def minInsertions(self, s: str) -> int:
+        balance, result, i = 0, 0, 0
+
+        while i < len(s):
+            if s[i] == '(':
+                balance += 1
+            else:
+                if i + 1 < len(s) and s[i + 1] == ')':
+                    i += 1
+                    if balance > 0:
+                        balance -= 1
+                    else:
+                        result += 1
+                else:
+                    if balance > 0:
+                        balance -= 1
+                        result += 1
+                    else:
+                        result += 2
+
+        result += balance * 2
+
+        return result
