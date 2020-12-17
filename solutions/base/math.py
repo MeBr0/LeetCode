@@ -1,3 +1,4 @@
+from itertools import permutations
 from typing import List
 
 
@@ -22,7 +23,7 @@ class Solution:
             x //= 10
             result = result * 10 + last
 
-        if result > 2**31 - 1 or result < -2**31:
+        if result > 2 ** 31 - 1 or result < -2 ** 31:
             return 0
 
         return -result if negative else result
@@ -34,13 +35,30 @@ class Solution:
         Reverse x
         If x equal to its inverse -> x is palindrome
         """
-        if x < 0:
-            return False
+        def reverse(num: int) -> int:
+            """
+            If negative invert -> save that it is negative
+            Get last digit of x and add it to result
+            Check for INT limit
+            """
+            result = 0
+            negative = False
 
-        return x == self.reverse(x)
+            if num < 0:
+                negative = True
+                num = -num
 
-    def _reverse(self, x: int) -> int:
-        return self.reverse(x)
+            while num != 0:
+                last = num % 10
+                num //= 10
+                result = result * 10 + last
+
+            if result > 2 ** 31 - 1 or result < -2 ** 31:
+                return 0
+
+            return -result if negative else result
+
+        return False if x < 0 else x == reverse(x)
 
     # id13 _Math _String
     def romanToInt(self, s: str) -> int:
@@ -48,28 +66,25 @@ class Solution:
         Create converter with roman and int values
         Iterate over s and compare current and next characters
         If current value less than next (pass through converter) -> take away value (i.e. we have sth like IV == 5 - 1)
-        Otherwise -> add value to _sum
+        Otherwise -> add value to result
         Return _sum
         """
-        converter = {
-            'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000
-        }
+        converter = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+        result, length = 0, len(s)
 
-        _sum = 0
-
-        for i in range(len(s)):
-            if i != len(s) - 1:
+        for i in range(length):
+            if i != length - 1:
                 current = converter[s[i]]
                 _next = converter[s[i + 1]]
 
                 if current < _next:
-                    _sum -= current
+                    result -= current
                 else:
-                    _sum += current
+                    result += current
             else:
-                _sum += converter[s[i]]
+                result += converter[s[i]]
 
-        return _sum
+        return result
 
     # id50 _Math _BinarySearch
     def myPow(self, x: float, n: int) -> float:
@@ -124,13 +139,10 @@ class Solution:
         Add to result value times its power (i.e. 26 ** i)
         Return result
         """
-        result, i, count = 0, 0, 26
+        result, i = 0, 0
 
-        while i < len(s):
-            char = s[-i - 1]
-
-            result = (ord(char) - ord('A')) * count ** i
-            i += 1
+        for i in range(len(s)):
+            result += (ord(s[-i - 1]) - ord('A') + 1) * 26 ** i
 
         return result
 
@@ -167,7 +179,6 @@ class Solution:
         while i < n:
             if not primes[i]:
                 count += 1
-
                 j = i * i
 
                 while j < n:
@@ -232,8 +243,8 @@ class Solution:
         Take away each num in nums
         Return remainder
         """
-        nums_len = len(nums)
-        _sum = nums_len * (nums_len + 1) // 2
+        length = len(nums)
+        _sum = length * (length + 1) // 2
 
         for num in nums:
             _sum -= num
@@ -290,6 +301,7 @@ class Solution:
         while i < n:
             sub_count, variants = 9, 9
             j = i
+
             while j != 0:
                 sub_count *= variants
                 variants -= 1

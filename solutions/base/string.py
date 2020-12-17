@@ -115,7 +115,7 @@ class Solution:
 
         return result
 
-    # id 58 _String
+    # id58 _String
     def lengthOfLastWord(self, s: str) -> int:
         """
         If s contains only from whitespaces or empty -> return 0
@@ -226,9 +226,7 @@ class Solution:
         If left from for -> return True
         """
         for char in ransomNote:
-            if char not in magazine:
-                return False
-            elif ransomNote.count(char) > magazine.count(char):
+            if char not in magazine or ransomNote.count(char) > magazine.count(char):
                 return False
 
         return True

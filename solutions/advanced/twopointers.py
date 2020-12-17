@@ -322,6 +322,7 @@ class Solution:
         return True
 
     # id142 _LinkedList _TwoPointers
+    # noinspection PyTypeChecker
     def detectCycle(self, head: ListNode) -> ListNode:
         """
 
@@ -379,25 +380,28 @@ class Solution:
 
     # id209 _Array _TwoPointers _BinarySearch
     def minSubArrayLen(self, s: int, nums: List[int]) -> int:
-        if len(nums) == 0:
+        length = 0
+
+        if length == 0:
             return 0
 
         prefix_sum = [0]
 
-        for i in range(len(nums)):
+        for i in range(length):
             prefix_sum.append(prefix_sum[-1] + nums[i])
 
         left, right = 0, 1
+        length = len(prefix_sum)
         _min = len(prefix_sum) + 1
 
-        while left < right < len(prefix_sum):
+        while left < right < length:
             if prefix_sum[right] - prefix_sum[left] < s:
                 right += 1
             else:
                 _min = min(_min, right - left)
                 left += 1
 
-        return 0 if _min == len(prefix_sum) + 1 else _min
+        return 0 if _min == length + 1 else _min
 
     # id228 _Array
     def summaryRanges(self, nums: List[int]) -> List[str]:
@@ -409,13 +413,13 @@ class Solution:
         Iterate start to incremented finish
         Return result
         """
-        start = 0
+        start, length = 0, len(nums)
         result = []
 
-        while start < len(nums):
+        while start < length:
             finish = start
 
-            while finish + 1 < len(nums) and nums[finish] + 1 == nums[finish + 1]:
+            while finish + 1 < length and nums[finish] + 1 == nums[finish + 1]:
                 finish += 1
 
             if start == finish:
@@ -554,7 +558,9 @@ class Solution:
 
     # id977 _Array _TwoPointers
     def sortedSquares(self, nums: List[int]) -> List[int]:
-        if len(nums) == 0:
+        length = len(nums)
+
+        if length == 0:
             return []
 
         min_square, index = float('inf'), -1
@@ -565,14 +571,14 @@ class Solution:
                 index = i
 
         result = [nums[index] * nums[index]]
-
         left, right = index - 1, index + 1
 
-        while left > -1 or right < len(nums):
-            if left > -1 and right < len(nums):
+        while left > -1 or right < length:
+            if left > -1 and right < length:
                 if nums[left] * nums[left] < nums[right] * nums[right]:
                     result.append(nums[left] * nums[left])
                     left -= 1
+
                 else:
                     result.append(nums[right] * nums[right])
                     right += 1
@@ -582,7 +588,7 @@ class Solution:
                     result.append(nums[left] * nums[left])
                     left -= 1
 
-                while right < len(nums):
+                while right < length:
                     result.append(nums[right] * nums[right])
                     right += 1
 
@@ -614,6 +620,7 @@ class Solution:
             if left + right > len(prefix_sum):
                 right -= 1
                 continue
+
             if _sum == x:
                 _min = min(_min, left + right)
             elif _sum > x:

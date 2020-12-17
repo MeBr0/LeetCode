@@ -10,8 +10,10 @@ class Solution:
         Gather current index, all previous character
         """
         numbers = {'2': 'abc', '3': 'def', '4': 'ghi', '5': 'jkl', '6': 'mno', '7': 'pqrs', '8': 'tuv', '9': 'wxyz'}
+        stack = []
+        length = len(digits)
 
-        def get_combinations(previous: List[str], index: int) -> List[str]:
+        def get_combinations(index: int) -> List[str]:
             """
             If previous has length of digits ->
                 If previous not empty -> return list of generated string
@@ -22,24 +24,19 @@ class Solution:
             Pop letter
             Return result
             """
-            prev_len = len(previous)
-
-            if prev_len == len(digits):
-                if prev_len != 0:
-                    return [''.join(previous)]
-                else:
-                    return []
+            if len(stack) == length:
+                return [] if length == 0 else [''.join(stack)]
 
             result = []
 
             for char in numbers[digits[index]]:
-                previous.append(char)
-                result.extend(get_combinations(previous, index + 1))
-                previous.pop()
+                stack.append(char)
+                result.extend(get_combinations(index + 1))
+                stack.pop()
 
             return result
 
-        return get_combinations([], 0)
+        return get_combinations(0)
 
     # id22 _String _Backtracking
     def generateParenthesis(self, n: int) -> List[str]:
@@ -47,7 +44,9 @@ class Solution:
         Gather in previous all parenthesis
         Return generated parenthesis from given n
         """
-        def generate(previous: List[str], balance: int) -> List[str]:
+        stack = []
+
+        def generate(balance: int) -> List[str]:
             """
             Balance is difference between opened and closed parenthesis
             If length of previous reach maximum (2 * n) ->
@@ -58,29 +57,29 @@ class Solution:
             If balance greater than zero (can be added closed parenthesis) -> add it with decremented balance
             Return merged result of two operations
             """
-            if len(previous) == 2 * n:
+            if len(stack) == 2 * n:
                 if balance == 0:
-                    return [''.join(previous)]
+                    return [''.join(stack)]
                 else:
                     return []
 
             opened, closed = [], []
 
-            if balance == 0 or 2 * n - len(previous) > balance:
-                previous.append('(')
-                opened = generate(previous, balance + 1)
-                previous.pop()
+            if balance == 0 or 2 * n - len(stack) > balance:
+                stack.append('(')
+                opened = generate(balance + 1)
+                stack.pop()
 
             if balance > 0:
-                previous.append(')')
-                closed = generate(previous, balance - 1)
-                previous.pop()
+                stack.append(')')
+                closed = generate(balance - 1)
+                stack.pop()
 
             opened.extend(closed)
 
             return opened
 
-        return generate([], 0)
+        return generate(0)
 
     # id37 _HashTable _Backtracking
     def solveSudoku(self, board: List[List[str]]) -> None:
@@ -92,7 +91,9 @@ class Solution:
         Iterate through board and register every cell in rows, columns and boxes
         Return return result of solving sudoku (from first cell [0, 0])
         """
-        rows, columns, boxes = [[] for _ in range(9)], [[] for _ in range(9)], [[] for _ in range(9)]
+        rows = [[] for _ in range(len(board))]
+        columns = [[] for _ in range(len(board))]
+        boxes = [[] for _ in range(len(board))]
 
         for i in range(len(board)):
             for j in range(len(board[0])):
@@ -122,7 +123,7 @@ class Solution:
             if board[x][y] != '.':
                 return solve(x + (y + 1) // 9, (y + 1) % 9)
 
-            for k in range(9):
+            for k in range(len(board)):
                 char = str(k + 1)
                 box = boxes[3 * (x // 3) + y // 3]
 
@@ -150,7 +151,10 @@ class Solution:
         Gather all numbers, last index and sum of numbers
         Return list of list of numbers gathered from 0 index and 0 sum
         """
-        def get_numbers(previous: List[int], last: int, _sum: int) -> List[List[int]]:
+        stack = []
+        length = len(candidates)
+
+        def get_numbers(last: int, _sum: int) -> List[List[int]]:
             """
             If sum of previous elements equal target -> return copy of previous
             Iterate from last index (do not repeat combinations) to candidates:
@@ -161,26 +165,29 @@ class Solution:
             Return result
             """
             if _sum == target:
-                return [previous[:]]
+                return [stack[:]]
 
             result = []
 
-            for i in range(last, len(candidates)):
+            for i in range(last, length):
                 if _sum + candidates[i] <= target:
-                    previous.append(candidates[i])
-                    result.extend(get_numbers(previous, i, _sum + candidates[i]))
-                    previous.pop()
+                    stack.append(candidates[i])
+                    result.extend(get_numbers(i, _sum + candidates[i]))
+                    stack.pop()
 
             return result
 
-        return get_numbers([], 0, 0)
+        return get_numbers(0, 0)
 
     # id46 _Backtracking
     def permute(self, nums: List[int]) -> List[List[int]]:
         """
         Return permutations from nums
         """
-        def get_permutations(previous: List[int], used: int) -> List[List[int]]:
+        stack = []
+        length = len(nums)
+
+        def get_permutations(used: int) -> List[List[int]]:
             """
             Used is bit mask for used elements in nums (number whose bitmask say i-th element is present or not)
             If count is equal to length of nums -> return copy of previous
@@ -191,45 +198,47 @@ class Solution:
             Return result
             """
             result = []
-            nums_len = len(nums)
 
-            if len(previous) == nums_len:
-                return [previous[:]]
+            if len(stack) == length:
+                return [stack[:]]
 
-            for i in range(nums_len):
+            for i in range(length):
                 if not used & (1 << i):
-                    previous.append(nums[i])
-                    result.extend(get_permutations(previous, used | (1 << i)))
-                    previous.pop()
+                    stack.append(nums[i])
+                    result.extend(get_permutations(used | (1 << i)))
+                    stack.pop()
 
             return result
 
-        return get_permutations([], 0)
+        return get_permutations(0)
 
     # id78 _Array _Backtracking _BitManipulation
     def subsets(self, nums: List[int]) -> List[List[int]]:
         """
         Return all subsets from recursion
         """
-        def _subsets(previous: List[int], count: int) -> List[List[int]]:
+        stack = []
+        length = len(nums)
+
+        def _subsets(count: int) -> List[List[int]]:
             """
             If count is equal to length of nums -> all numbers gathered, return copy of it
             Count subsets with and without current element, merge results and return it
             """
-            if len(nums) == count:
-                return [previous[:]]
+            if length == count:
+                return [stack[:]]
 
-            without = _subsets(previous, count + 1)
+            without = _subsets(count + 1)
 
-            previous.append(nums[count])
-            _with = _subsets(previous, count + 1)
-            previous.pop()
+            stack.append(nums[count])
+            _with = _subsets(count + 1)
+            stack.pop()
 
             _with.extend(without)
 
             return _with
 
-        return _subsets([], 0)
+        return _subsets(0)
 
     # id79 _Array _Backtracking
     def exist(self, board: List[List[str]], word: str) -> bool:
@@ -333,7 +342,7 @@ class Solution:
         """
         min_int = -99999999999999999
         memo = [[min_int for _ in range(2001)] for _ in nums]
-        nums_len = len(nums)
+        length = len(nums)
 
         def find_ways(count: int, index: int) -> int:
             """
@@ -345,7 +354,7 @@ class Solution:
                 Save them
             Return it
             """
-            if index == nums_len:
+            if index == length:
                 return 1 if count == S else 0
 
             count_i = count + 1000

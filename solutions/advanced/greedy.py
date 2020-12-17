@@ -21,14 +21,14 @@ class Solution:
 
     # id45 _Array _Greedy
     def jump(self, nums: List[int]) -> int:
-        if len(nums) == 1:
+        length = len(nums)
+
+        if length == 1:
             return 0
 
-        power = nums[0]
-        power2 = -1
-        count = 1
+        power, power2, count = nums[0], -1, 1
 
-        for i in range(1, len(nums)):
+        for i in range(1, length):
             power -= 1
 
             if power2 != -1:
@@ -49,7 +49,9 @@ class Solution:
 
     # id605 _Array _Greedy
     def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
-        if len(flowerbed) == 1:
+        length = len(flowerbed)
+
+        if length == 1:
             if n == 0:
                 return True
             elif n == 1:
@@ -57,13 +59,13 @@ class Solution:
             else:
                 return False
 
-        for i in range(len(flowerbed)):
+        for i in range(length):
             if i == 0:
                 if flowerbed[i] == flowerbed[i + 1] == 0:
                     flowerbed[i] = 1
                     n -= 1
             elif i == len(flowerbed) - 1:
-                if flowerbed[i] == flowerbed[i - 1] == 0:
+                if flowerbed[i - 1] == flowerbed[i] == 0:
                     flowerbed[i] = 1
                     n -= 1
             else:

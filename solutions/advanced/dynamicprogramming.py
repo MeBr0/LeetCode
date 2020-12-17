@@ -10,7 +10,7 @@ class Solution:
         for i in range(len(s)):
             dp[i][i] = True
 
-        l, r = 0, 0
+        left, right = 0, 0
 
         for i in range(1, len(s)):
             for j in range(len(s) - i):
@@ -20,20 +20,20 @@ class Solution:
                     if s[j] == s[right]:
                         dp[j][right] = True
 
-                        if r - l < right - j:
-                            r = right
-                            l = j
+                        if right - left < right - j:
+                            right = right
+                            left = j
 
                 else:
                     if dp[j + 1][right - 1]:
                         if s[j] == s[right]:
                             dp[j][right] = True
 
-                            if r - l < right - j:
-                                r = right
-                                l = j
+                            if right - left < right - j:
+                                right = right
+                                left = j
 
-        return s[l:r + 1]
+        return s[left:right + 1]
 
     # id53 _Array _DynamicProgramming _DivideAndConquer
     # Todo: see dp, d&c
@@ -43,20 +43,20 @@ class Solution:
         Iterate over nums:
         If current already negative -> null it
         Add num in current
-        Compare _max with current
-        If greater -> override _max
+        Compare result with current
+        If greater -> override result
         Return _max
         """
-        _max, current = nums[0], 0
+        result, current = nums[0], 0
 
         for num in nums:
             if current < 0:
                 current = 0
 
             current += num
-            _max = max(_max, current)
+            result = max(result, current)
 
-        return _max
+        return result
 
     # id62 _Array _DynamicProgramming
     def uniquePaths(self, m: int, n: int) -> int:
@@ -80,14 +80,16 @@ class Solution:
         For other results add minimum of upper and left results
         Return last element
         """
-        for i in range(1, len(grid)):
+        x, y = len(grid), len(grid[0])
+
+        for i in range(1, x):
             grid[i][0] += grid[i - 1][0]
 
-        for j in range(1, len(grid[0])):
+        for j in range(1, y):
             grid[0][j] += grid[0][j - 1]
 
-        for i in range(1, len(grid)):
-            for j in range(1, len(grid[0])):
+        for i in range(1, x):
+            for j in range(1, y):
                 grid[i][j] += min(grid[i - 1][j], grid[i][j - 1])
 
         return grid[-1][-1]
@@ -218,15 +220,15 @@ class Solution:
             either i-2 or i-3 houses
         Return maximum of last two elements
         """
-        nums_len = len(nums)
+        length = len(nums)
 
-        if nums_len == 0:
+        if length == 0:
             return 0
 
-        if nums_len <= 2:
+        if length <= 2:
             return max(nums)
 
-        if nums_len == 3:
+        if length == 3:
             return max(nums[1], nums[0] + nums[2])
 
         dp = [0 for _ in nums]
@@ -243,49 +245,6 @@ class Solution:
     # id300 _BinarySearch _DynamicProgramming
     def lengthOfLIS(self, nums: List[int]) -> int:
         """
-        Let dp[i] is length of LIS ending in i
-        Then dp[0] = 1
-        For each next dp ->
-            For each previous dp ->
-                If current element greater than j-th -> save max length as maximum of previous value and dp[j]
-            If max length found -> dp[i] = incremented max length
-            Otherwise -> dp[i] = 1
-        Return maximum dp values (max length)
-        """
-        if len(nums) == 0:
-            return 0
-
-        if len(nums) == 1:
-            return 1
-
-        dp = [-10 ** 9] + [10 ** 9 for _ in nums]
-        i = 1
-
-        while i <= len(nums):
-            left, right = 0, i
-
-            while left < right:
-                mid = (left + right) // 2
-
-                if nums[i - 1] > dp[mid]:
-                    dp[mid + 1] = min(dp[mid + 1], nums[i - 1])
-                    left = mid + 1
-                else:
-                    right = mid
-
-            i += 1
-
-        i = len(dp) - 1
-
-        while i > -1:
-            if dp[i] != 10 ** 9:
-                return i
-
-            i -= 1
-
-    # id300 _BinarySearch _DynamicProgramming
-    def lengthOfLIS(self, nums: List[int]) -> int:
-        """
         Let dp[i] is last left element of LIS of length i
         Then dp[0] = MIN_INT
         For each next dp ->
@@ -294,15 +253,15 @@ class Solution:
             Save current dp as minimum of current dp and current value
         Return first initialized dp from end
         """
-        nums_len = len(nums)
+        length = len(nums)
 
-        if nums_len < 2:
-            return nums_len
+        if length < 2:
+            return length
 
         dp = [-10 ** 9] + [10 ** 9 for _ in nums]
         i = 1
 
-        while i <= len(nums):
+        while i <= length:
             left, right = 0, i
 
             while left < right:
@@ -356,7 +315,10 @@ class Solution:
         if len(matrix) == 0:
             return 0
 
+        rows, columns = len(matrix), len(matrix[0])
+
         dp = [[-1 for _ in row] for row in matrix]
+        pairs = ((0, 1), (0, -1), (1, 0), (-1, 0))
 
         def calculate(x: int, y: int):
             """
@@ -371,27 +333,17 @@ class Solution:
 
             adjacent = 0
 
-            directions = ((0, 1), (0, -1), (1, 0), (-1, 0))
+            for _x, _y in pairs:
+                dx, dy = x + _x, y + _y
 
-            for direction in directions:
-                dx = x + direction[0]
-                dy = y + direction[1]
-
-                if -1 < dx < len(matrix) and -1 < dy < len(matrix[0]):
-                    if matrix[x][y] > matrix[dx][dy]:
-                        adjacent = max(adjacent, calculate(dx, dy))
+                if -1 < dx < rows and -1 < dy < columns and matrix[x][y] > matrix[dx][dy]:
+                    adjacent = max(adjacent, calculate(dx, dy))
 
             dp[x][y] = adjacent + 1
 
             return dp[x][y]
 
-        maxi = -1
-
-        for i in range(len(matrix)):
-            for j in range(len(matrix[0])):
-                maxi = max(calculate(i, j), maxi)
-
-        return maxi
+        return max([calculate(i, j) for i in range(rows) for j in range(columns)])
 
     # id416 _DynamicProgramming
     # Todo: see faster solutions
@@ -426,7 +378,7 @@ class Solution:
         """
         dp = [[0 for _ in nums] for _ in nums]
 
-        def winner(left: int, right: int):
+        def winner(left: int, right: int) -> int:
             """
             If left == right ->
                 Return nums[left] itself
@@ -522,14 +474,12 @@ class NumMatrix:
         Next fill matrix with sum of two neighbours and difference of i - 1 j - 1 element
         """
         self.sum_range = []
+        x = len(matrix)
 
-        if len(matrix) != 0:
-            self.sum_range = [
-                [
-                    0 for _ in range(len(matrix[i]))
-                ] for i in range(len(matrix))
-            ]
+        if x != 0:
+            y = len(matrix[0])
 
+            self.sum_range = [[0 for _ in range(y)] for _ in range(x)]
             self.sum_range[0][0] = matrix[0][0]
 
             for i in range(1, len(self.sum_range[0])):
@@ -551,13 +501,13 @@ class NumMatrix:
         If both row1 and col1 are not first -> add sum before it (because for both col1 and row1, took away twice)
         Return _sum
         """
-        _sum = self.sum_range[row2][col2]
+        result = self.sum_range[row2][col2]
 
         if col1 > 0:
-            _sum -= self.sum_range[row2][col1 - 1]
+            result -= self.sum_range[row2][col1 - 1]
         if row1 > 0:
-            _sum -= self.sum_range[row1 - 1][col2]
+            result -= self.sum_range[row1 - 1][col2]
         if row1 > 0 and col1 > 0:
-            _sum += self.sum_range[row1 - 1][col1 - 1]
+            result += self.sum_range[row1 - 1][col1 - 1]
 
-        return _sum
+        return result

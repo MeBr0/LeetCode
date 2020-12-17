@@ -1,3 +1,4 @@
+from collections import Counter
 from typing import List
 
 
@@ -171,6 +172,7 @@ class Solution:
         while i < len(nums) - 2:
             if nums[i] == nums[i + 1] == nums[i + 2]:
                 j = i
+
                 while j < len(nums) - 2 and nums[j] == nums[j + 1] == nums[j + 2]:
                     del nums[j]
 
@@ -340,29 +342,22 @@ class Solution:
         If third not set or current number greater than third -> make number third
         If third not set -> return first maximum
         Otherwise -> return third maximum
-
         """
         first, second, third = None, None, None
 
         for num in nums:
             if first is None or num > first:
-                third = second
-                second = first
-                first = num
+                third, second, first = second, first, num
             elif num == first:
                 continue
             elif second is None or num > second:
-                third = second
-                second = num
+                third, second = second, num
             elif num == second:
                 continue
             elif third is None or num > third:
                 third = num
 
-        if third is None:
-            return first
-        else:
-            return third
+        return first if third is None else third
 
     # id454 _HashTable _BinarySearch
     def fourSumCount(self, A: List[int], B: List[int], C: List[int], D: List[int]) -> int:
@@ -405,9 +400,7 @@ class Solution:
         first, second, current, i = 1, 1, 0, 3
 
         while i < N + 1:
-            current = first + second
-            first = second
-            second = current
+            current, first, second = first + second, second, current
 
             i += 1
 
@@ -420,8 +413,10 @@ class Solution:
         for i in range(len(nums)):
             prefix_sum.append(prefix_sum[-1] + nums[i])
 
-        for i in range(len(prefix_sum)):
-            for j in range(i + 1, len(prefix_sum)):
+        length = len(prefix_sum)
+
+        for i in range(length):
+            for j in range(i + 1, length):
                 if prefix_sum[j] - prefix_sum[i] % k == 0:
                     return True
 
@@ -429,15 +424,12 @@ class Solution:
 
     # id643 _Array
     def findMaxAverage(self, nums: List[int], k: int) -> float:
-        if len(nums) < k:
-            return 0
+        prefix_sum = [0]
 
-        _max = -1000000000000
+        for num in nums:
+            prefix_sum.append(prefix_sum[-1] + num)
 
-        for i in range(0, len(nums) - k + 1):
-            _max = max(_max, sum(nums[i:i + 5]))
-
-        return _max
+        return max([prefix_sum[i + k] - prefix_sum[i] for i in range(len(prefix_sum) - k)])
 
     # id674 _Array
     def findLengthOfLCIS(self, nums: List[int]) -> int:
@@ -450,21 +442,21 @@ class Solution:
         After left from for override longest again (for last element)
         Return longest
         """
-        if len(nums) == 0:
+        length = len(nums)
+
+        if length == 0:
             return 0
 
         longest, current = 1, 1
 
-        for i in range(len(nums) - 1):
+        for i in range(length - 1):
             if nums[i] < nums[i + 1]:
                 current += 1
             else:
                 longest = max(current, longest)
                 current = 1
 
-        longest = max(current, longest)
-
-        return longest
+        return max(current, longest)
 
     # id766 _Array
     def isToeplitzMatrix(self, matrix: List[List[int]]) -> bool:
@@ -476,12 +468,13 @@ class Solution:
         Shift i, j by edge to the top and afterwards, to the right
         If left from outer while -> return True
         """
-        i, j = len(matrix) - 1, 0
+        rows, columns = len(matrix), len(matrix[0])
+        i, j = rows - 1, 0
 
-        while j != len(matrix[0]):
+        while j != columns:
             x, y, num = i, j, None
 
-            while x != len(matrix) and y != len(matrix[0]):
+            while x != rows and y != columns:
                 if num is None:
                     num = matrix[x][y]
                 else:
@@ -513,17 +506,17 @@ class Solution:
                 A.insert(0, K % 10)
             else:
                 A[-i] += K % 10
+
             K //= 10
             i += 1
 
-        transfer = 0
-
-        right = len(A) - 1
+        transfer, right = 0, len(A) - 1
 
         while True:
             if right < 0:
                 if transfer != 0:
                     A.insert(0, transfer)
+
                 break
             else:
                 A[right] += transfer
