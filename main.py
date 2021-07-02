@@ -1,13 +1,13 @@
-from solutions.advanced import DynamicProgramming, Greedy, TwoPointers, NumArray, NumMatrix, DivideAndConquer, \
-    BackTracking
-from solutions.base import Math, String, Array
+from solutions import Math, String
+from solutions.advanced import (
+    DynamicProgramming, Greedy, TwoPointers, NumArray, NumMatrix, DivideAndConquer, BackTracking
+)
 from solutions.bits import BitManipulation
-from solutions.design import MyStack, MinStack, RandomPicker, MedianFinder, Codec
-from solutions.graphs import Dfs, Bfs, TopologicalSort
-from solutions.lists import LinkedList, Stack
-from solutions.maps import HashTable
 from solutions.search import BinarySearch
 from solutions.sort import Sorts
+from solutions.structs import Array, HashTable, Heap, LinkedList, Stack
+from solutions.structs.design import MyStack, MinStack, RandomPicker, MedianFinder, Codec
+from solutions.structs.graphs import Dfs, Bfs, TopologicalSort
 from utils import ListNode, TreeNode, Node
 
 
@@ -22,16 +22,18 @@ def _import():
     TwoPointers()
     DivideAndConquer()
     BackTracking()
+
     NumArray([])
     NumMatrix([])
 
-    # Base
-    Math()
-    String()
-    Array()
-
     # Bits
     BitManipulation()
+
+    # Search
+    BinarySearch()
+
+    # Sort
+    Sorts()
 
     # Design
     MyStack()
@@ -40,23 +42,21 @@ def _import():
     MedianFinder()
     Codec()
 
-    # Lists
-    LinkedList()
-    Stack()
-
-    # Maps
-    HashTable()
-
-    # Search
-    BinarySearch()
-
-    # Sort
-    Sorts()
-
-    # Trees
+    # Graphs
     Dfs()
     Bfs()
     TopologicalSort()
+
+    # Structs
+    Array()
+    HashTable()
+    Heap()
+    LinkedList()
+    Stack()
+
+    # Base
+    Math()
+    String()
 
     # Utils
     ListNode()

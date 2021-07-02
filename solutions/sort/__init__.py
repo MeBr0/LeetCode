@@ -1,1 +1,1 @@
-from .builtin import Solution as Sorts
+from .sort import Solution as Sorts

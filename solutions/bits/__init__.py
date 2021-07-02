@@ -1,1 +1,1 @@
-from .bitmanipulation import Solution as BitManipulation
+from .bits import Solution as BitManipulation

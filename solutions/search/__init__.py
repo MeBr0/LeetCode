@@ -1,1 +1,1 @@
-from .binarysearch import Solution as BinarySearch
+from .binary import Solution as BinarySearch
