@@ -204,6 +204,26 @@ class Solution:
 
         return True
 
+    # id389 _HashTable _String _BitManipulation _Sorting
+    def findTheDifference(self, s: str, t: str) -> str:
+        from collections import defaultdict
+
+        d = defaultdict(int)
+
+        for ch in s:
+            d[ch] += 1
+
+        for ch in t:
+            d[ch] -= 1
+
+        from string import ascii_lowercase
+
+        for ch in ascii_lowercase:
+            if d[ch] != 0:
+                return ch
+
+        return ''
+
     # id409 _HashTable
     def longestPalindrome(self, s: str) -> int:
         chars = {}

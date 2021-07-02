@@ -559,3 +559,17 @@ class Solution:
             result.append(nums[i + n])
 
         return result
+
+    # id1893 _Array _HashTable _PrefixSum
+    def isCovered(self, ranges: List[List[int]], left: int, right: int) -> bool:
+        _range = [False for _ in range(50)]
+
+        for r in ranges:
+            for i in range(r[0], r[1] + 1):
+                _range[i - 1] = True
+
+        for i in range(left, right + 1):
+            if not _range[i - 1]:
+                return False
+
+        return True
