@@ -3,7 +3,7 @@ from typing import List
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming
 class Solution:
-    # id215 _DivideAndConquer _Heap
+    # id215
     # Todo: see d&c
     def findKthLargest(self, nums: List[int], k: int) -> int:
         """
@@ -26,7 +26,7 @@ class Solution:
 
         return value
 
-    # id264 _Math _DynamicProgramming _Heap
+    # id264
     # Todo: see dp
     def nthUglyNumber(self, n: int) -> int:
         if n == 1:
@@ -53,7 +53,7 @@ class Solution:
 
         return queue.get()
 
-    # id378 _BinarySearch _Heap
+    # id378
     # Todo: see bs (heap too slow)
     def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
         """

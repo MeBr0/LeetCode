@@ -3,8 +3,7 @@ from typing import List
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming
 class Solution:
-
-    # id55 _Array _Greedy
+    # id55
     def canJump(self, nums: List[int]) -> bool:
         power = nums[0]
 
@@ -19,7 +18,7 @@ class Solution:
 
         return power >= 0
 
-    # id45 _Array _Greedy
+    # id45
     def jump(self, nums: List[int]) -> int:
         length = len(nums)
 
@@ -47,7 +46,7 @@ class Solution:
 
         return count
 
-    # id605 _Array _Greedy
+    # id605
     def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
         length = len(flowerbed)
 
@@ -75,7 +74,7 @@ class Solution:
 
         return n == 0
 
-    # id860 _Greedy
+    # id860
     # Todo: see greedy, for now stay here
     def lemonadeChange(self, bills: List[int]) -> bool:
         """

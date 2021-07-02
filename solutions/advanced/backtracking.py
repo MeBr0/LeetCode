@@ -3,7 +3,7 @@ from typing import List
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming
 class Solution:
-    # id17 _String _Backtracking
+    # id17
     def letterCombinations(self, digits: str) -> List[str]:
         """
         Init dict with numbers and letters
@@ -38,7 +38,7 @@ class Solution:
 
         return get_combinations(0)
 
-    # id22 _String _Backtracking
+    # id22
     def generateParenthesis(self, n: int) -> List[str]:
         """
         Gather in previous all parenthesis
@@ -81,7 +81,7 @@ class Solution:
 
         return generate(0)
 
-    # id37 _HashTable _Backtracking
+    # id37
     def solveSudoku(self, board: List[List[str]]) -> None:
         """
         Do not return anything, modify board in-place instead.
@@ -145,7 +145,7 @@ class Solution:
 
         solve(0, 0)
 
-    # id39 _Array _Backtracking
+    # id39
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         """
         Gather all numbers, last index and sum of numbers
@@ -179,7 +179,7 @@ class Solution:
 
         return get_numbers(0, 0)
 
-    # id46 _Backtracking
+    # id46
     def permute(self, nums: List[int]) -> List[List[int]]:
         """
         Return permutations from nums
@@ -212,7 +212,7 @@ class Solution:
 
         return get_permutations(0)
 
-    # id78 _Array _Backtracking _BitManipulation
+    # id78
     def subsets(self, nums: List[int]) -> List[List[int]]:
         """
         Return all subsets from recursion
@@ -240,7 +240,7 @@ class Solution:
 
         return _subsets(0)
 
-    # id79 _Array _Backtracking
+    # id79
     def exist(self, board: List[List[str]], word: str) -> bool:
         """
         Create 2-d matrix for used elements (false default)
@@ -287,7 +287,7 @@ class Solution:
 
         return False
 
-    # id357 _Math _DynamicProgramming _Backtracking
+    # id357
     def countNumbersWithUniqueDigits(self, n: int) -> int:
         """
         Init list with used digits
@@ -333,7 +333,7 @@ class Solution:
 
         return count_unique(0)
 
-    # id494 _DynamicProgramming _DepthFirstSearch
+    # id494
     # Todo: see dp
     def findTargetSumWays(self, nums: List[int], S: int) -> int:
         """

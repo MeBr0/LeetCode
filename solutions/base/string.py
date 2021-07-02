@@ -3,7 +3,7 @@ from typing import List
 
 # noinspection PyMethodMayBeStatic,PyShadowingBuiltins,PyPep8Naming,PyUnusedLocal,SpellCheckingInspection,PyRedeclaration
 class Solution:
-    # id6 _String
+    # id6
     def convert(self, s: str, numRows: int) -> str:
         """
         Create list for chars in every row
@@ -30,7 +30,7 @@ class Solution:
 
         return ''.join(''.join(row) for row in rows)
 
-    # id8 _Math _String
+    # id8
     def myAtoi(self, str: str) -> int:
         """
         Iterate over str
@@ -81,7 +81,7 @@ class Solution:
         else:
             return result
 
-    # id14 _String
+    # id14
     # Todo: could be slow
     def longestCommonPrefix(self, strs: List[str]) -> str:
         """
@@ -115,7 +115,7 @@ class Solution:
 
         return result
 
-    # id58 _String
+    # id58
     def lengthOfLastWord(self, s: str) -> int:
         """
         If s contains only from whitespaces or empty -> return 0
@@ -126,7 +126,7 @@ class Solution:
 
         return len(s.split()[-1])
 
-    # id151 _String
+    # id151
     def reverseWords(self, s: str) -> str:
         """
         Strip s
@@ -135,7 +135,7 @@ class Solution:
         """
         return ' '.join(s.strip().split()[::-1])
 
-    # id165 _String
+    # id165
     def compareVersion(self, version1: str, version2: str) -> int:
         """
         Split both versions by separator
@@ -162,7 +162,7 @@ class Solution:
 
         return 0
 
-    # id273 _Math _String
+    # id273
     # Todo: write solution
     def numberToWords(self, num: int) -> str:
         """
@@ -217,7 +217,7 @@ class Solution:
 
         return ' '.join(result)
 
-    # id383 _String
+    # id383
     def canConstruct(self, ransomNote: str, magazine: str) -> bool:
         """
         For every character in ransomNone:
@@ -260,7 +260,7 @@ class Solution:
 
         return longest
 
-    # id415 _String
+    # id415
     def addStrings(self, num1: str, num2: str) -> str:
         """
         Start from the last element
@@ -327,21 +327,21 @@ class Solution:
 
         return '-'.join(parts)
 
-    # id557 _String
+    # id557
     def reverseWords(self, s: str) -> str:
         """
         Reverse words in splitted s with whitespace and join with whitespace again
         """
         return ' '.join(string[::-1] for string in s.split())
 
-    # id647 _String _DynamicProgramming
+    # id647
     # Todo: thinking
     def countSubstrings(self, s: str) -> int:
         for i in range(len(s)):
             for j in range(i, len(s)):
                 return 0
 
-    # id657 _String
+    # id657
     def judgeCircle(self, moves: str) -> bool:
         """
         Create deltas for x and y axis (initial origin coordinates)
@@ -363,7 +363,7 @@ class Solution:
 
         return x == 0 and y == 0
 
-    # id722 _String
+    # id722
     # noinspection PyUnboundLocalVariable
     def removeComments(self, source: List[str]) -> List[str]:
         """
@@ -405,7 +405,7 @@ class Solution:
 
         return result
 
-    # id824 _String
+    # id824
     def toGoatLatin(self, S: str) -> str:
         """
         Iterate over words in split S:

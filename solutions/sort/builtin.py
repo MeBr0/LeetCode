@@ -3,7 +3,7 @@ from typing import List
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming
 class Solution:
-    # id56 _Array _Sort
+    # id56
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
         """
         Sort intervals by first element, than by second
@@ -36,7 +36,7 @@ class Solution:
 
         return intervals
 
-    # id75 _Array _TwoPointers _Sort
+    # id75
     # Todo: see tp
     def sortColors(self, nums: List[int]) -> None:
         """
@@ -44,7 +44,7 @@ class Solution:
         """
         nums.sort()
 
-    # id215 _DivideAndConquer _Heap
+    # id215
     # Todo: see d&c
     def findKthLargest(self, nums: List[int], k: int) -> int:
         """
@@ -53,7 +53,7 @@ class Solution:
         """
         return sorted(nums)[-k]
 
-    # id217 _Array _HashTable
+    # id217
     def containsDuplicate(self, nums: List[int]) -> bool:
         """
         Sort nums
@@ -69,7 +69,7 @@ class Solution:
 
         return False
 
-    # id242 _HashTable _Sort
+    # id242
     # Todo: see ht
     def isAnagram(self, s: str, t: str) -> bool:
         """
@@ -78,7 +78,7 @@ class Solution:
         """
         return ''.join(sorted(s)) == ''.join(sorted(t))
 
-    # id628 _Array _Math
+    # id628
     # Todo: see math?
     def maximumProduct(self, nums: List[int]) -> int:
         """
@@ -91,7 +91,7 @@ class Solution:
 
         return max(nums[0] * nums[1] * nums[-1], nums[-3] * nums[-2] * nums[-1])
 
-    # id976 _Math _Sort
+    # id976
     def largestPerimeter(self, A: List[int]) -> int:
         A.sort()
 

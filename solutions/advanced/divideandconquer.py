@@ -5,7 +5,7 @@ from utils import ListNode
 
 # noinspection PyTypeChecker,PyPep8Naming
 class Solution:
-    # id23 _LinkedList _DivideAndConquer _Heap
+    # id23
     # Todo: see heap
     def mergeKLists(self, lists: List[ListNode]) -> ListNode:
         """

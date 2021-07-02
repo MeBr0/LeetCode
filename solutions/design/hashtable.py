@@ -1,9 +1,8 @@
 from typing import List
 
 
-# id398 _ReservoirSampling
+# id398
 class Solution:
-
     def __init__(self, nums: List[int]):
         """
         Create hash table for storing value with all indices

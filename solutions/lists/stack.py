@@ -5,7 +5,7 @@ from utils import TreeNode
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming
 class Solution:
-    # id20 _String _Stack
+    # id20
     def isValid(self, s: str) -> bool:
         """
         Create pair of parentheses in dict
@@ -35,7 +35,7 @@ class Solution:
 
         return len(stack) == 0
 
-    # id71 _String _Stack
+    # id71
     def simplifyPath(self, path: str) -> str:
         """
         Split path with /
@@ -58,7 +58,7 @@ class Solution:
 
         return '/' + '/'.join(stack)
 
-    # id84 _Array _Stack
+    # id84
     def largestRectangleArea(self, heights: List[int]) -> int:
         stack = []
         left, right = [0 for _ in heights], [0 for _ in heights]
@@ -104,7 +104,7 @@ class Solution:
 
         return area
 
-    # id85 _Array _HashTable _DynamicProgramming _Stack
+    # id85
     def maximalRectangle(self, matrix: List[List[str]]) -> int:
         if len(matrix) == 0:
             return 0
@@ -166,7 +166,7 @@ class Solution:
 
         return result
 
-    # id94 _HastTable _Stack _Tree
+    # id94
     def inorderTraversal(self, root: TreeNode) -> List[int]:
         """
         Create list for results and stack for ordering traversal and counting appearance (first or not)
@@ -206,7 +206,7 @@ class Solution:
 
         return result
 
-    # id144 _Stack _Tree
+    # id144
     def preorderTraversal(self, root: TreeNode) -> List[int]:
         """
         Create list for results and stack for ordering traversal
@@ -237,7 +237,7 @@ class Solution:
 
         return result
 
-    # id145 _Stack _Tree
+    # id145
     def postorderTraversal(self, root: TreeNode) -> List[int]:
         """
         Create list for results and stack for ordering traversal and counting appearance (first or not)
@@ -277,7 +277,7 @@ class Solution:
 
         return result
 
-    # id150 _Stack
+    # id150
     # Todo: too slow
     def evalRPN(self, tokens: List[str]) -> int:
         """
@@ -318,7 +318,7 @@ class Solution:
 
         return int(stack.pop())
 
-    # id735 _Stack
+    # id735
     def asteroidCollision(self, asteroids: List[int]) -> List[int]:
         stack = []
 
@@ -345,7 +345,7 @@ class Solution:
 
         return stack
 
-    # id848 _TwoPointers _Stack
+    # id848
     # Todo: see tp
     def backspaceCompare(self, S: str, T: str) -> bool:
         """
@@ -367,7 +367,7 @@ class Solution:
 
         return ''.join(stack)
 
-    # id1021 _Stack
+    # id1021
     def removeOuterParentheses(self, S: str) -> str:
         balance = 0
         stack = []
@@ -386,7 +386,7 @@ class Solution:
 
         return ''.join(stack)
 
-    # id1541 _String _Stack
+    # id1541
     def minInsertions(self, s: str) -> int:
         balance, result, i = 0, 0, 0
 

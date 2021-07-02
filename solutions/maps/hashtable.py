@@ -3,7 +3,7 @@ from typing import List
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming,SpellCheckingInspection,PyShadowingBuiltins,PyRedeclaration
 class Solution:
-    # id1 _Array _HashTable
+    # id1
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         """
         Save each number in dict[value, index]
@@ -19,7 +19,7 @@ class Solution:
 
             saved[num] = i
 
-    # id36 _HashTable
+    # id36
     def isValidSudoku(self, board: List[List[str]]) -> bool:
         """
         Create counted numbers for each row, column and sub-box
@@ -63,7 +63,7 @@ class Solution:
 
         return True
 
-    # id49 _HashTable _String
+    # id49
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         """
         Init hash table with sorted chars and list of strings
@@ -84,7 +84,7 @@ class Solution:
 
         return list(anagrams.values())
 
-    # id202 _HashTable _Math
+    # id202
     def isHappy(self, n: int) -> bool:
         nums = {}
 
@@ -107,7 +107,7 @@ class Solution:
 
         return True
 
-    # id205 _HashTable
+    # id205
     def isIsomorphic(self, s: str, t: str) -> bool:
         iso = {}
         i = 0
@@ -125,7 +125,7 @@ class Solution:
 
         return True
 
-    # id217 _Array _HashTable
+    # id217
     def containsDuplicate(self, nums: List[int]) -> bool:
         """
         Init hash table
@@ -143,7 +143,7 @@ class Solution:
 
         return False
 
-    # id219 _Array _HashTable
+    # id219
     def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
         """
         Create hash table for last appearance of number
@@ -168,7 +168,7 @@ class Solution:
 
         return False
 
-    # id290 _HashTable
+    # id290
     def wordPattern(self, pattern: str, str: str) -> bool:
         """
         Create matcher for patterns and words
@@ -204,7 +204,7 @@ class Solution:
 
         return True
 
-    # id389 _HashTable _String _BitManipulation _Sorting
+    # id389
     def findTheDifference(self, s: str, t: str) -> str:
         from collections import defaultdict
 
@@ -224,7 +224,7 @@ class Solution:
 
         return ''
 
-    # id409 _HashTable
+    # id409
     def longestPalindrome(self, s: str) -> int:
         chars = {}
 
@@ -245,7 +245,7 @@ class Solution:
 
         return 2 * length + 1 if odd else 2 * length
 
-    # id347 _HashTable _Heap
+    # id347
     # Todo: see heap
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         """
@@ -262,7 +262,7 @@ class Solution:
 
         return list(frequency.keys())[-k:]
 
-    # id349 _HashTable _TwoPointers _BinarySearch _Sort
+    # id349
     # Todo: see tp, bs, sort
     def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
         """
@@ -271,7 +271,7 @@ class Solution:
         """
         return list(set(nums1).intersection(set(nums2)))
 
-    # id500 _HashTable
+    # id500
     def findWords(self, words: List[str]) -> List[str]:
         """
         Init keyboard in list
@@ -310,7 +310,7 @@ class Solution:
 
         return result
 
-    # id523 _Math _DynamicProgramming
+    # id523
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
         first, _sum = {0: -1}, 0
 
@@ -328,7 +328,7 @@ class Solution:
 
         return False
 
-    # id560 _Array _HashTable
+    # id560
     def subarraySum(self, nums: List[int], k: int) -> int:
         sums = defaultdict(int)
         sums[0] = 1
@@ -342,7 +342,7 @@ class Solution:
 
         return count
 
-    # id599 _HashTable
+    # id599
     # Todo: too slow
     def findRestaurant(self, list1: List[str], list2: List[str]) -> List[str]:
         """
@@ -365,7 +365,7 @@ class Solution:
 
         return indices
 
-    # id692 _HashTable _Heap _Trie
+    # id692
     # Todo: see heap, trie
     def topKFrequent(self, words: List[str], k: int) -> List[str]:
         """
@@ -382,7 +382,7 @@ class Solution:
 
         return list(frequency.keys())[:k]
 
-    # id771 _HashTable
+    # id771
     def numJewelsInStones(self, J: str, S: str) -> int:
         """
         Create dictionary with values of J

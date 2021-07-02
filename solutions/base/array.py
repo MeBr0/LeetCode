@@ -4,7 +4,7 @@ from typing import List
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming,PyRedeclaration
 class Solution:
-    # id26 _Array _TwoPointers
+    # id26
     def removeDuplicates(self, nums: List[int]) -> int:
         """
         Iterate nums:
@@ -26,7 +26,7 @@ class Solution:
 
         return len(nums)
 
-    # id27 _Array _TwoPointers
+    # id27
     def removeElement(self, nums: List[int], val: int) -> int:
         """
         Iterate nums:
@@ -44,7 +44,7 @@ class Solution:
 
         return len(nums)
 
-    # id35 _Array _BinarySearch
+    # id35
     # Todo: see binary search solution
     def searchInsert(self, nums: List[int], target: int) -> int:
         """
@@ -58,7 +58,7 @@ class Solution:
 
         return len(nums)
 
-    # id48 _Array
+    # id48
     def rotate(self, matrix: List[List[int]]) -> None:
         """
         Do not return anything, modify matrix in-place instead.
@@ -75,7 +75,7 @@ class Solution:
         for row in matrix:
             row.reverse()
 
-    # id54 _Array
+    # id54
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
         """
         Handle empty matrices
@@ -117,7 +117,7 @@ class Solution:
 
         return order
 
-    # id66 _Array
+    # id66
     def plusOne(self, digits: List[int]) -> List[int]:
         """
         Start from the last element and increment it
@@ -141,7 +141,7 @@ class Solution:
 
         return digits
 
-    # id73 _Array
+    # id73
     # Todo: see O(1) memory
     def setZeroes(self, matrix: List[List[int]]) -> None:
         """
@@ -164,7 +164,7 @@ class Solution:
             for _row in matrix:
                 _row[column] = 0
 
-    # id80 _Array _TwoPointers
+    # id80
     # Todo: see tp
     def removeDuplicates(self, nums: List[int]) -> int:
         i = 0
@@ -180,7 +180,7 @@ class Solution:
 
         return len(nums)
 
-    # id118 _Array
+    # id118
     def generate(self, numRows: int) -> List[List[int]]:
         """
         For each row:
@@ -211,7 +211,7 @@ class Solution:
 
         return result
 
-    # id119 _Array
+    # id119
     def getRow(self, rowIndex: int) -> List[int]:
         """
         For every value within [0, rowIndex]:
@@ -239,7 +239,7 @@ class Solution:
 
         return result
 
-    # id121 _Array _DynamicProgramming
+    # id121
     # Todo: see dp solution
     def maxProfit(self, prices: List[int]) -> int:
         """
@@ -258,7 +258,7 @@ class Solution:
 
         return max_profit
 
-    # id122 _Array _Greedy
+    # id122
     # Todo: determine whether this greedy
     def maxProfit(self, prices: List[int]) -> int:
         """
@@ -294,7 +294,7 @@ class Solution:
 
         return _sum
 
-    # id169 _Array _DivideAndConquer _BitManipulation
+    # id169
     # Todo: see d&c and bm solutions
     def majorityElement(self, nums: List[int]) -> int:
         """
@@ -311,7 +311,7 @@ class Solution:
             if count > len(nums) // 2:
                 return num
 
-    # id229 _Array
+    # id229
     def majorityElement(self, nums: List[int]) -> List[int]:
         """
         Count all elements
@@ -330,7 +330,7 @@ class Solution:
 
         return result
 
-    # id414 _Array
+    # id414
     def thirdMax(self, nums: List[int]) -> int:
         """
         Create three variables for first, second and third maximums
@@ -359,7 +359,7 @@ class Solution:
 
         return first if third is None else third
 
-    # id454 _HashTable _BinarySearch
+    # id454
     def fourSumCount(self, A: List[int], B: List[int], C: List[int], D: List[int]) -> int:
         """
         Merge four array into two arrays as pairwise sums
@@ -379,7 +379,7 @@ class Solution:
 
         return result
 
-    # id509 _Array
+    # id509
     # Todo: see matrix exponential and golden ratio solutions
     def fib(self, N: int) -> int:
         """
@@ -406,7 +406,7 @@ class Solution:
 
         return current
 
-    # id523 _Math _DynamicProgramming
+    # id523
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
         prefix_sum = [0]
 
@@ -422,7 +422,7 @@ class Solution:
 
         return False
 
-    # id643 _Array
+    # id643
     def findMaxAverage(self, nums: List[int], k: int) -> float:
         prefix_sum = [0]
 
@@ -431,7 +431,7 @@ class Solution:
 
         return max([prefix_sum[i + k] - prefix_sum[i] for i in range(len(prefix_sum) - k)])
 
-    # id674 _Array
+    # id674
     def findLengthOfLCIS(self, nums: List[int]) -> int:
         """
         If nums is empty -> return 0
@@ -458,7 +458,7 @@ class Solution:
 
         return max(current, longest)
 
-    # id766 _Array
+    # id766
     def isToeplitzMatrix(self, matrix: List[List[int]]) -> bool:
         """
         Iterate from left bottom corner to right top by edges:
@@ -490,7 +490,7 @@ class Solution:
 
         return True
 
-    # id989 _Array
+    # id989
     def addToArrayForm(self, A: List[int], K: int) -> List[int]:
         """
         Add each digit from K to A (If no digit -> insert)
@@ -527,7 +527,7 @@ class Solution:
 
         return A
 
-    # id1051 _Array
+    # id1051
     # Todo: find better solution
     def heightChecker(self, heights: List[int]) -> int:
         """
@@ -545,7 +545,7 @@ class Solution:
 
         return count
 
-    # id1470 _Array
+    # id1470
     def shuffle(self, nums: List[int], n: int) -> List[int]:
         """
         Iterate over the half of list:
@@ -560,7 +560,7 @@ class Solution:
 
         return result
 
-    # id1893 _Array _HashTable _PrefixSum
+    # id1893
     def isCovered(self, ranges: List[List[int]], left: int, right: int) -> bool:
         _range = [False for _ in range(50)]
 

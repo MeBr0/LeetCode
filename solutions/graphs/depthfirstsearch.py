@@ -5,7 +5,7 @@ from utils import TreeNode, Node, ListNode, NAryNode
 
 # noinspection PyShadowingBuiltins,PyPep8Naming,PyMethodMayBeStatic,PyTypeChecker,PyRedeclaration
 class Solution:
-    # id94 _HashTable _Stack _Tree
+    # id94
     def inorderTraversal(self, root: TreeNode) -> List[int]:
         def dfs(node: TreeNode) -> List[int]:
             if node is None:
@@ -21,7 +21,7 @@ class Solution:
 
         return dfs(root)
 
-    # id98 _Tree _DepthFirstSearch
+    # id98
     def isValidBST(self, root: TreeNode) -> bool:
         """
         For root set interval as huge negative and positive numbers
@@ -41,7 +41,7 @@ class Solution:
 
         return dfs(root, -10000000000, 10000000000)
 
-    # id100 _Tree _DepthFirstSearch
+    # id100
     def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
         """
         If both nodes are None -> True
@@ -56,7 +56,7 @@ class Solution:
             else:
                 return p.val == q.val and self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
 
-    # id101 _Tree _DepthFirstSearch _BreadthFirstSearch
+    # id101
     # Todo: see bfs
     def isSymmetric(self, root: TreeNode) -> bool:
         """
@@ -81,7 +81,7 @@ class Solution:
 
         return dfs(root.left, root.right)
 
-    # id104 _Tree _DepthFirstSearch
+    # id104
     def maxDepth(self, root: TreeNode) -> int:
         """
         If node is None -> 0
@@ -92,7 +92,7 @@ class Solution:
 
         return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
 
-    # id105 _Array _Tree _DepthFirstSearch
+    # id105
     def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
         """
         Create dict with indices of element in preorder (first) and inorder (second)
@@ -138,7 +138,7 @@ class Solution:
 
         return node_from_preorder(0, len(preorder))
 
-    # id108 _Tree _DepthFirstSearch
+    # id108
     def sortedArrayToBST(self, nums: List[int]) -> TreeNode:
         """
         Return root create from nums list
@@ -165,7 +165,7 @@ class Solution:
 
         return node_from_sorted(0, len(nums) - 1)
 
-    # id109 _LinkedList  _DepthFirstSearch
+    # id109
     def sortedListToBST(self, head: ListNode) -> TreeNode:
         """
         Return root create from ListNode
@@ -196,7 +196,7 @@ class Solution:
 
         return node_from_sorted(0, size)
 
-    # id110 _Tree _DepthFirstSearch
+    # id110
     def isBalanced(self, root: TreeNode) -> bool:
         """
         If node is None -> 0
@@ -219,7 +219,7 @@ class Solution:
 
         return dfs(root) != 10000000000
 
-    # id112 _Tree _DepthFirstSearch
+    # id112
     def hasPathSum(self, root: TreeNode, sum: int) -> bool:
         """
         Go recursive from root with current value 0:
@@ -240,7 +240,7 @@ class Solution:
 
         return dfs(root, 0)
 
-    # id113 _Tree _DepthFirstSearch
+    # id113
     def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
         """
         Go recursive from root with current value 0 and empty path list:
@@ -277,7 +277,7 @@ class Solution:
 
         return dfs(root, 0)
 
-    # id116 _Tree _DepthFirstSearch
+    # id116
     def connect(self, root: 'Node') -> 'Node':
         """
         Index of root is 1
@@ -323,7 +323,7 @@ class Solution:
 
         return dfs(root, 1)
 
-    # id124 _Tree _DepthFirstSearch
+    # id124
     # Todo: think about class field, not list
     def maxPathSum(self, root: TreeNode) -> int:
         """
@@ -355,7 +355,7 @@ class Solution:
 
         return num
 
-    # id129 _Tree _DepthFirstSearch
+    # id129
     def sumNumbers(self, root: TreeNode) -> int:
         """
         Go recursive from root with empty path list:
@@ -392,7 +392,7 @@ class Solution:
 
         return dfs(root)
 
-    # id130 _DepthFirstSearch _BreadthFirstSearch _UnionFind
+    # id130
     def solve(self, board: List[List[str]]) -> None:
         """
         Do not return anything, modify board in-place instead.
@@ -443,7 +443,7 @@ class Solution:
                 if check_value(i, j):
                     dfs(i, j, True)
 
-    # id133 _DepthFirstSearch _BreadthFirstSearch _Graph
+    # id133
     def cloneGraph(self, node: 'Node') -> 'Node':
         nodes = {}
 
@@ -465,7 +465,7 @@ class Solution:
 
         return dfs(node)
 
-    # id144 _Stack _Tree
+    # id144
     def preorderTraversal(self, root: TreeNode) -> List[int]:
         def dfs(node: TreeNode) -> List[int]:
             if node is None:
@@ -479,7 +479,7 @@ class Solution:
 
         return dfs(root)
 
-    # id145 _Stack _Tree
+    # id145
     def postorderTraversal(self, root: TreeNode) -> List[int]:
         def dfs(node: TreeNode) -> List[int]:
             if node is None:
@@ -495,7 +495,7 @@ class Solution:
 
         return dfs(root)
 
-    # id200 _DepthFirstSearch _BreadthFirstSearch _UnionFind
+    # id200
     def numIslands(self, grid: List[List[str]]) -> int:
         """
         Init same size matrix with used (visited) property
@@ -531,7 +531,7 @@ class Solution:
 
         return count
 
-    # id207 _DepthFirstSearch _BreadthFirstSearch _Graph _TopologicalSort
+    # id207
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         """
         Create for each node visited list (0 not visited, 1 visiting, 2 visited)
@@ -577,7 +577,7 @@ class Solution:
 
         return True
 
-    # id226 _Tree
+    # id226
     def invertTree(self, root: TreeNode) -> TreeNode:
         def dfs(node: TreeNode) -> TreeNode:
             if node is None:
@@ -592,7 +592,7 @@ class Solution:
 
         return dfs(root)
 
-    # id235 _Tree
+    # id235
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         """
         Fill p_path and q_path with get_path
@@ -628,7 +628,7 @@ class Solution:
 
         return p_path[i - 1]
 
-    # id257 _Tree _DepthFirstSearch
+    # id257
     def binaryTreePaths(self, root: TreeNode) -> List[str]:
         """
         Go recursive from root with empty path list:
@@ -662,7 +662,7 @@ class Solution:
 
         return dfs(root)
 
-    # id230 _BinarySearch _Tree
+    # id230
     def kthSmallest(self, root: TreeNode, k: int) -> int:
         level = 0
 
@@ -691,7 +691,7 @@ class Solution:
 
         return dfs(root)
 
-    # id394 _Stack _DepthFirstSearch
+    # id394
     def decodeString(self, s: str) -> str:
         strings = []
         num, string = '', ''
@@ -727,7 +727,7 @@ class Solution:
 
         return s if len(strings) == 0 else ''.join(strings)
 
-    # id450 _Tree
+    # id450
     def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
         """
         If root value must be deleted ->
@@ -767,7 +767,7 @@ class Solution:
 
         return root
 
-    # id463 _HashTable
+    # id463
     # Todo: see ht
     # Todo: write solution
     def islandPerimeter(self, grid: List[List[int]]) -> int:
@@ -796,7 +796,7 @@ class Solution:
                 if grid[i][j] == 1:
                     return dfs(i, j)
 
-    # id491 _DepthFirstSearch
+    # id491
     def findSubsequences(self, nums: List[int]) -> List[List[int]]:
         """
         It is more backtracking
@@ -824,7 +824,7 @@ class Solution:
 
         return result
 
-    # id501 _Tree
+    # id501
     def findMode(self, root: TreeNode) -> List[int]:
         """
         If root is None -> []
@@ -856,7 +856,7 @@ class Solution:
 
         return result
 
-    # id529 _DepthFirstSearch _BreadthFirstSearch
+    # id529
     def updateBoard(self, board: List[List[str]], click: List[int]) -> List[List[str]]:
         x, y = click
 
@@ -894,7 +894,7 @@ class Solution:
 
         return board
 
-    # id543 _Tree
+    # id543
     def diameterOfBinaryTree(self, root: TreeNode) -> int:
         """
         If root is null -> return 0
@@ -920,7 +920,7 @@ class Solution:
 
         return dfs(root)[1] - 1
 
-    # id547 _DepthFirstSearch _UnionFind
+    # id547
     def findCircleNum(self, M: List[List[int]]) -> int:
         """
         Init count for every outer call of dfs function
@@ -947,7 +947,7 @@ class Solution:
 
         return count
 
-    # id559 _Tree _DepthFirstSearch _BreadthFirstSearch
+    # id559
     def maxDepth(self, root: 'NAryNode') -> int:
         def dfs(node: 'NAryNode', level: int) -> int:
             maxi = level
@@ -960,7 +960,7 @@ class Solution:
 
         return dfs(root, 1)
 
-    # id563 _Tree
+    # id563
     def findTilt(self, root: TreeNode) -> int:
         """
         Launch dfs from root
@@ -982,7 +982,7 @@ class Solution:
 
         return dfs(root)[1]
 
-    # id617 _Tree
+    # id617
     def mergeTrees(self, t1: TreeNode, t2: TreeNode) -> TreeNode:
         """
         Return merged two trees
@@ -1010,7 +1010,7 @@ class Solution:
 
         return dfs(t1, t2)
 
-    # id700 _Tree
+    # id700
     def searchBST(self, root: TreeNode, val: int) -> TreeNode:
         def dfs(node: TreeNode) -> TreeNode:
             if not node:
@@ -1026,7 +1026,7 @@ class Solution:
 
         return dfs(root)
 
-    # id841 _DepthFirstSearch _Tree
+    # id841
     # Todo: see alternative for count
     def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
         """
@@ -1060,7 +1060,7 @@ class Solution:
 
         return dfs(0)
 
-    # id886 _DepthFirstSearch
+    # id886
     def possibleBipartition(self, N: int, dislikes: List[List[int]]) -> bool:
         """
         Fuck N
@@ -1084,7 +1084,7 @@ class Solution:
 
         return all(dfs(node) for node in graph if node not in colors)
 
-    # id988 _Tree _DepthFirstSearch
+    # id988
     def smallestFromLeaf(self, root: TreeNode) -> str:
         """
         If root is only node -> convert value to char
@@ -1124,7 +1124,7 @@ class Solution:
 
         return dfs(root)
 
-    # id1254 _DepthFirstSearch
+    # id1254
     def closedIsland(self, grid: List[List[int]]) -> int:
         visited = [[False for _ in row] for row in grid]
         pairs = ((1, 0), (-1, 0), (0, 1), (0, -1))
@@ -1154,7 +1154,7 @@ class Solution:
 
         return count
 
-    # id1306 _DepthFirstSearch _BreadthFirstSearch _Recursion
+    # id1306
     def canReach(self, arr: List[int], start: int) -> bool:
         used = [False for _ in arr]
 

@@ -6,7 +6,7 @@ from utils import TreeNode, NAryNode
 
 # noinspection PyMethodMayBeStatic,DuplicatedCode,PyPep8Naming
 class Solution:
-    # id102 _Tree _BreadthFirstSearch
+    # id102
     def levelOrder(self, root: TreeNode) -> List[List[int]]:
         """
         If root is None -> []
@@ -43,7 +43,7 @@ class Solution:
 
         return result
 
-    # id103 _Stack _Tree _BreadthFirstSearch
+    # id103
     def zigzagLevelOrder(self, root: TreeNode) -> List[List[int]]:
         """
         If root is None -> []
@@ -86,7 +86,7 @@ class Solution:
 
         return result
 
-    # id107 _Tree _BreadthFirstSearch
+    # id107
     def levelOrderBottom(self, root: TreeNode) -> List[List[int]]:
         """
         If root is None -> []
@@ -123,7 +123,7 @@ class Solution:
 
         return result
 
-    # id111 _Tree _DepthFirstSearch _BreadthFirstSearch
+    # id111
     # Todo: see should dfs?
     def minDepth(self, root: TreeNode) -> int:
         """
@@ -159,7 +159,7 @@ class Solution:
 
         return level
 
-    # id127 _BreadthFirstSearch
+    # id127
     # Todo: re-read
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
         from collections import defaultdict
@@ -193,7 +193,7 @@ class Solution:
 
         return 0
 
-    # id130 _DepthFirstSearch _BreadthFirstSearch _UnionFind
+    # id130
     def solve(self, board: List[List[str]]) -> None:
         """
         Do not return anything, modify board in-place instead.
@@ -248,7 +248,7 @@ class Solution:
                 if check_value(i, j):
                     bfs(i, j, True)
 
-    # id199 _Tree _DepthFirstSearch _BreadthFirstSearch
+    # id199
     def rightSideView(self, root: TreeNode) -> List[int]:
         """
         Init queue for bfs
@@ -283,7 +283,7 @@ class Solution:
 
         return result
 
-    # id200 _DepthFirstSearch _BreadthFirstSearch _UnionFind
+    # id200
     def numIslands(self, grid: List[List[str]]) -> int:
         """
         Init same size matrix with used (visited) property
@@ -324,7 +324,7 @@ class Solution:
 
         return count
 
-    # id463 _HashTable
+    # id463
     # Todo: see ht
     # Todo: write solution
     def islandPerimeter(self, grid: List[List[int]]) -> int:
@@ -361,7 +361,7 @@ class Solution:
                 if grid[i][j] == 1:
                     return bfs(i, j)
 
-    # id513 _Tree _DepthFirstSearch _BreadthFirstSearch
+    # id513
     def findBottomLeftValue(self, root: TreeNode) -> int:
         value = None
 
@@ -388,7 +388,7 @@ class Solution:
 
         return value
 
-    # id515 _Tree _DepthFirstSearch _BreadthFirstSearch
+    # id515
     # Todo: see dfs
     def largestValues(self, root: TreeNode) -> List[int]:
         values = []
@@ -421,7 +421,7 @@ class Solution:
 
         return values
 
-    # id542 _DepthFirstSearch _BreadthFirstSearch
+    # id542
     def updateMatrix(self, matrix: List[List[int]]) -> List[List[int]]:
         """
         Init result matrix of same size
@@ -455,7 +455,7 @@ class Solution:
 
         return [[bfs(i, j) for j in range(len(matrix[0]))] for i in range(len(matrix))]
 
-    # id559 _Tree _DepthFirstSearch _BreadthFirstSearch
+    # id559
     def maxDepth(self, root: 'NAryNode') -> int:
         if root is None:
             return 0
@@ -474,7 +474,7 @@ class Solution:
 
         return maxi
 
-    # id637 _Tree
+    # id637
     def averageOfLevels(self, root: TreeNode) -> List[float]:
         """
         If root is None -> []
@@ -512,7 +512,7 @@ class Solution:
 
         return result
 
-    # id653 _Tree
+    # id653
     # Todo: see dfs
     def findTarget(self, root: TreeNode, k: int) -> bool:
         """
@@ -540,7 +540,7 @@ class Solution:
 
         return False
 
-    # id773 _BreadthFirstSearch
+    # id773
     def slidingPuzzle(self, board: List[List[int]]) -> int:
         """
         Save hash of matrix to used
@@ -586,7 +586,7 @@ class Solution:
 
         return -1
 
-    # id934 _DepthFirstSearch _BreadthFirstSearch
+    # id934
     def shortestBridge(self, A: List[List[int]]) -> int:
         visited = [[False for _ in row] for row in A]
 

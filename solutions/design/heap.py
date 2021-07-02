@@ -1,9 +1,8 @@
 
 
-# id295 _Heap _Design
+# id295
 # Todo: understand and write solution
 class MedianFinder:
-
     def __init__(self):
         """
         initialize your data structure here.

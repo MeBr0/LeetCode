@@ -3,7 +3,7 @@ from utils import ListNode
 
 # noinspection PyMethodMayBeStatic,PyTypeChecker,PyRedeclaration,DuplicatedCode,PyPep8Naming
 class Solution:
-    # id2 _LinkedList _Math
+    # id2
     # Todo: see math
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         """
@@ -34,7 +34,7 @@ class Solution:
 
         return root.next
 
-    # id19 _LinkedList _TwoPointers
+    # id19
     # Todo: make faster
     def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
         """
@@ -62,7 +62,7 @@ class Solution:
 
         return head
 
-    # id21 _LinkedList
+    # id21
     # Todo: less memory
     def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
         """
@@ -88,7 +88,7 @@ class Solution:
 
         return node
 
-    # id82 _LinkedList
+    # id82
     def deleteDuplicates(self, head: ListNode) -> ListNode:
         """
         Create dummy node before head
@@ -112,7 +112,7 @@ class Solution:
 
         return dummy.next
 
-    # id83 _LinkedList
+    # id83
     def deleteDuplicates(self, head: ListNode) -> ListNode:
         """
         If head is None -> None
@@ -137,7 +137,7 @@ class Solution:
 
         return head
 
-    # id86 _LinkedList _TwoPointers
+    # id86
     def partition(self, head: ListNode, x: int) -> ListNode:
         """
         Create two linked list for less and more values
@@ -179,7 +179,7 @@ class Solution:
                 less.next = head_more
                 return head_less
 
-    # id160 _LinkedList
+    # id160
     # Todo: re-read solution
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
         """
@@ -196,7 +196,7 @@ class Solution:
 
         return intercept_a
 
-    # id206 _LinkedList
+    # id206
     def reverseList(self, head: ListNode) -> ListNode:
         """
         For every node in original linked list:
@@ -218,7 +218,7 @@ class Solution:
 
         return _head
 
-    # id237 _LinkedList
+    # id237
     def deleteNode(self, node):
         """
         :type node: ListNode

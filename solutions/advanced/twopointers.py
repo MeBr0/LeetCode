@@ -5,7 +5,7 @@ from utils import ListNode
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming
 class Solution:
-    # id3 _HashTable _TwoPointers _String _SlidingWindow
+    # id3
     # Todo: see sw
     def lengthOfLongestSubstring(self, s: str) -> int:
         """
@@ -33,7 +33,7 @@ class Solution:
 
         return _max
 
-    # id11 _Array _TwoPointers
+    # id11
     def maxArea(self, height: List[int]) -> int:
         """
         Calculate area as minimum of height[left] and height[right] times
@@ -60,7 +60,7 @@ class Solution:
 
         return area
 
-    # id15 _Array _TwoPointers
+    # id15
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         """
         Sort nums
@@ -96,7 +96,7 @@ class Solution:
 
         return sums
 
-    # id16 _Array _TwoPointers
+    # id16
     def threeSumClosest(self, nums: List[int], target: int) -> int:
         """
         Sort nums
@@ -127,7 +127,7 @@ class Solution:
 
         return closest
 
-    # id18 _Array _HashTable _TwoPointers
+    # id18
     def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
         """
         Sort nums
@@ -172,7 +172,7 @@ class Solution:
 
         return sums
 
-    # id26 _Array _TwoPointers
+    # id26
     def removeDuplicates(self, nums: List[int]) -> int:
         """
         """
@@ -187,7 +187,7 @@ class Solution:
 
         return unique
 
-    # id27 _Array _TwoPointers
+    # id27
     def removeElement(self, nums: List[int], val: int) -> int:
         """
         For every element in nums:
@@ -206,7 +206,7 @@ class Solution:
 
         return right
 
-    # id28 _TwoPointers _String
+    # id28
     def strStr(self, haystack: str, needle: str) -> int:
         """
         If needle is empty -> return 0
@@ -238,7 +238,7 @@ class Solution:
 
         return -1
 
-    # id88 _Array _TwoPointers
+    # id88
     def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
         """
         Do not return anything, modify nums1 in-place instead.
@@ -271,7 +271,7 @@ class Solution:
             else:
                 i += 1
 
-    # id125 _TwoPointers _String
+    # id125
     def isPalindrome(self, s: str) -> bool:
         """
         While left less than right (i.e. two pointers from start and end):
@@ -297,7 +297,7 @@ class Solution:
 
         return True
 
-    # id141 _LinkedList _TwoPointers
+    # id141
     def hasCycle(self, head: ListNode) -> bool:
         """
         If size of list is 0 or 1 -> False
@@ -321,7 +321,7 @@ class Solution:
 
         return True
 
-    # id142 _LinkedList _TwoPointers
+    # id142
     # noinspection PyTypeChecker
     def detectCycle(self, head: ListNode) -> ListNode:
         """
@@ -353,7 +353,7 @@ class Solution:
 
         return slow
 
-    # id167 _Array _TwoPointers _BinarySearch
+    # id167
     # Todo: see bs
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
         """
@@ -378,7 +378,7 @@ class Solution:
 
         return [left + 1, right + 1]
 
-    # id209 _Array _TwoPointers _BinarySearch
+    # id209
     def minSubArrayLen(self, s: int, nums: List[int]) -> int:
         length = 0
 
@@ -403,7 +403,7 @@ class Solution:
 
         return 0 if _min == length + 1 else _min
 
-    # id228 _Array
+    # id228
     def summaryRanges(self, nums: List[int]) -> List[str]:
         """
         Iterate over nums:
@@ -431,7 +431,7 @@ class Solution:
 
         return result
 
-    # id283 _Array _TwoPointers
+    # id283
     def moveZeroes(self, nums: List[int]) -> None:
         """
         Do not return anything, modify nums in-place instead.
@@ -448,7 +448,7 @@ class Solution:
 
             i += 1
 
-    # id344 _TwoPointers _String
+    # id344
     def reverseString(self, s: List[str]) -> None:
         """
         Do not return anything, modify s in-place instead.
@@ -464,7 +464,7 @@ class Solution:
             left += 1
             right -= 1
 
-    # id345 _TwoPointers _String
+    # id345
     def reverseVowels(self, s: str) -> str:
         """
         Convert s to list
@@ -489,7 +489,7 @@ class Solution:
 
         return ''.join(string)
 
-    # id350 _HashTable _TwoPointers _BinarySearch _Sort
+    # id350
     # Todo: see ht, bs
     def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
         """
@@ -521,7 +521,7 @@ class Solution:
 
         return result
 
-    # id680 _String
+    # id680
     def validPalindrome(self, s: str) -> bool:
         """
         While left less than right ->
@@ -556,7 +556,7 @@ class Solution:
 
         return True
 
-    # id977 _Array _TwoPointers
+    # id977
     def sortedSquares(self, nums: List[int]) -> List[int]:
         length = len(nums)
 
@@ -594,7 +594,7 @@ class Solution:
 
         return result
 
-    # id1658 _TwoPointers _BinarySearch _Greedy
+    # id1658
     def minOperations(self, nums: List[int], x: int) -> int:
         prefix_sum = [0]
 

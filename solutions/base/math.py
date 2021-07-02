@@ -4,7 +4,7 @@ from typing import List
 
 # noinspection PyMethodMayBeStatic,DuplicatedCode,PyPep8Naming
 class Solution:
-    # id7 _Math
+    # id7
     def reverse(self, x: int) -> int:
         """
         If negative invert -> save that it is negative
@@ -28,7 +28,7 @@ class Solution:
 
         return -result if negative else result
 
-    # id9 _Math
+    # id9
     def isPalindrome(self, x: int) -> bool:
         """
         If x is negative -> it is not palindrome
@@ -60,7 +60,7 @@ class Solution:
 
         return False if x < 0 else x == reverse(x)
 
-    # id13 _Math _String
+    # id13
     def romanToInt(self, s: str) -> int:
         """
         Create converter with roman and int values
@@ -86,7 +86,7 @@ class Solution:
 
         return result
 
-    # id50 _Math _BinarySearch
+    # id50
     def myPow(self, x: float, n: int) -> float:
         """
         If n less x -> return inverted result of -n
@@ -110,7 +110,7 @@ class Solution:
 
         return result
 
-    # id168 _Math
+    # id168
     def convertToTitle(self, n: int) -> str:
         """
         While number is not 0:
@@ -131,7 +131,7 @@ class Solution:
 
         return result
 
-    # id171 _Math
+    # id171
     def titleToNumber(self, s: str) -> int:
         """
         Every letter is digit in 26-ary system
@@ -146,7 +146,7 @@ class Solution:
 
         return result
 
-    # id172 _Math
+    # id172
     def trailingZeroes(self, n: int) -> int:
         """
         While n not equal 0:
@@ -162,7 +162,7 @@ class Solution:
 
         return count
 
-    # id204 _HashTable _Math
+    # id204
     def countPrimes(self, n: int) -> int:
         """
         Init Sieve of Eratosthenes with length n
@@ -189,7 +189,7 @@ class Solution:
 
         return count
 
-    # id231 _Math _BitManipulation
+    # id231
     # Todo: see bm
     def isPowerOfTwo(self, n: int) -> bool:
         """
@@ -210,7 +210,7 @@ class Solution:
 
         return True
 
-    # id263 _Math
+    # id263
     def isUgly(self, num: int) -> bool:
         if num == 1:
             return True
@@ -235,7 +235,7 @@ class Solution:
 
         return num == 1
 
-    # id268 _Array _Math _BitManipulation
+    # id268
     # Todo: see bm
     def missingNumber(self, nums: List[int]) -> int:
         """
@@ -251,7 +251,7 @@ class Solution:
 
         return _sum
 
-    # id292 _Brainteaser _Minimax
+    # id292
     def canWinNim(self, n: int) -> bool:
         """
         If in heap left 1, 2 or 3 stones -> return True
@@ -261,7 +261,7 @@ class Solution:
         """
         return n % 4 != 0
 
-    # id326 _Math
+    # id326
     def isPowerOfThree(self, n: int) -> bool:
         """
         If n == 0 -> False
@@ -281,7 +281,7 @@ class Solution:
 
         return True
 
-    # id357 _Math _DynamicProgramming _Backtracking
+    # id357
     def countNumbersWithUniqueDigits(self, n: int) -> int:
         """
         If n equal 0 -> return 1
@@ -312,7 +312,7 @@ class Solution:
 
         return count
 
-    # id396 _Math
+    # id396
     def maxRotateFunction(self, A: List[int]) -> int:
         elements, _sum = 0, 0
 
@@ -379,7 +379,7 @@ class Solution:
 
         return ''.join(reversed(chars))
 
-    # id650 _DynamicProgramming
+    # id650
     def minSteps(self, n: int) -> int:
         """
         Iterate till sqrt(n):
@@ -405,7 +405,7 @@ class Solution:
 
         return result
 
-    # id836 _Math
+    # id836
     def isRectangleOverlap(self, rec1: List[int], rec2: List[int]) -> bool:
         """
         Check two corner x and y separately
@@ -423,7 +423,7 @@ class Solution:
 
         return True
 
-    # id949 _Math
+    # id949
     def largestTimeFromDigits(self, arr: List[int]) -> str:
         digits = ''
         largest = -1
@@ -446,7 +446,7 @@ class Solution:
 
         return digits
 
-    # id1281 _Math
+    # id1281
     def subtractProductAndSum(self, n: int) -> int:
         """
         Create sum and product variable
@@ -467,7 +467,7 @@ class Solution:
 
         return product - _sum
 
-    # id1317 _Math
+    # id1317
     def getNoZeroIntegers(self, n: int) -> List[int]:
         """
         Iterate till (half) list:

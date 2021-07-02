@@ -3,7 +3,7 @@ from typing import List
 
 # noinspection PyMethodMayBeStatic,DuplicatedCode,PyRedeclaration,PyPep8Naming
 class Solution:
-    # id33 _Array _BinarySearch
+    # id33
     def search(self, nums: List[int], target: int) -> int:
         """
         Use Binary Search with initial interval 0 and length
@@ -37,7 +37,7 @@ class Solution:
 
         return -1
 
-    # id34 _Array _BinarySearch
+    # id34
     def searchRange(self, nums: List[int], target: int) -> List[int]:
         """
         Search by binary search for first appearance in outer while
@@ -88,7 +88,7 @@ class Solution:
 
         return [first, last]
 
-    # id69 _Math _BinarySearch
+    # id69
     def mySqrt(self, x: int) -> int:
         """
         Use Binary search from 0 to half of x
@@ -115,7 +115,7 @@ class Solution:
 
         return 0
 
-    # id74 _Array _BinarySearch
+    # id74
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
         """
         Since matrix has following conditions, it is list in form of matrix
@@ -143,7 +143,7 @@ class Solution:
 
         return False
 
-    # id81 _Array _BinarySearch
+    # id81
     def search(self, nums: List[int], target: int) -> bool:
         if len(nums) == 0:
             return False
@@ -174,7 +174,7 @@ class Solution:
 
         return False
 
-    # id153 _Array _BinarySearch
+    # id153
     def findMin(self, nums: List[int]) -> int:
         """
         Use Binary Search with initial interval 0 and length
@@ -194,7 +194,7 @@ class Solution:
 
         return nums[left]
 
-    # id278 _BinarySearch
+    # id278
     def firstBadVersion(self, n):
         """
         :type n: int
@@ -219,7 +219,7 @@ class Solution:
 
         return left
 
-    # id287 _Array _TwoPointers _BinarySearch
+    # id287
     def findDuplicate(self, nums: List[int]) -> int:
         """
         Sort nums for binary search
@@ -243,7 +243,7 @@ class Solution:
             else:
                 right = mid - 1
 
-    # id367 _Math _BinarySearch
+    # id367
     # Todo: see math
     def isPerfectSquare(self, num: int) -> bool:
         """
@@ -270,7 +270,7 @@ class Solution:
 
         return False
 
-    # id374 _BinarySearch
+    # id374
     def guessNumber(self, n: int) -> int:
         """
         Use Binary Search with initial interval 1 and n
@@ -297,7 +297,7 @@ class Solution:
 
         return left
 
-    # id852 _BinarySearch
+    # id852
     def peakIndexInMountainArray(self, A: List[int]) -> int:
         """
         Use Binary Search with initial interval 0 and len(A)
@@ -318,7 +318,7 @@ class Solution:
             else:
                 left = _mid
 
-    # id1201 _Math _BinarySearch
+    # id1201
     def nthUglyNumber(self, n: int, a: int, b: int, c: int) -> int:
         def count(x: int) -> int:
             return x // a + x // b + x // c - x // lcm(a, b) - x // lcm(b, c) - x // lcm(c, a) + x // lcm(a, lcm(b, c))

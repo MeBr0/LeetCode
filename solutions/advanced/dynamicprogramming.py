@@ -3,7 +3,7 @@ from typing import List
 
 # noinspection PyMethodMayBeStatic,PyRedeclaration,PyPep8Naming
 class Solution:
-    # id5 _String _DynamicProgramming
+    # id5
     def longestPalindrome(self, s: str) -> str:
         dp = [[False for _ in s] for _ in s]
 
@@ -35,7 +35,7 @@ class Solution:
 
         return s[left:right + 1]
 
-    # id53 _Array _DynamicProgramming _DivideAndConquer
+    # id53
     # Todo: see dp, d&c
     def maxSubArray(self, nums: List[int]) -> int:
         """
@@ -58,7 +58,7 @@ class Solution:
 
         return result
 
-    # id62 _Array _DynamicProgramming
+    # id62
     def uniquePaths(self, m: int, n: int) -> int:
         """
         For upper and left borders set result 1
@@ -73,7 +73,7 @@ class Solution:
 
         return dp[-1][-1]
 
-    # id64 _Array _DynamicProgramming
+    # id64
     def minPathSum(self, grid: List[List[int]]) -> int:
         """
         For borders init prefix sums
@@ -94,7 +94,7 @@ class Solution:
 
         return grid[-1][-1]
 
-    # id70 _DynamicProgramming
+    # id70
     def climbStairs(self, n: int) -> int:
         """
         Count result for first two stairs
@@ -108,7 +108,7 @@ class Solution:
 
         return dp[n]
 
-    # id91 _String _DynamicProgramming
+    # id91
     def numDecodings(self, s: str) -> int:
         """
         Check for special cases
@@ -170,7 +170,7 @@ class Solution:
 
         return dp[len(s)]
 
-    # id139 _DynamicProgramming
+    # id139
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
         """
         Let dp[i] whether can be broken prefix from 0 to i
@@ -209,7 +209,7 @@ class Solution:
 
         return dp[-1]
 
-    # id198 _DynamicProgramming
+    # id198
     def rob(self, nums: List[int]) -> int:
         """
         Check for special cases
@@ -242,7 +242,7 @@ class Solution:
 
         return max(dp[-1], dp[-2])
 
-    # id300 _BinarySearch _DynamicProgramming
+    # id300
     def lengthOfLIS(self, nums: List[int]) -> int:
         """
         Let dp[i] is last left element of LIS of length i
@@ -283,7 +283,7 @@ class Solution:
 
             i -= 1
 
-    # id322 _DynamicProgramming
+    # id322
     def coinChange(self, coins: List[int], amount: int) -> int:
         """
         Let dp[i] is least number of coins with sum of i
@@ -302,7 +302,7 @@ class Solution:
 
         return -1 if dp[-1] == 10 ** 9 else dp[-1]
 
-    # id329 _DepthFirstSearch _TopologicalSort _Memoization
+    # id329
     def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
         """
         Let dp[i][j] is longest increasing path ending in (i, j)
@@ -345,7 +345,7 @@ class Solution:
 
         return max([calculate(i, j) for i in range(rows) for j in range(columns)])
 
-    # id416 _DynamicProgramming
+    # id416
     # Todo: see faster solutions
     # Todo: write solution
     def canPartition(self, nums: List[int]) -> bool:
@@ -370,7 +370,7 @@ class Solution:
 
         return dp[-1][-1]
 
-    # id486 _DynamicProgramming _Minimax
+    # id486
     def PredictTheWinner(self, nums: List[int]) -> bool:
         """
         Let dp[l][r] - score difference between players between l-th and r-th
@@ -422,7 +422,7 @@ class Solution:
 
         return dp[-1]
 
-    # id746 _Array _DynamicProgramming
+    # id746
     def minCostClimbingStairs(self, cost: List[int]) -> int:
         """
         Count result for first two stairs
@@ -437,7 +437,7 @@ class Solution:
         return min(dp[-1], dp[-2])
 
 
-# id303 _DynamicProgramming
+# id303
 # noinspection PyPep8Naming
 class NumArray:
     def __init__(self, nums: List[int]):
@@ -463,7 +463,7 @@ class NumArray:
         return self.sum_range[j] - self.sum_range[i - 1]
 
 
-# id304 _DynamicProgramming
+# id304
 # noinspection PyPep8Naming
 class NumMatrix:
 

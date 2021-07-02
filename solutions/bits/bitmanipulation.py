@@ -3,7 +3,7 @@ from typing import List
 
 # noinspection PyMethodMayBeStatic,PyRedeclaration,PyPep8Naming
 class Solution:
-    # id78 _Array _Backtracking _BitManipulation
+    # id78
     def subsets(self, nums: List[int]) -> List[List[int]]:
         """
         Since total number of solutions is 2^n, iterate for 2 ** nums length:
@@ -31,7 +31,7 @@ class Solution:
 
         return result
 
-    # id136 _HashTable _BitManipulation
+    # id136
     # Todo: see ht, math
     def singleNumber(self, nums: List[int]) -> int:
         """
@@ -43,7 +43,7 @@ class Solution:
 
         return nums[0]
 
-    # id137 _BitManipulation
+    # id137
     # Todo: see ht, math
     # Todo: write solution
     def singleNumber(self, nums: List[int]) -> int:
@@ -62,7 +62,7 @@ class Solution:
 
         return once
 
-    # id190 _BitManipulation
+    # id190
     def reverseBits(self, n: int) -> int:
         """
         Append last bit of n to bits
@@ -90,7 +90,7 @@ class Solution:
 
         return result
 
-    # id191 _BitManipulation
+    # id191
     def hammingWeight(self, n: int) -> int:
         """
         While n != 0:
@@ -108,7 +108,7 @@ class Solution:
 
         return counter
 
-    # id201 _BitManipulation
+    # id201
     def rangeBitwiseAnd(self, m: int, n: int) -> int:
         """
         After all and operations, only leave is common left bits of m and n
@@ -136,7 +136,7 @@ class Solution:
 
         return result
 
-    # id338 _DynamicProgramming _BitManipulation
+    # id338
     # Todo: see dp (bm is slow)
     def countBits(self, num: int) -> List[int]:
         """
@@ -161,7 +161,7 @@ class Solution:
 
         return result
 
-    # id461 _BitManipulation
+    # id461
     def hammingDistance(self, x: int, y: int) -> int:
         """
         For every 31 bit:

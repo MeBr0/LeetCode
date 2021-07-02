@@ -3,7 +3,7 @@ from typing import List
 
 # noinspection PyPep8Naming,PyTypeChecker,PyMethodMayBeStatic
 class Solution:
-    # id210 _DepthFirstSearch _BreadthFirstSearch _Graph _TopologicalSort
+    # id210
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         """
         Transform edge list prerequisites to adjacency list

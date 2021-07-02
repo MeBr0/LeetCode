@@ -1,8 +1,7 @@
 
 
-# id155 _Stack _Design
+# id155
 class MinStack:
-
     def __init__(self):
         """
         initialize your data structure here.
@@ -42,9 +41,8 @@ class MinStack:
         return self._min
 
 
-# id225 _Stack _Design
+# id225
 class MyStack:
-
     def __init__(self):
         """
         Initialize your data structure here.

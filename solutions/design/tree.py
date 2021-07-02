@@ -1,12 +1,9 @@
-from typing import List
-
 from utils import TreeNode
 
 
-# id297 _Tree _Design
+# id297
 # noinspection PyMethodMayBeStatic
 class Codec:
-
     def serialize(self, root):
         """Encodes a tree to a single string.
 
